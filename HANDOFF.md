@@ -28,6 +28,7 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - 18/11/2026: seleção de perfil é simulação no navegador, não uma barreira de segurança. Permissões visuais e consultas filtram a loja; validação e segurança de servidor ficam para o back-end. Fuso America/Sao_Paulo e grafia da marca estão marcados a confirmar em configuracao.json.
 - 18/11/2026: o hash do commit que contém este HANDOFF é consultável com `git log -1 --format=%h -- HANDOFF.md`; o hash literal e o resultado do push ficam no relatório local após o commit, evitando autorreferência impossível no próprio commit. **(decidido sem o Alisson, revisar)**
 - 18/11/2026: regras /referencias/ e /relatorios/ no .gitignore são ancoradas na raiz. A forma não ancorada também ignorava a rota legítima src/app/(sistema)/relatorios/page.tsx. As pastas locais protegidas continuam totalmente fora do Git e do deploy.
+- 18/11/2026: o atalho Windows abre o navegador somente após o Next.js indicar que está pronto, usando o endereço local emitido pelo próprio Next.js. Assim, porta ocupada não leva o usuário ao serviço errado ou a uma página aberta antes do servidor iniciar. A leitura da saída utiliza somente o PowerShell integrado ao Windows. **(decidido sem o Alisson, revisar)**
 
 ## 4. Mapa de módulos
 
@@ -48,15 +49,18 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 ## 5. Concluído
 
-- 18/11/2026: tarefa 01 concluída no commit identificado pela mensagem `Tarefa 01: estrutura inicial do protótipo`. Para o hash deste commit, execute `git log -1 --format=%h -- HANDOFF.md`; o relatório local relatorios/fila/01-relatorio.md registra o hash literal e a confirmação do push após o commit.
+- 18/11/2026: tarefa 01 concluída no commit `ac468b883980e10325c0aedfdbd06bb0075b1996`, mensagem `Tarefa 01: estrutura inicial do protótipo`. O relatório local relatorios/fila/01-relatorio.md registra a confirmação do push.
 - Entregues: regras, memória, design system e manual com os 16 componentes e estados; entrada por três perfis, menu e casca responsivos; 13 páginas de módulo apenas com cabeçalho e estado vazio; permissões visuais, seleção de loja, restauração com confirmação e persistência local; 404 e erro em português; noindex e robots.txt; 12 clientes e 20 encomendas fictícias com datas relativas em America/Sao_Paulo. Logo copiado sem alterações, com SHA-256 idêntico ao original.
 - Testado: npm run lint sem erros ou avisos; builds de produção repetidos sem mudanças em arquivos de projeto; 22 testes Playwright aprovados em Chromium. Matriz de 1440, 1024, 760 e 390px nos três perfis, incluindo /entrar, /visao-geral, /encomendas e /design-system, sem rolagem horizontal. Capturas revisadas visualmente.
 - Cobertura adicional: todos os módulos administrativos, bloqueio de rotas para Atendimento, redirecionamento sem perfil, troca e persistência de lojas, restauração real e cancelamento, localStorage bloqueado/corrompido, Tab/Shift+Tab/Enter/Esc em menu e diálogo, retorno do foco, setas/Home/End nas abas, campo em centavos, toast, movimento reduzido, contraste AA, 404 em português, noindex/robots, datas futuras sem divergência de hidratação, virada de ano no fuso configurado e escrita com histórico preservado. Evidências em relatorios/fila/evidencias/ (não versionadas).
 - Auditoria: somente dados.ts importa os JSON; nenhuma imagem além do logo fornecido; sem API, banco, segredos ou autenticação real. Referências e relatórios locais ignorados; adição ao Git feita arquivo por arquivo.
+- 18/11/2026: tarefa 01-B implementada: `abrir-prototipo.bat` na raiz, com dois cliques no Windows, instalação somente se node_modules não existir, mensagens em português/UTF-8 e abertura automática do navegador após o Next.js ficar pronto. Se 3000 estiver ocupada, mostra e abre o endereço realmente escolhido pelo Next.js. Sem novas dependências ou alterações de interface. Validação do atalho e verificações finais registradas no relatório local relatorios/fila/01B-relatorio.md após o commit.
+- Testes da 01-B: execução pela associação do Windows, equivalente ao duplo clique, partindo de C:\Windows; /entrar confirmada em Chromium na porta 3000 e também em 3001 com 3000 propositalmente ocupada. Seis testes com comandos simulados aprovados: Node ausente, npm ausente, instalação inicial, dependências existentes, erro de instalação e erro do servidor; erros aguardam tecla. npm run lint, dois builds sem alteração dos 75 arquivos comparados e os 22 testes Playwright aprovados, incluindo quatro larguras e teclado. Referências/relatórios locais fora do Git. Servidores de teste encerrados.
+- Durante o teste de next dev, o Next.js acrescentou um bloco gerenciado ao AGENTS.md por detectar o agente; somente essa alteração automática foi restaurada, sem alterar as regras originais. next-env.d.ts foi regenerado pelo dev e voltou ao conteúdo original com o build. O commit da 01-B contém somente o atalho, README.md e este HANDOFF.md.
 
 ## 6. Em andamento
 
-- Nenhuma implementação pendente da tarefa 01. Não iniciar a 02 até aprovação e disponibilidade de instruções com status pronta.
+- Nenhuma implementação pendente das tarefas 01 e 01-B. Não iniciar a 02 até aprovação e disponibilidade de instruções com status pronta.
 
 ## 7. Backlog
 
@@ -79,5 +83,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 ## 10. Como rodar o projeto
 
 Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v1`, protegida por try/catch.
+
+No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 
 Verificações: `npm run lint`, `npm run build` e `npm test`. Na primeira execução dos testes: `npx playwright install chromium`. Os testes iniciam o build de produção na porta 3100; não mantenha outro serviço nessa porta. Evidências e relatórios ficam em relatorios/fila/, ignorado pelo Git. Vercel utiliza a configuração padrão do Next.js, sem variáveis de ambiente.
