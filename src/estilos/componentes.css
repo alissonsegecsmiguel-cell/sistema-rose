@@ -156,3 +156,7 @@
   .tabela td { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--espaco-2); border: 0; padding: var(--espaco-2); }
   .tabela td::before { content: attr(data-rotulo); color: var(--cor-texto-suave); font-weight: var(--peso-medio); }
 }
+.faixa-dias { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--espaco-3); }
+.faixa-dias a { padding: var(--espaco-3); min-height: var(--alvo-toque); text-decoration: none; overflow-wrap: anywhere; }
+@media (min-width: 761px) { .tabela-container { overflow-x: auto; } .tabela { min-width: 960px; } .tabela th, .tabela td { overflow-wrap: normal; } }
+@media (max-width: 760px) { .faixa-dias { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -64,6 +64,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: tarefa 01C concluída. Complemento da fila atualizada: Atendimento acessa Produção; menus, perfis de teste e manual atualizados. Topo compacto e arquivos gerados já estavam concluídos e foram preservados. Restauração inclui title acessível. Validação: lint, dois builds sem alterações inesperadas e 23 testes aprovados. Commit identificado pela mensagem “Tarefa 01C: Ajustes da conferência da tarefa 01”; hash literal no relatório local 01C-relatorio.md.
 
+- 18/11/2026: tarefa 02 concluída. Painel por loja e consolidado, indicadores, filtro de modalidade, próximos sete dias, alertas e aniversariantes. Faixa de dias documentada no manual. Validação: lint, dois builds sem alterações inesperadas e 25 testes aprovados. Commit identificado pela mensagem “Tarefa 02: Visão geral (painel do dia)”; hash literal no relatório local 02-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.

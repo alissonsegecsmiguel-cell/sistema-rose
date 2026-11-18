@@ -23,6 +23,8 @@ import { MenuUsuario } from '@/componentes/menu-usuario';
 import { Dica } from '@/componentes/dica';
 import { Marca } from '@/componentes/marca';
 import { Icone } from '@/componentes/icone';
+import { FaixaDias } from '@/componentes/faixa-dias';
+import { proximosDias } from '@/lib/dados';
 import { usePrototipo } from '@/lib/prototipo-store';
 import { listarEncomendas, obterCliente, listarPerfisDeTeste, situacaoPagamento, totalEncomenda } from '@/lib/dados';
 import { formatarMoeda, formatarData } from '@/lib/formatar';
@@ -50,6 +52,7 @@ export default function DesignSystem() {
     <Secao id="mensagens" titulo="11 e 12. Avisos e notificações"><div className="pilha">{(['info','sucesso','alerta','erro'] as const).map(t => <Aviso key={t} tom={t} titulo={{info:'Informação',sucesso:'Sucesso',alerta:'Atenção',erro:'Erro'}[t]}>Mensagem de exemplo para orientar a próxima ação.</Aviso>)}</div><Botao variante="secundario" onClick={() => notificar('Salvo. Esta é uma notificação de exemplo.')}>Mostrar notificação</Botao><p className="suave pequeno">A notificação é anunciada ao leitor de tela, pode ser fechada e desaparece após 6 segundos.</p></Secao>
     <Secao id="vazio" titulo="13. Estado vazio"><EstadoVazio titulo="Nenhum item de exemplo" texto="Quando houver informações, elas aparecerão aqui." /><EstadoVazio titulo="Comece por aqui" texto="O estado vazio também pode orientar uma ação." icone="produto" acao={<Botao icone="mais" onClick={() => notificar('Ação de exemplo concluída.')}>Ação opcional</Botao>} /></Secao>
     <Secao id="cabecalho" titulo="14. Cabeçalho de página"><Cartao><CabecalhoPagina titulo="Título de exemplo" subtitulo="Subtítulo com contexto para esta página." acoes={<Botao variante="secundario" onClick={() => notificar('Ação do cabeçalho concluída.')}>Ação da página</Botao>} /></Cartao><Cartao><CabecalhoPagina titulo="Título sem subtítulo ou ações" /></Cartao></Secao>
+    <Secao id="dias" titulo="Faixa de dias"><p className="suave">Links com dia, data e quantidade. Sete colunas no computador e duas no celular; foco visível e alvo mínimo de 44px. Tabelas largas permitem rolagem interna no computador, preservando palavras e valores; no celular, viram cartões.</p>{estado.pronto && <FaixaDias dias={proximosDias(estado.dados, estado.lojaId)} />}</Secao>
     <Secao id="navegacao" titulo="16. Menu lateral e barra superior">
       <p className="suave">Administrativo acessa todos os módulos; Atendimento acessa cinco. Em até 760px, a faixa usa texto curto e restauração por ícone; a barra fica em uma linha, com menu, logo de 32px, loja e iniciais. O rótulo da seleção permanece acessível. A loja do Atendimento aparece como texto curto.</p>
       <h3>Faixa de protótipo responsiva</h3>
