@@ -1,0 +1,945 @@
+{
+  "_aviso": "Dados fictícios para o protótipo",
+  "itens": [
+    {
+      "id": "encomenda-teste-01",
+      "numero": 1,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-01",
+      "status": "orcamento",
+      "diasAPartirDeHoje": -7,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-1-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-1-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-1",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 16000,
+          "tipo": "pagamento",
+          "usuarioId": "atendente-teste-01",
+          "lojaId": "matriz"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-1",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-02",
+      "numero": 2,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-08",
+      "status": "confirmado",
+      "diasAPartirDeHoje": -6,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-2-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-2-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-2",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 8000,
+          "tipo": "adiantamento",
+          "usuarioId": "atendente-teste-02",
+          "lojaId": "filial"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-2",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-03",
+      "numero": 3,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-03",
+      "status": "em_producao",
+      "diasAPartirDeHoje": -4,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-3-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-3-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-3",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-04",
+      "numero": 4,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-10",
+      "status": "pronto",
+      "diasAPartirDeHoje": -2,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-4-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-4-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-4",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 16000,
+          "tipo": "pagamento",
+          "usuarioId": "atendente-teste-02",
+          "lojaId": "filial"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-4",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-05",
+      "numero": 5,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-05",
+      "status": "entregue",
+      "diasAPartirDeHoje": -1,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-5-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-5-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-5",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 8000,
+          "tipo": "adiantamento",
+          "usuarioId": "atendente-teste-01",
+          "lojaId": "matriz"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-5",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-06",
+      "numero": 6,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-12",
+      "status": "cancelado",
+      "diasAPartirDeHoje": 0,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-6-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-6-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-6",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-07",
+      "numero": 7,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-01",
+      "status": "orcamento",
+      "diasAPartirDeHoje": 0,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-7-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-7-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-7",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 16000,
+          "tipo": "pagamento",
+          "usuarioId": "atendente-teste-01",
+          "lojaId": "matriz"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-7",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-08",
+      "numero": 8,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-08",
+      "status": "confirmado",
+      "diasAPartirDeHoje": 0,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-8-1",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-8-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-8",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 8000,
+          "tipo": "adiantamento",
+          "usuarioId": "atendente-teste-02",
+          "lojaId": "filial"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-8",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-09",
+      "numero": 9,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-03",
+      "status": "em_producao",
+      "diasAPartirDeHoje": 0,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-9-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-9",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-10",
+      "numero": 10,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-10",
+      "status": "pronto",
+      "diasAPartirDeHoje": 1,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-10-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-10",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 5000,
+          "tipo": "pagamento",
+          "usuarioId": "atendente-teste-02",
+          "lojaId": "filial"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-10",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-11",
+      "numero": 11,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-05",
+      "status": "entregue",
+      "diasAPartirDeHoje": 2,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-11-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-11",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 2500,
+          "tipo": "adiantamento",
+          "usuarioId": "atendente-teste-01",
+          "lojaId": "matriz"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-11",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-12",
+      "numero": 12,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-12",
+      "status": "cancelado",
+      "diasAPartirDeHoje": 3,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-12-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-12",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-13",
+      "numero": 13,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-01",
+      "status": "orcamento",
+      "diasAPartirDeHoje": 5,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-13-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-13",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 5000,
+          "tipo": "pagamento",
+          "usuarioId": "atendente-teste-01",
+          "lojaId": "matriz"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-13",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-14",
+      "numero": 14,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-08",
+      "status": "confirmado",
+      "diasAPartirDeHoje": 7,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-14-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-14",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 2500,
+          "tipo": "adiantamento",
+          "usuarioId": "atendente-teste-02",
+          "lojaId": "filial"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-14",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-15",
+      "numero": 15,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-03",
+      "status": "em_producao",
+      "diasAPartirDeHoje": 10,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-15-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-15",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-16",
+      "numero": 16,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-10",
+      "status": "pronto",
+      "diasAPartirDeHoje": 14,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-16-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-16",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 5000,
+          "tipo": "pagamento",
+          "usuarioId": "atendente-teste-02",
+          "lojaId": "filial"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-16",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-17",
+      "numero": 17,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-05",
+      "status": "entregue",
+      "diasAPartirDeHoje": 20,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-17-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-17",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 2500,
+          "tipo": "adiantamento",
+          "usuarioId": "atendente-teste-01",
+          "lojaId": "matriz"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-17",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-18",
+      "numero": 18,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-12",
+      "status": "cancelado",
+      "diasAPartirDeHoje": 30,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-18-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-18",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    },
+    {
+      "id": "encomenda-teste-19",
+      "numero": 19,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-01",
+      "status": "orcamento",
+      "diasAPartirDeHoje": 35,
+      "horaEntrega": "15:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-19-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-19",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 5000,
+          "tipo": "pagamento",
+          "usuarioId": "atendente-teste-01",
+          "lojaId": "matriz"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-19",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-20",
+      "numero": 20,
+      "lojaId": "filial",
+      "clienteId": "cliente-teste-08",
+      "status": "confirmado",
+      "diasAPartirDeHoje": 40,
+      "horaEntrega": "10:30",
+      "modalidade": "entrega",
+      "enderecoEntrega": "[Endereço fictício para entrega de teste]",
+      "itens": [
+        {
+          "id": "item-20-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 20,
+          "observacao": "Sabores e forminhas de teste.",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [
+        {
+          "id": "pagamento-20",
+          "formaPagamentoId": "pix",
+          "valorCentavos": 2500,
+          "tipo": "adiantamento",
+          "usuarioId": "atendente-teste-02",
+          "lojaId": "filial"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "evento-20",
+          "usuarioId": "atendente-teste-02",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-02"
+    }
+  ]
+}

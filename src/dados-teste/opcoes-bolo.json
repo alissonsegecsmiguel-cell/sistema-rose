@@ -1,0 +1,128 @@
+{
+  "_aviso": "Dados fictícios para o protótipo",
+  "id": "opcoes-bolo",
+  "observacao": "Preços de teste. Lista de recheios incompleta, a confirmar com o cliente.",
+  "formatos": [
+    {
+      "id": "formatos-1",
+      "nome": "Redondo",
+      "valorCentavos": 0
+    },
+    {
+      "id": "formatos-2",
+      "nome": "Quadrado",
+      "valorCentavos": 0
+    }
+  ],
+  "tamanhos": [
+    {
+      "id": "tamanhos-1",
+      "nome": "Mini",
+      "valorCentavos": 4500
+    },
+    {
+      "id": "tamanhos-2",
+      "nome": "PP",
+      "valorCentavos": 6500
+    },
+    {
+      "id": "tamanhos-3",
+      "nome": "P",
+      "valorCentavos": 9000
+    },
+    {
+      "id": "tamanhos-4",
+      "nome": "M",
+      "valorCentavos": 13000,
+      "observacao": "a confirmar com o cliente"
+    },
+    {
+      "id": "tamanhos-5",
+      "nome": "G",
+      "valorCentavos": 18000,
+      "observacao": "a confirmar com o cliente"
+    }
+  ],
+  "massas": [
+    {
+      "id": "massas-1",
+      "nome": "Branca",
+      "valorCentavos": 0
+    },
+    {
+      "id": "massas-2",
+      "nome": "Chocolate",
+      "valorCentavos": 0
+    },
+    {
+      "id": "massas-3",
+      "nome": "Red velvet",
+      "valorCentavos": 0
+    },
+    {
+      "id": "massas-4",
+      "nome": "Cenoura",
+      "valorCentavos": 0
+    }
+  ],
+  "recheios": [
+    {
+      "id": "recheios-1",
+      "nome": "Ninho",
+      "valorCentavos": 0,
+      "observacao": "a confirmar com o cliente"
+    },
+    {
+      "id": "recheios-2",
+      "nome": "Chocolate",
+      "valorCentavos": 0,
+      "observacao": "a confirmar com o cliente"
+    }
+  ],
+  "adicionais": [
+    {
+      "id": "adicionais-1",
+      "nome": "Crocante de castanha",
+      "valorCentavos": 1000,
+      "observacao": "a confirmar com o cliente"
+    },
+    {
+      "id": "adicionais-2",
+      "nome": "Ovomaltine",
+      "valorCentavos": 1000,
+      "observacao": "a confirmar com o cliente"
+    }
+  ],
+  "decoracoes": [
+    {
+      "id": "decoracoes-1",
+      "nome": "Placas",
+      "valorCentavos": 1000,
+      "observacao": "a confirmar com o cliente"
+    },
+    {
+      "id": "decoracoes-2",
+      "nome": "Personalização",
+      "valorCentavos": 1000,
+      "observacao": "a confirmar com o cliente"
+    },
+    {
+      "id": "decoracoes-3",
+      "nome": "Glitter",
+      "valorCentavos": 1000,
+      "observacao": "a confirmar com o cliente"
+    },
+    {
+      "id": "decoracoes-4",
+      "nome": "Fitas",
+      "valorCentavos": 1000,
+      "observacao": "a confirmar com o cliente"
+    },
+    {
+      "id": "decoracoes-5",
+      "nome": "Bento",
+      "valorCentavos": 1000,
+      "observacao": "a confirmar com o cliente"
+    }
+  ]
+}

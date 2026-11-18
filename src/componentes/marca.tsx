@@ -1,0 +1,3 @@
+import Image from 'next/image';
+import { obterConfiguracao } from '@/lib/dados';
+export function Marca({ entrada = false, compacta = false }: { entrada?: boolean; compacta?: boolean }) { const config = obterConfiguracao(); return <div className={entrada ? 'entrada-marca' : `marca ${compacta ? 'marca-compacta' : ''}`}><Image src={config.logo} alt="Ateliê Delícias da Rose" width={entrada ? 160 : 48} height={entrada ? 160 : 48} priority={entrada} />{entrada ? <><h1>{config.nomeSistema}</h1><p className="suave">{config.nomeMarca}</p><small className="suave">{config.slogan}</small></> : !compacta && <div><strong>{config.nomeSistema}</strong><small>Gestão do ateliê</small></div>}</div>; }

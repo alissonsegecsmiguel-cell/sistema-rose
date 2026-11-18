@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.vercel/
+.env
+.env.*
+*.log
+/referencias/
+/relatorios/
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+playwright-report/
+test-results/

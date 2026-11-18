@@ -1,0 +1,26 @@
+{
+  "_aviso": "Dados fictícios para o protótipo",
+  "itens": [
+    {
+      "id": "dinheiro",
+      "nome": "Dinheiro"
+    },
+    {
+      "id": "pix",
+      "nome": "Pix"
+    },
+    {
+      "id": "debito",
+      "nome": "Cartão de débito"
+    },
+    {
+      "id": "credito",
+      "nome": "Cartão de crédito"
+    },
+    {
+      "id": "vale",
+      "nome": "Vale",
+      "observacao": "a confirmar com o cliente"
+    }
+  ]
+}

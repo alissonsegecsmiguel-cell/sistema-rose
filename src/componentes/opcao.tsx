@@ -1,0 +1,2 @@
+import type { InputHTMLAttributes, ReactNode } from 'react';
+export function Opcao({ children, pilula = false, type = 'checkbox', ...props }: Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & { children: ReactNode; pilula?: boolean; type?: 'radio' | 'checkbox' }) { return <label className={`opcao ${pilula ? 'opcao-pilula' : ''}`}><input {...props} type={type} /><span>{children}</span></label>; }

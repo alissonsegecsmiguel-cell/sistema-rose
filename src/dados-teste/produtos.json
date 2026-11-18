@@ -1,0 +1,101 @@
+{
+  "_aviso": "Dados fictícios para o protótipo",
+  "itens": [
+    {
+      "id": "brigadeiro-matriz",
+      "lojaId": "matriz",
+      "nome": "Brigadeiro (teste)",
+      "categoriaId": "docinhos",
+      "valorCentavos": 250,
+      "precoDeTeste": true
+    },
+    {
+      "id": "beijinho-matriz",
+      "lojaId": "matriz",
+      "nome": "Beijinho (teste)",
+      "categoriaId": "docinhos",
+      "valorCentavos": 250,
+      "precoDeTeste": true
+    },
+    {
+      "id": "cupcake-matriz",
+      "lojaId": "matriz",
+      "nome": "Cupcake (teste)",
+      "categoriaId": "cupcakes",
+      "valorCentavos": 900,
+      "precoDeTeste": true
+    },
+    {
+      "id": "refrigerante-matriz",
+      "lojaId": "matriz",
+      "nome": "Refrigerante 2L (teste)",
+      "categoriaId": "bebidas",
+      "valorCentavos": 1000,
+      "precoDeTeste": true
+    },
+    {
+      "id": "vela-matriz",
+      "lojaId": "matriz",
+      "nome": "Vela (teste)",
+      "categoriaId": "festa",
+      "valorCentavos": 500,
+      "precoDeTeste": true
+    },
+    {
+      "id": "bolo-matriz",
+      "lojaId": "matriz",
+      "nome": "Bolo simples (teste)",
+      "categoriaId": "bolos",
+      "valorCentavos": 4500,
+      "precoDeTeste": true
+    },
+    {
+      "id": "brigadeiro-filial",
+      "lojaId": "filial",
+      "nome": "Brigadeiro (teste)",
+      "categoriaId": "docinhos",
+      "valorCentavos": 250,
+      "precoDeTeste": true
+    },
+    {
+      "id": "beijinho-filial",
+      "lojaId": "filial",
+      "nome": "Beijinho (teste)",
+      "categoriaId": "docinhos",
+      "valorCentavos": 250,
+      "precoDeTeste": true
+    },
+    {
+      "id": "cupcake-filial",
+      "lojaId": "filial",
+      "nome": "Cupcake (teste)",
+      "categoriaId": "cupcakes",
+      "valorCentavos": 900,
+      "precoDeTeste": true
+    },
+    {
+      "id": "refrigerante-filial",
+      "lojaId": "filial",
+      "nome": "Refrigerante 2L (teste)",
+      "categoriaId": "bebidas",
+      "valorCentavos": 1000,
+      "precoDeTeste": true
+    },
+    {
+      "id": "vela-filial",
+      "lojaId": "filial",
+      "nome": "Vela (teste)",
+      "categoriaId": "festa",
+      "valorCentavos": 500,
+      "precoDeTeste": true
+    },
+    {
+      "id": "bolo-filial",
+      "lojaId": "filial",
+      "nome": "Bolo simples (teste)",
+      "categoriaId": "bolos",
+      "valorCentavos": 4500,
+      "precoDeTeste": true
+    }
+  ]
+}

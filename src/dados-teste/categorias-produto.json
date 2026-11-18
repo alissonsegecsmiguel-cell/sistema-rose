@@ -1,0 +1,25 @@
+{
+  "_aviso": "Dados fictícios para o protótipo",
+  "itens": [
+    {
+      "id": "bolos",
+      "nome": "Bolos"
+    },
+    {
+      "id": "docinhos",
+      "nome": "Docinhos"
+    },
+    {
+      "id": "cupcakes",
+      "nome": "Cupcakes"
+    },
+    {
+      "id": "bebidas",
+      "nome": "Bebidas"
+    },
+    {
+      "id": "festa",
+      "nome": "Descartáveis e festa"
+    }
+  ]
+}

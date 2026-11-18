@@ -1,0 +1,13 @@
+{
+  "_aviso": "Dados fictícios para o protótipo",
+  "id": "configuracao",
+  "nomeSistema": "Sistema Rose",
+  "nomeMarca": "Ateliê Delícias da Rose",
+  "slogan": "Feito com amor",
+  "logo": "/marca/logo-delicias-da-rose.png",
+  "fuso": "America/Sao_Paulo",
+  "observacaoFuso": "a confirmar com o cliente",
+  "observacaoMarca": "Grafia com acento a confirmar com o cliente; o logo escreve delicias.",
+  "prototipo": true,
+  "noindex": true
+}

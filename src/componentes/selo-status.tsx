@@ -1,0 +1,3 @@
+import type { SituacaoPagamento, StatusEncomenda } from '@/lib/tipos';
+const estados = { orcamento: ['Orçamento', 'neutro'], confirmado: ['Confirmado', 'info'], em_producao: ['Em produção', 'alerta'], pronto: ['Pronto', 'primaria'], entregue: ['Entregue', 'sucesso'], cancelado: ['Cancelado', 'erro'], pago: ['Pago', 'sucesso'], parcial: ['Parcial', 'alerta'], em_aberto: ['Em aberto', 'erro'] };
+export function SeloStatus({ status, modalidade }: { status: StatusEncomenda | SituacaoPagamento; modalidade?: 'entrega' | 'retirada' }) { const [texto, tom] = estados[status]; return <span className={`selo tom-${tom}`}>{status === 'entregue' && modalidade === 'retirada' ? 'Retirado' : texto}</span>; }

@@ -1,0 +1,29 @@
+{
+  "_aviso": "Dados fictícios para o protótipo",
+  "itens": [
+    {
+      "id": "admin-teste",
+      "nome": "Admin Teste",
+      "perfil": "administrativo",
+      "lojaId": "matriz",
+      "tituloAcesso": "Administrativo",
+      "descricaoAcesso": "Acesso a todos os módulos, nas duas lojas."
+    },
+    {
+      "id": "atendente-teste-01",
+      "nome": "Atendente Teste 01",
+      "perfil": "atendimento",
+      "lojaId": "matriz",
+      "tituloAcesso": "Atendimento Matriz",
+      "descricaoAcesso": "Encomendas, caixa e clientes da Matriz."
+    },
+    {
+      "id": "atendente-teste-02",
+      "nome": "Atendente Teste 02",
+      "perfil": "atendimento",
+      "lojaId": "filial",
+      "tituloAcesso": "Atendimento Filial",
+      "descricaoAcesso": "Encomendas, caixa e clientes da Filial."
+    }
+  ]
+}
