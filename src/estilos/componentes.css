@@ -160,3 +160,10 @@
 .faixa-dias a { padding: var(--espaco-3); min-height: var(--alvo-toque); text-decoration: none; overflow-wrap: anywhere; }
 @media (min-width: 761px) { .tabela-container { overflow-x: auto; } .tabela { min-width: 960px; } .tabela th, .tabela td { overflow-wrap: normal; } }
 @media (max-width: 760px) { .faixa-dias { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.calendario { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--espaco-2); }
+.calendario-dia { background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio-2); padding: var(--espaco-2); min-height: var(--alvo-toque); display: flex; flex-direction: column; gap: var(--espaco-1); color: var(--cor-texto); overflow-wrap: anywhere; }
+.calendario-dia[aria-pressed="true"] { border: 2px solid var(--cor-primaria); background: var(--cor-primaria-suave); }
+.calendario-semana { display: none; }
+.calendario .selo { white-space: normal; }
+.linha-tempo { list-style: none; padding: 0 0 0 var(--espaco-4); margin: 0; border-left: 2px solid var(--cor-borda-forte); display: flex; flex-direction: column; gap: var(--espaco-5); }
+@media (max-width: 390px) { .calendario { grid-template-columns: 1fr; } .calendario-cabecalho, .calendario-espaco, .calendario-vazio { display: none; } .calendario-semana { display: block; } }

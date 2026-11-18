@@ -18,6 +18,6 @@ export const novaEncomenda = { rota: '/encomendas/nova', titulo: 'Nova encomenda
 export function menuDoPerfil(perfil: Perfil) { return modulos.filter(m => perfil === 'administrativo' || m.atendimento); }
 export function podeAcessar(perfil: Perfil, rota: string) {
   if (rota === '/design-system') return true; // Manual público por rota direta, conforme a tarefa.
-  const modulo = [...modulos, novaEncomenda].find(m => m.rota === rota);
+  const modulo = modulos.find(m => rota === m.rota || rota.startsWith(`${m.rota}/`));
   return !!modulo && (perfil === 'administrativo' || modulo.atendimento);
 }

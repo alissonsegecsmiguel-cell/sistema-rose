@@ -6,7 +6,7 @@ Sistema de gestão online do Ateliê Delícias da Rose, com matriz e filial: enc
 
 ## 2. Fase atual
 
-Protótipo visual com dados fictícios. Não há banco, autenticação real, API, servidor próprio ou integrações. A tarefa 01 entrega a estrutura; as telas de negócio começam na tarefa 02, após aprovação da 01.
+Protótipo visual com dados fictícios. Não há banco, autenticação real, API, servidor próprio ou integrações. A fila 01B a 16 foi autorizada em 18/11/2026; as telas de negócio estão sendo implementadas na ordem da fila.
 
 ## 3. Decisões registradas
 
@@ -31,6 +31,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - 18/11/2026: o atalho Windows abre o navegador somente após o Next.js indicar que está pronto, usando o endereço local emitido pelo próprio Next.js. Assim, porta ocupada não leva o usuário ao serviço errado ou a uma página aberta antes do servidor iniciar. A leitura da saída utiliza somente o PowerShell integrado ao Windows. **(decidido sem o Alisson, revisar)**
 - 18/11/2026: na tarefa 01-C, conforme solicitado, next-env.d.ts saiu do Git e entrou no .gitignore. É um arquivo gerado automaticamente pelo Next.js; seus caminhos podem alternar entre .next/types e .next/dev/types. Não adicionar novamente. O bloco gerenciado nextjs-agent-rules fica mantido e versionado no AGENTS.md, preservando as regras do projeto.
 - 18/11/2026: em até 760px, faixa de protótipo curta com restauração por ícone e dica; barra em uma linha com menu, logo de 32px, loja e iniciais. Nome, perfil e Trocar perfil ficam no menu acessível das iniciais, fechado por Esc com retorno do foco, por toque fora ou ao sair do topo móvel. Desktop permanece visualmente igual. Os componentes e estados estão demonstrados em /design-system.
+
+- 18/11/2026: filtros da lista, seleção da agenda e retorno do detalhe são preservados no endereço; a semana começa na segunda-feira. Em 390px, cada dia ocupado identifica a semana, dispensando a grade comprimida. **(decidido sem o Alisson, revisar)**
 
 ## 4. Mapa de módulos
 
@@ -65,6 +67,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - 18/11/2026: tarefa 01C concluída. Complemento da fila atualizada: Atendimento acessa Produção; menus, perfis de teste e manual atualizados. Topo compacto e arquivos gerados já estavam concluídos e foram preservados. Restauração inclui title acessível. Validação: lint, dois builds sem alterações inesperadas e 23 testes aprovados. Commit identificado pela mensagem “Tarefa 01C: Ajustes da conferência da tarefa 01”; hash literal no relatório local 01C-relatorio.md.
 
 - 18/11/2026: tarefa 02 concluída. Painel por loja e consolidado, indicadores, filtro de modalidade, próximos sete dias, alertas e aniversariantes. Faixa de dias documentada no manual. Validação: lint, dois builds sem alterações inesperadas e 25 testes aprovados. Commit identificado pela mensagem “Tarefa 02: Visão geral (painel do dia)”; hash literal no relatório local 02-relatorio.md.
+
+- 18/11/2026: tarefa 03 concluída. Lista com filtros combinados e totais; agenda mensal responsiva, detalhe com valores e histórico, retorno aos filtros e permissões por segmento. Componentes documentados e testados nos três perfis e quatro larguras. Validação: lint, dois builds sem alterações inesperadas e 39 testes aprovados. Commit identificado pela mensagem “Tarefa 03: Encomendas (lista, agenda e detalhe)”; hash literal no relatório local 03-relatorio.md.
 
 ## 6. Em andamento
 

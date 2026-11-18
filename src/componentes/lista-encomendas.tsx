@@ -1,0 +1,12 @@
+import { Tabela } from './tabela';
+import { LinkBotao } from './link-botao';
+import { SeloStatus } from './selo-status';
+import { EstadoVazio } from './estado-vazio';
+import { Botao } from './botao';
+import { obterCliente, resumirItens, saldoEncomenda, situacaoPagamento, totalEncomenda, totaisEncomendas } from '@/lib/dados';
+import { formatarData, formatarMoeda } from '@/lib/formatar';
+import type { DadosPrototipo, Encomenda, LojaSelecionada } from '@/lib/tipos';
+export function ListaEncomendas({ dados, lojaId, lista, retorno = '/encomendas', limpar }: { dados: DadosPrototipo; lojaId: LojaSelecionada; lista: Encomenda[]; retorno?: string; limpar?: () => void }) {
+  const totais = totaisEncomendas(lista);
+  return <div className="pilha">{lista.length ? <Tabela legenda="Encomendas encontradas" colunas={[{ chave: 'numero', titulo: 'Número' }, { chave: 'data', titulo: 'Data e hora' }, { chave: 'cliente', titulo: 'Cliente' }, { chave: 'itens', titulo: 'Itens' }, ...(lojaId === 'consolidado' ? [{ chave: 'loja', titulo: 'Loja' }] : []), { chave: 'modalidade', titulo: 'Modalidade' }, { chave: 'status', titulo: 'Status' }, { chave: 'pagamento', titulo: 'Pagamento' }, { chave: 'total', titulo: 'Total' }, { chave: 'saldo', titulo: 'Saldo' }, { chave: 'acao', titulo: 'Ações' }]} linhas={lista.map(e => ({ id: e.id, celulas: { numero: `#${e.numero}`, data: `${formatarData(e.dataEntrega)} ${e.horaEntrega}`, cliente: obterCliente(dados, lojaId, e.clienteId)?.nome, itens: resumirItens(dados, e), loja: dados.lojas.find(l => l.id === e.lojaId)?.nome, modalidade: e.modalidade === 'entrega' ? 'Entrega' : 'Retirada', status: <SeloStatus status={e.status} modalidade={e.modalidade} />, pagamento: <SeloStatus status={situacaoPagamento(e)} />, total: formatarMoeda(totalEncomenda(e)), saldo: formatarMoeda(saldoEncomenda(e)), acao: <LinkBotao href={`/encomendas/${e.id}?voltar=${encodeURIComponent(retorno)}`}>Ver</LinkBotao> } }))} /> : <EstadoVazio titulo="Nenhuma encomenda encontrada" texto="Escolha outro período ou limpe os filtros." acao={limpar && <Botao variante="secundario" onClick={limpar}>Limpar filtros</Botao>} />}<p className="numerico" role="status">{totais.quantidade} encomendas • Total: {formatarMoeda(totais.total)} • Saldo: {formatarMoeda(totais.saldo)}</p></div>;
+}

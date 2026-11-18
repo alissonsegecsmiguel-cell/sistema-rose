@@ -105,7 +105,7 @@ for (const largura of [1440, 1024, 760, 390]) {
       await page.screenshot({ path: `relatorios/fila/evidencias-01C/depois-${largura}-${perfil.replaceAll(' ', '-')}.png`, fullPage: true });
       await page.goto('/design-system'); await expect(page.getByRole('heading', { name: 'Design system', exact: true })).toBeVisible(); await semOverflow(page);
       if (perfil === 'Administrativo') await page.screenshot({ path: `relatorios/fila/evidencias/${largura}-design-system.png`, fullPage: true });
-      await expect(page.getByRole('table')).toBeVisible();
+      await expect(page.getByRole('table').first()).toBeVisible();
       expect(await page.locator('tbody tr').first().evaluate(el => getComputedStyle(el).display)).toBe(largura <= 760 ? 'block' : 'table-row');
       expect(erros).toEqual([]);
     });
@@ -155,9 +155,9 @@ test('manual: abas, foco preso, Esc, valor em centavos e notificação', async (
   const abrir = page.getByRole('button', { name: 'Abrir diálogo de exemplo' }); await abrir.focus(); await page.keyboard.press('Enter'); const dialogo = page.getByRole('dialog', { name: 'Diálogo de exemplo' });
   for (let i = 0; i < 12; i++) { await page.keyboard.press(i % 2 ? 'Shift+Tab' : 'Tab'); expect(await dialogo.evaluate(el => el.contains(document.activeElement))).toBe(true); }
   await page.keyboard.press('Escape'); await expect(dialogo).not.toBeVisible(); await expect(abrir).toBeFocused();
-  await abrir.click(); await dialogo.getByRole('button', { name: 'Salvar exemplo' }).focus(); await page.keyboard.press('Enter'); await expect(page.getByRole('status')).toContainText('Salvo.');
+  await abrir.click(); await dialogo.getByRole('button', { name: 'Salvar exemplo' }).focus(); await page.keyboard.press('Enter'); await expect(page.locator('.notificacao-area')).toContainText('Salvo.');
   await page.getByLabel('Valor de teste', { exact: true }).fill('12345'); await expect(page.getByText('Valor guardado: 12345 centavos. Digite apenas números.')).toBeVisible(); await expect(page.getByLabel('Valor de teste', { exact: true })).toHaveValue(/123,45/);
-  await page.getByRole('button', { name: 'Fechar notificação' }).click(); await expect(page.getByRole('status')).toBeEmpty();
+  await page.getByRole('button', { name: 'Fechar notificação' }).click(); await expect(page.locator('.notificacao-area')).toBeEmpty();
   await page.emulateMedia({ reducedMotion: 'reduce' }); expect(await abrir.evaluate(el => getComputedStyle(el).transitionDuration)).toBe('0s');
 });
 test('armazenamento bloqueado ou corrompido não impede o uso', async ({ page }) => {
@@ -169,8 +169,8 @@ test('manual de um build antigo usa a data atual sem erro de hidratação', asyn
   const erros: string[] = []; page.on('pageerror', erro => erros.push(erro.message));
   await page.clock.install({ time: new Date('2027-01-01T15:00:00Z') });
   await page.goto('/design-system');
-  await expect(page.getByRole('table')).toContainText('25/12/2026');
-  await expect(page.getByRole('table')).toContainText('28/12/2026');
+  await expect(page.getByRole('table').first()).toContainText('25/12/2026');
+  await expect(page.getByRole('table').first()).toContainText('28/12/2026');
   expect(erros).toEqual([]);
 });
 test('topo compacto e manual funcionam com toque', async ({ browser }) => {

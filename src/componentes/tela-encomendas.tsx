@@ -1,0 +1,25 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
+import { usePrototipo } from '@/lib/prototipo-store';
+import { dataRelativa, diasDoMes, filtrarEncomendas, limitesPeriodo } from '@/lib/dados';
+import { CabecalhoPagina } from './cabecalho-pagina';
+import { LinkBotao } from './link-botao';
+import { Botao } from './botao';
+import { CampoTexto } from './campo-texto';
+import { Selecao } from './selecao';
+import { Opcao } from './opcao';
+import { Abas } from './abas';
+import { CalendarioMensal } from './calendario-mensal';
+import { ListaEncomendas } from './lista-encomendas';
+export function TelaEncomendas() {
+  const { estado } = usePrototipo(), busca = useSearchParams();
+  const mudar = (valores: Record<string, string>) => { const p = new URLSearchParams(busca.toString()); for (const [k, v] of Object.entries(valores)) { if (v) p.set(k, v); else p.delete(k); } window.history.replaceState(null, '', `/encomendas?${p}`); };
+  if (!estado.pronto) return null;
+  const { dados, lojaId } = estado, dia = /^\d{4}-\d{2}-\d{2}$/.test(busca.get('data') || '') ? busca.get('data')! : dataRelativa(0), mes = /^\d{4}-(0[1-9]|1[0-2])$/.test(busca.get('mes') || '') ? busca.get('mes')! : dia.slice(0, 7), aba = busca.get('aba') === 'agenda' ? 'agenda' : 'lista';
+  const limpar = () => window.history.replaceState(null, '', '/encomendas');
+  const periodo = busca.get('periodo') || (busca.has('data') ? 'personalizado' : 'hoje');
+  const [inicio, fim] = limitesPeriodo(periodo, busca.get('inicio') || dia, busca.get('fim') || dia), status = busca.get('status')?.split(',').filter(Boolean) || [];
+  const filtros = <div className="pilha"><div className="grade"><Selecao rotulo="Período" value={periodo} onChange={e => mudar({ periodo: e.target.value, data: '' })}>{[['hoje', 'Hoje'], ['amanha', 'Amanhã'], ['semana', 'Esta semana'], ['mes', 'Este mês'], ['proximo', 'Próximo mês'], ['personalizado', 'Personalizado']].map(([v, n]) => <option key={v} value={v}>{n}</option>)}</Selecao><CampoTexto rotulo="Buscar nome, telefone ou número" value={busca.get('busca') || ''} onChange={e => mudar({ busca: e.target.value })} />{periodo === 'personalizado' && <><CampoTexto rotulo="Data inicial" type="date" value={inicio} onChange={e => mudar({ inicio: e.target.value })} /><CampoTexto rotulo="Data final" type="date" value={fim} onChange={e => mudar({ fim: e.target.value })} /></>}<Selecao rotulo="Pagamento" value={busca.get('pagamento') || ''} onChange={e => mudar({ pagamento: e.target.value })}><option value="">Todos</option><option value="pago">Pago</option><option value="parcial">Parcial</option><option value="em_aberto">Em aberto</option></Selecao><Selecao rotulo="Modalidade" value={busca.get('modalidade') || ''} onChange={e => mudar({ modalidade: e.target.value })}><option value="">Todas</option><option value="entrega">Entrega</option><option value="retirada">Retirada</option></Selecao></div><fieldset><legend>Status</legend><div className="linha">{[['orcamento', 'Orçamento'], ['confirmado', 'Confirmado'], ['em_producao', 'Em produção'], ['pronto', 'Pronto'], ['entregue', 'Entregue/Retirado'], ['cancelado', 'Cancelado']].map(([id, n]) => <Opcao key={id} pilula checked={status.includes(id)} onChange={e => mudar({ status: (e.target.checked ? [...status, id] : status.filter(s => s !== id)).join(',') })}>{n}</Opcao>)}</div></fieldset><div className="linha"><Botao variante="secundario" onClick={() => mudar({ ordem: busca.get('ordem') ? '' : 'desc' })}>Data: {busca.get('ordem') ? 'mais distante primeiro' : 'mais próxima primeiro'}</Botao><Botao variante="fantasma" onClick={limpar}>Limpar filtros</Botao></div></div>;
+  const retorno = `/encomendas?${busca}`;
+  return <div className="pilha"><CabecalhoPagina titulo="Encomendas" acoes={<><LinkBotao href="/encomendas/nova" variante="primario">Nova encomenda</LinkBotao><LinkBotao href="/encomendas/nova?tipo=orcamento">Novo orçamento</LinkBotao></>} /><Abas rotulo="Visualização de encomendas" ativa={aba} aoMudar={id => mudar({ aba: id })} itens={[{ id: 'lista', titulo: 'Lista', conteudo: <div className="pilha">{filtros}<ListaEncomendas dados={dados} lojaId={lojaId} lista={filtrarEncomendas(dados, lojaId, { inicio, fim, status, busca: busca.get('busca') || '', pagamento: busca.get('pagamento') || '', modalidade: busca.get('modalidade') || '', inverter: busca.get('ordem') === 'desc' })} retorno={retorno} limpar={limpar} /></div> }, { id: 'agenda', titulo: 'Agenda', conteudo: <div className="pilha"><CalendarioMensal mes={mes} dias={diasDoMes(dados, lojaId, mes)} selecionado={dia} aoMudarMes={m => mudar({ mes: m })} aoSelecionar={data => mudar({ data, inicio: data, fim: data })} aoHoje={() => mudar({ data: dataRelativa(0), mes: dataRelativa(0).slice(0, 7) })} /><h2>Encomendas de {dia.split('-').reverse().join('/')}</h2><ListaEncomendas dados={dados} lojaId={lojaId} lista={filtrarEncomendas(dados, lojaId, { inicio: dia, fim: dia })} retorno={retorno} limpar={limpar} /></div> }]} /></div>;
+}
