@@ -13,6 +13,59 @@ async function entrar(page: Page, perfil = 'Administrativo') {
 async function semOverflow(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 }
+async function conferirTopo(page: Page, largura: number, perfil: string) {
+  const faixa = page.locator('.faixa-prototipo');
+  const barra = page.locator('.area-sistema > .barra-superior');
+  const restaurar = faixa.getByRole('button', { name: 'Restaurar dados de teste' });
+  const iniciais = barra.getByRole('button', { name: /^Abrir menu do usuário:/ });
+  if (largura > 760) {
+    await expect(faixa.getByText('Protótipo com dados fictícios. Nada aqui é real.', { exact: true })).toBeVisible();
+    await expect(faixa.locator('.faixa-texto-compacto')).not.toBeVisible();
+    await expect(barra.locator('.barra-usuario')).toBeVisible();
+    await expect(iniciais).not.toBeVisible();
+    return;
+  }
+  await expect(faixa.getByText('Protótipo: dados fictícios', { exact: true })).toBeVisible();
+  await expect(faixa.locator('.faixa-texto-completo').first()).not.toBeVisible();
+  const titulo = await page.getByRole('heading', { name: 'Visão geral', exact: true }).boundingBox();
+  expect(titulo!.y).toBeLessThanOrEqual(150);
+  expect((await faixa.boundingBox())!.height).toBe(44);
+  const alvos = await page.locator('.faixa-prototipo button, .area-sistema > .barra-superior button, .area-sistema > .barra-superior select').evaluateAll(elementos => elementos.filter(el => el.getClientRects().length).map(el => { const r = el.getBoundingClientRect(); return { largura: r.width, altura: r.height }; }));
+  for (const alvo of alvos) { expect(alvo.largura).toBeGreaterThanOrEqual(44); expect(alvo.altura).toBeGreaterThanOrEqual(44); }
+  const yControles = await barra.locator('.botao-menu, .marca-compacta, .barra-loja, .menu-usuario').evaluateAll(elementos => elementos.map(el => { const r = el.getBoundingClientRect(); return r.y + r.height / 2; }));
+  expect(Math.max(...yControles) - Math.min(...yControles)).toBeLessThanOrEqual(1);
+  await expect(barra.locator('.barra-usuario')).not.toBeVisible();
+  if (perfil === 'Administrativo') {
+    const selecao = barra.getByLabel('Loja selecionada');
+    await expect(selecao).toBeVisible();
+    await selecao.selectOption('consolidado'); await expect(selecao).toHaveValue('consolidado');
+    await selecao.selectOption('matriz');
+    expect(await barra.locator('label').evaluate(el => getComputedStyle(el).clipPath)).toBe('inset(50%)');
+  } else {
+    await expect(barra.getByRole('combobox')).toHaveCount(0);
+    await expect(barra.locator('.loja-fixa')).toHaveText(new RegExp(perfil.endsWith('Matriz') ? 'Matriz' : 'Filial'));
+    await expect(barra.locator('.loja-fixa small')).not.toBeVisible();
+  }
+  await restaurar.hover(); await expect(faixa.getByRole('tooltip')).toBeVisible();
+  await page.keyboard.press('Escape'); await expect(faixa.getByRole('tooltip')).not.toBeVisible();
+  await restaurar.focus(); await page.keyboard.press('Enter');
+  await expect(page.getByRole('dialog', { name: 'Restaurar dados de teste?' })).toBeVisible();
+  await page.keyboard.press('Escape'); await expect(restaurar).toBeFocused();
+  await iniciais.focus(); await page.keyboard.press('Enter');
+  const menu = barra.getByRole('menu');
+  await expect(menu).toBeVisible();
+  await expect(menu).toContainText(perfil === 'Administrativo' ? 'Admin Teste' : perfil.endsWith('Matriz') ? 'Atendente Teste 01' : 'Atendente Teste 02');
+  await expect(menu).toContainText(perfil === 'Administrativo' ? 'Administrativo' : 'Atendimento');
+  await expect(menu.getByRole('menuitem', { name: 'Trocar perfil' })).toBeFocused();
+  await page.keyboard.press('Escape'); await expect(menu).toHaveCount(0); await expect(iniciais).toBeFocused();
+  await page.keyboard.press('ArrowDown'); await expect(barra.getByRole('menuitem', { name: 'Trocar perfil' })).toBeFocused();
+  await page.screenshot({ path: `relatorios/fila/evidencias-01C/menu-${largura}-${perfil.replaceAll(' ', '-')}.png`, fullPage: true });
+  await page.keyboard.press('Escape');
+  await iniciais.click(); await page.getByRole('heading', { name: 'Visão geral', exact: true }).click(); await expect(menu).toHaveCount(0);
+  await iniciais.click(); await barra.getByRole('menuitem', { name: 'Trocar perfil' }).click();
+  await expect(page).toHaveURL(/\/entrar$/); await entrar(page, perfil);
+  await semOverflow(page);
+}
 for (const largura of [1440, 1024, 760, 390]) {
   for (const perfil of ['Administrativo', 'Atendimento Matriz', 'Atendimento Filial']) {
     test(`${largura}px: ${perfil}, telas e navegação`, async ({ page }) => {
@@ -22,6 +75,7 @@ for (const largura of [1440, 1024, 760, 390]) {
       await expect(page.getByRole('img', { name: 'Ateliê Delícias da Rose' })).toBeVisible();
       if (perfil === 'Administrativo') await page.screenshot({ path: `relatorios/fila/evidencias/${largura}-entrar.png`, fullPage: true });
       await entrar(page, perfil); await semOverflow(page);
+      await conferirTopo(page, largura, perfil);
       await expect(page.getByRole('button', { name: 'Abrir menu', exact: true, includeHidden: true })).toHaveCount(1);
       if (largura <= 760) {
         const abrir = page.getByRole('button', { name: 'Abrir menu', exact: true });
@@ -39,6 +93,7 @@ for (const largura of [1440, 1024, 760, 390]) {
       await page.screenshot({ path: `relatorios/fila/evidencias/${largura}-${perfil.replaceAll(' ', '-')}-encomendas.png`, fullPage: true });
       await page.goto('/visao-geral'); await expect(page.getByRole('heading', { name: 'Visão geral', exact: true })).toBeVisible();
       await page.screenshot({ path: `relatorios/fila/evidencias/${largura}-${perfil.replaceAll(' ', '-')}-visao-geral.png`, fullPage: true });
+      await page.screenshot({ path: `relatorios/fila/evidencias-01C/depois-${largura}-${perfil.replaceAll(' ', '-')}.png`, fullPage: true });
       await page.goto('/design-system'); await expect(page.getByRole('heading', { name: 'Design system', exact: true })).toBeVisible(); await semOverflow(page);
       if (perfil === 'Administrativo') await page.screenshot({ path: `relatorios/fila/evidencias/${largura}-design-system.png`, fullPage: true });
       await expect(page.getByRole('table')).toBeVisible();
@@ -108,6 +163,23 @@ test('manual de um build antigo usa a data atual sem erro de hidratação', asyn
   await expect(page.getByRole('table')).toContainText('25/12/2026');
   await expect(page.getByRole('table')).toContainText('28/12/2026');
   expect(erros).toEqual([]);
+});
+test('topo compacto e manual funcionam com toque', async ({ browser }) => {
+  const contexto = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await contexto.newPage();
+  await entrar(page);
+  const iniciais = page.getByRole('button', { name: /^Abrir menu do usuário:/ });
+  await iniciais.tap(); await expect(page.getByRole('menuitem', { name: 'Trocar perfil' })).toBeVisible();
+  await page.getByRole('heading', { name: 'Visão geral', exact: true }).tap(); await expect(page.getByRole('menu')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Restaurar dados de teste' }).tap(); await expect(page.getByRole('dialog', { name: 'Restaurar dados de teste?' })).toBeVisible();
+  await page.getByRole('button', { name: 'Cancelar', exact: true }).tap();
+  await page.goto('/design-system');
+  await page.getByRole('button', { name: 'Ver dica', exact: true }).tap(); await expect(page.getByRole('tooltip', { name: 'Dica de exemplo para uma ação' })).toBeVisible();
+  await page.keyboard.press('Escape'); await expect(page.getByRole('tooltip', { name: 'Dica de exemplo para uma ação' })).not.toBeVisible();
+  const exemplo = page.locator('.manual-menu-usuario-exemplo');
+  await exemplo.getByRole('button', { name: /^Abrir menu do usuário:/ }).tap(); await expect(exemplo.getByRole('menuitem', { name: 'Trocar perfil' })).toBeVisible();
+  await page.keyboard.press('Escape'); await expect(exemplo.getByRole('button')).toBeFocused();
+  await semOverflow(page); await contexto.close();
 });
 test('contraste AA em todas as combinações de texto usadas', async ({ page }) => {
   await page.goto('/design-system');

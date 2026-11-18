@@ -75,6 +75,10 @@
 .entrada-rodape { color: var(--cor-texto-suave); font-size: var(--fonte-1); text-align: center; margin-top: var(--espaco-6); }
 .faixa-prototipo { min-height: var(--altura-grande); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--espaco-2); padding: var(--espaco-2) var(--espaco-5); background: var(--cor-primaria-suave); color: var(--cor-primaria-texto); font-size: var(--fonte-2); }
 .faixa-prototipo p { display: flex; gap: var(--espaco-2); align-items: center; }
+.faixa-texto-compacto { display: none; }
+.dica-container { position: relative; display: inline-flex; }
+.dica-conteudo { position: absolute; top: calc(100% + var(--espaco-2)); left: 0; z-index: 4; width: max-content; max-width: var(--largura-menu-usuario); padding: var(--espaco-2) var(--espaco-3); border: 1px solid var(--cor-borda-forte); border-radius: var(--raio-1); background: var(--cor-superficie); color: var(--cor-texto); box-shadow: var(--sombra-1); font-size: var(--fonte-2); }
+.faixa-prototipo .dica-conteudo { left: auto; right: 0; }
 .casca { display: grid; grid-template-columns: var(--largura-menu) minmax(0, 1fr); min-height: calc(100dvh - var(--altura-grande)); }
 .menu-lateral { background: var(--cor-superficie); border-right: 1px solid var(--cor-borda); padding: var(--espaco-5) var(--espaco-4); display: flex; flex-direction: column; gap: var(--espaco-5); }
 .menu-lateral .marca { margin-inline: var(--espaco-2); }
@@ -94,6 +98,11 @@
 .loja-fixa span { display: block; }
 .botao-menu { display: none; }
 .marca-compacta { display: none; }
+.menu-usuario { display: none; position: relative; }
+.botao-iniciais { width: var(--alvo-toque); padding: 0; color: var(--cor-primaria-texto); background: var(--cor-primaria-suave); border-color: var(--cor-borda-forte); border-radius: var(--raio-3); }
+.menu-usuario-painel { position: absolute; z-index: 3; top: calc(100% + var(--espaco-2)); right: 0; width: var(--largura-menu-usuario); padding: var(--espaco-2); background: var(--cor-superficie); border: 1px solid var(--cor-borda-forte); border-radius: var(--raio-2); box-shadow: var(--sombra-2); }
+.menu-usuario-identidade { padding: var(--espaco-2); overflow-wrap: anywhere; }
+.menu-usuario-painel .botao { width: 100%; justify-content: flex-start; }
 .conteudo-sistema { padding: var(--espaco-6); max-width: var(--largura-conteudo); margin: 0 auto; }
 .dialogo-gaveta { margin: 0; max-height: 100dvh; height: 100dvh; width: min(320px, calc(100% - var(--espaco-6))); border-radius: 0; padding: var(--espaco-4); }
 .dialogo-gaveta .menu-rodape { margin-top: var(--espaco-5); }
@@ -106,24 +115,33 @@
 .amostra-token code { font-size: var(--fonte-1); overflow-wrap: anywhere; }
 .amostra-espaco { height: var(--espaco-4); background: var(--cor-primaria); }
 .manual-menu-exemplo { max-width: var(--largura-menu); border: 1px solid var(--cor-borda); border-radius: var(--raio-2); padding: var(--espaco-4); background: var(--cor-superficie); }
+.manual-menu-usuario-exemplo { display: flex; justify-content: flex-end; }
+.manual-menu-usuario-exemplo .menu-usuario { display: inline-block; }
 @media (max-width: 1024px) {
   .barra-superior { padding-inline: var(--espaco-5); }
   .conteudo-sistema { padding: var(--espaco-5); }
   .barra-usuario { gap: var(--espaco-2); }
 }
 @media (max-width: 760px) {
-  .casca { display: block; }
+  .casca { display: block; min-height: calc(100dvh - var(--alvo-toque)); }
   .menu-lateral { display: none; }
-  .botao-menu { display: inline-flex; }
+  .botao-menu { display: inline-flex; width: var(--alvo-toque); padding: 0; }
   .marca-compacta { display: flex; }
-  .barra-superior { padding: var(--espaco-4); gap: var(--espaco-3); }
-  .barra-usuario { width: 100%; justify-content: space-between; border-top: 1px solid var(--cor-borda); padding-top: var(--espaco-3); }
-  .barra-loja { flex: 1; }
+  .marca-compacta img { width: var(--logo-menu-compacto); height: var(--logo-menu-compacto); }
+  .barra-superior { display: grid; grid-template-columns: var(--alvo-toque) var(--logo-menu-compacto) minmax(0, 1fr) var(--alvo-toque); min-height: var(--alvo-toque); padding: var(--espaco-2) var(--espaco-4); gap: var(--espaco-2); }
+  .barra-usuario { display: none; }
+  .barra-loja { min-width: 0; }
+  .menu-usuario { display: block; }
+  .campo-rotulo-compacto label { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .campo-rotulo-compacto { gap: 0; }
+  .loja-fixa { min-height: var(--alvo-toque); }
+  .loja-fixa > svg, .loja-fixa small { display: none; }
   .conteudo-sistema { padding: var(--espaco-5) var(--espaco-4); }
-  .faixa-prototipo { padding: var(--espaco-2) var(--espaco-4); }
-  .faixa-prototipo p { align-items: flex-start; }
-  .faixa-prototipo p svg { margin-top: var(--espaco-1); }
-  .faixa-prototipo .botao { padding-left: 0; }
+  .faixa-prototipo { flex-wrap: nowrap; min-height: var(--alvo-toque); padding: 0 var(--espaco-4); }
+  .faixa-prototipo p { white-space: nowrap; }
+  .faixa-prototipo p svg, .faixa-texto-completo { display: none; }
+  .faixa-texto-compacto { display: inline; }
+  .faixa-prototipo .botao { width: var(--alvo-toque); padding: 0; }
   .entrada { padding: var(--espaco-6) var(--espaco-4); }
   .entrada-marca { margin-bottom: var(--espaco-6); }
   .entrada-marca img { width: var(--logo-entrada-movel); height: var(--logo-entrada-movel); }

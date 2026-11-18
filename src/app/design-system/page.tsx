@@ -18,6 +18,9 @@ import { CabecalhoPagina } from '@/componentes/cabecalho-pagina';
 import { Indicador } from '@/componentes/indicador';
 import { MenuLateral } from '@/componentes/menu-lateral';
 import { BarraSuperior } from '@/componentes/barra-superior';
+import { FaixaPrototipo } from '@/componentes/faixa-prototipo';
+import { MenuUsuario } from '@/componentes/menu-usuario';
+import { Dica } from '@/componentes/dica';
 import { Marca } from '@/componentes/marca';
 import { Icone } from '@/componentes/icone';
 import { usePrototipo } from '@/lib/prototipo-store';
@@ -47,7 +50,27 @@ export default function DesignSystem() {
     <Secao id="mensagens" titulo="11 e 12. Avisos e notificações"><div className="pilha">{(['info','sucesso','alerta','erro'] as const).map(t => <Aviso key={t} tom={t} titulo={{info:'Informação',sucesso:'Sucesso',alerta:'Atenção',erro:'Erro'}[t]}>Mensagem de exemplo para orientar a próxima ação.</Aviso>)}</div><Botao variante="secundario" onClick={() => notificar('Salvo. Esta é uma notificação de exemplo.')}>Mostrar notificação</Botao><p className="suave pequeno">A notificação é anunciada ao leitor de tela, pode ser fechada e desaparece após 6 segundos.</p></Secao>
     <Secao id="vazio" titulo="13. Estado vazio"><EstadoVazio titulo="Nenhum item de exemplo" texto="Quando houver informações, elas aparecerão aqui." /><EstadoVazio titulo="Comece por aqui" texto="O estado vazio também pode orientar uma ação." icone="produto" acao={<Botao icone="mais" onClick={() => notificar('Ação de exemplo concluída.')}>Ação opcional</Botao>} /></Secao>
     <Secao id="cabecalho" titulo="14. Cabeçalho de página"><Cartao><CabecalhoPagina titulo="Título de exemplo" subtitulo="Subtítulo com contexto para esta página." acoes={<Botao variante="secundario" onClick={() => notificar('Ação do cabeçalho concluída.')}>Ação da página</Botao>} /></Cartao><Cartao><CabecalhoPagina titulo="Título sem subtítulo ou ações" /></Cartao></Secao>
-    <Secao id="navegacao" titulo="16. Menu lateral e barra superior"><p className="suave">Administrativo acessa todos os módulos; Atendimento acessa quatro. Em até 760px, o menu da casca abre em gaveta.</p><div className="grade"><div className="manual-menu-exemplo"><Marca /><MenuLateral perfil="administrativo" rota="/visao-geral" /></div><div className="manual-menu-exemplo"><Marca /><MenuLateral perfil="atendimento" rota="/encomendas" /></div></div><h3>Administrativo: loja selecionável</h3><BarraSuperior usuarioExemplo={perfis[0]} aoAbrirMenu={() => setGaveta(true)} aoTrocarPerfil={() => notificar('Exemplo de troca de perfil. Use a casca para trocar de verdade.')} /><h3>Atendimento: loja fixa</h3><BarraSuperior usuarioExemplo={perfis[1]} aoAbrirMenu={() => setGaveta(true)} aoTrocarPerfil={() => notificar('Exemplo de troca de perfil.')} /><p className="suave pequeno">Marca e ícones são componentes auxiliares, demonstrados no menu e nos botões. As páginas de módulo reutilizam o cabeçalho e o estado vazio.</p></Secao>
+    <Secao id="navegacao" titulo="16. Menu lateral e barra superior">
+      <p className="suave">Administrativo acessa todos os módulos; Atendimento acessa quatro. Em até 760px, a faixa usa texto curto e restauração por ícone; a barra fica em uma linha, com menu, logo de 32px, loja e iniciais. O rótulo da seleção permanece acessível. A loja do Atendimento aparece como texto curto.</p>
+      <h3>Faixa de protótipo responsiva</h3>
+      <FaixaPrototipo aoRestaurar={() => notificar('Exemplo de restauração. Na casca, a ação pede confirmação.')} />
+      <div className="grade"><div className="manual-menu-exemplo"><Marca /><MenuLateral perfil="administrativo" rota="/visao-geral" /></div><div className="manual-menu-exemplo"><Marca /><MenuLateral perfil="atendimento" rota="/encomendas" /></div></div>
+      <h3>Administrativo: loja selecionável</h3>
+      <BarraSuperior usuarioExemplo={perfis[0]} aoAbrirMenu={() => setGaveta(true)} aoTrocarPerfil={() => notificar('Exemplo de troca de perfil. Use a casca para trocar de verdade.')} />
+      <h3>Atendimento Matriz: loja fixa</h3>
+      <BarraSuperior usuarioExemplo={perfis[1]} aoAbrirMenu={() => setGaveta(true)} aoTrocarPerfil={() => notificar('Exemplo de troca de perfil.')} />
+      <h3>Atendimento Filial: loja fixa</h3>
+      <BarraSuperior usuarioExemplo={perfis[2]} aoAbrirMenu={() => setGaveta(true)} aoTrocarPerfil={() => notificar('Exemplo de troca de perfil.')} />
+      <h3>Menu de usuário: fechado e aberto</h3>
+      <p className="suave">Toque nas iniciais ou use Enter, Espaço ou as setas. O menu mostra nome, perfil e Trocar perfil. Esc fecha e devolve o foco às iniciais; Tab ou um toque fora também fecha. No computador, a casca mantém nome, perfil e ação visíveis.</p>
+      <div className="manual-menu-usuario-exemplo"><MenuUsuario usuario={perfis[0]} aoTrocarPerfil={() => notificar('Exemplo de troca de perfil.')} /></div>
+      <h3>Seleção com rótulo compacto</h3>
+      <Selecao rotulo="Seleção compacta de exemplo" rotuloCompacto><option>Primeira opção</option><option>Segunda opção</option></Selecao>
+      <p className="suave pequeno">O rótulo acima fica visualmente oculto em até 760px e continua disponível ao leitor de tela.</p>
+      <h3>Dica: ponteiro, toque e foco</h3>
+      <div className="linha"><Dica texto="Dica de exemplo para uma ação">{id => <Botao variante="secundario" aria-describedby={id}>Ver dica</Botao>}</Dica></div>
+      <p className="suave pequeno">A dica aparece ao passar o ponteiro, tocar ou focar. Esc a fecha. Marca e ícones são componentes auxiliares demonstrados nas barras e botões.</p>
+    </Secao>
     <Dialogo aberto={dialogo} aoFechar={() => setDialogo(false)} titulo="Diálogo de exemplo"><p>Este diálogo demonstra a navegação por teclado.</p><CampoTexto rotulo="Campo no diálogo" placeholder="Teste o foco aqui" /><div className="linha"><Botao variante="secundario" onClick={() => setDialogo(false)}>Cancelar</Botao><Botao onClick={() => { setDialogo(false); notificar('Salvo. Exemplo concluído.'); }}>Salvar exemplo</Botao></div></Dialogo><Dialogo aberto={gaveta} aoFechar={() => setGaveta(false)} titulo="Menu de exemplo" gaveta><Marca /><MenuLateral perfil="administrativo" rota="/visao-geral" aoNavegar={() => setGaveta(false)} /></Dialogo>
   </main>;
 }

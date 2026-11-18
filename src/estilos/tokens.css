@@ -55,6 +55,8 @@
   --logo-entrada: 160px;
   --logo-entrada-movel: 120px;
   --logo-menu: 48px;
+  --logo-menu-compacto: 32px;
+  --largura-menu-usuario: 240px;
   --duracao-padrao: 160ms;
   --easing-padrao: cubic-bezier(.2, 0, 0, 1);
 }

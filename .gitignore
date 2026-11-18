@@ -10,5 +10,6 @@ out/
 .DS_Store
 Thumbs.db
 *.tsbuildinfo
+next-env.d.ts
 playwright-report/
 test-results/
