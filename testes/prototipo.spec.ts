@@ -118,7 +118,7 @@ test('perfis, lojas, persistência e restauração real dos dados', async ({ pag
   for (const [perfil, loja] of [['Atendimento Matriz', 'Matriz'], ['Atendimento Filial', 'Filial']]) {
     await page.getByRole('button', { name: 'Trocar perfil' }).click(); await expect(page).toHaveURL(/\/entrar$/); await entrar(page, perfil);
     await expect(page.getByLabel('Loja selecionada')).toHaveCount(0); await expect(page.locator('.loja-fixa')).toContainText(loja);
-    await expect(page.locator('aside nav a')).toHaveCount(4); await expect(page.locator('aside').getByRole('link', { name: 'Design system' })).toHaveCount(0);
+    await expect(page.locator('aside nav a')).toHaveCount(5); await expect(page.locator('aside').getByRole('link', { name: 'Design system' })).toHaveCount(0);
     for (const m of modulos.filter(m => !m.atendimento)) { await page.goto(m.rota); await expect(page.getByRole('heading', { name: 'Você não tem acesso a esta área' })).toBeVisible(); }
     await page.getByRole('link', { name: 'Voltar à Visão geral' }).click(); await expect(page).toHaveURL(/\/visao-geral$/);
   }

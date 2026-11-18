@@ -15,7 +15,7 @@
       "perfil": "atendimento",
       "lojaId": "matriz",
       "tituloAcesso": "Atendimento Matriz",
-      "descricaoAcesso": "Encomendas, caixa e clientes da Matriz."
+      "descricaoAcesso": "Encomendas, produção, caixa e clientes da Matriz."
     },
     {
       "id": "atendente-teste-02",
@@ -23,7 +23,7 @@
       "perfil": "atendimento",
       "lojaId": "filial",
       "tituloAcesso": "Atendimento Filial",
-      "descricaoAcesso": "Encomendas, caixa e clientes da Filial."
+      "descricaoAcesso": "Encomendas, produção, caixa e clientes da Filial."
     }
   ]
 }

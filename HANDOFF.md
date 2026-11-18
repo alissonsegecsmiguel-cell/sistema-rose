@@ -19,7 +19,7 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - 18/11/2026: dinheiro guardado em centavos inteiros; apresentação com Intl.NumberFormat pt-BR/BRL.
 - 18/11/2026: paleta extraída do logo do Ateliê Delícias da Rose (primária #B64D63); ajustar se vier manual da marca.
 - 18/11/2026: o token de sucesso original #2E7D4F tinha contraste de 4,41:1 sobre #E5F3EA, abaixo de AA. Ajustado para #2B784B; os demais tons permanecem conforme a tarefa. Ajuste previsto expressamente pela regra de contraste da tarefa 01.
-- 18/11/2026: Atendimento acessa Visão geral, Encomendas, Caixa e Clientes. **(decidido sem o Alisson, revisar: atendimento deve ver Produção?)**
+- 18/11/2026: decisão confirmada pelo Alisson na fila atualizada: Atendimento acessa Visão geral, Encomendas, Produção, Caixa e Clientes.
 - 18/11/2026: gaveta e tabela em cartões são ativadas em largura menor ou igual a 760px. A tarefa fala em “abaixo de 760px”, mas o aceite pede gaveta também em 760px; foi priorizado o aceite. **(decidido sem o Alisson, revisar)**
 - 18/11/2026: /design-system é acessível por rota direta, inclusive sem perfil; somente Administrativo tem o link no menu. Isso atende à indicação explícita de acesso direto no manual. **(decidido sem o Alisson, revisar)**
 - 18/11/2026: restauração preserva perfil e loja e recria as datas relativas ao dia da restauração. Dados persistidos preservam suas datas ao recarregar, para não mudar encomendas alteradas silenciosamente. Armazenamento indisponível funciona somente em memória. **(decidido sem o Alisson, revisar)**
@@ -62,13 +62,15 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - 18/11/2026: tarefa 01-C concluída: topo compacto móvel, menu de usuário por iniciais, dica acessível de restauração, rótulo compacto da seleção e manual atualizado para os três perfis. next-env.d.ts removido apenas do índice e ignorado; bloco nextjs-agent-rules mantido no AGENTS.md. Sem novas dependências ou mudanças de negócio.
 - Testes da 01-C: npm run lint e npm run build aprovados; 23 testes Playwright aprovados, incluindo as quatro larguras, três perfis, ausência de rolagem horizontal, controles de ao menos 44px, restauração, troca de perfil, toque, foco e Esc. Título começa em 129px nos três perfis em 390px e 760px, antes começava em cerca de 296px no Administrativo em 390px. Capturas de desktop em 1440px e 1024px idênticas pixel a pixel às anteriores nos três perfis. Evidências em relatorios/fila/evidencias-01C/. Relatório local 01C-relatorio.md registra hash, push e conferência final do ciclo dev → build após o commit.
 
+- 18/11/2026: tarefa 01C concluída. Complemento da fila atualizada: Atendimento acessa Produção; menus, perfis de teste e manual atualizados. Topo compacto e arquivos gerados já estavam concluídos e foram preservados. Restauração inclui title acessível. Validação: lint, dois builds sem alterações inesperadas e 23 testes aprovados. Commit identificado pela mensagem “Tarefa 01C: Ajustes da conferência da tarefa 01”; hash literal no relatório local 01C-relatorio.md.
+
 ## 6. Em andamento
 
-- Nenhuma implementação pendente das tarefas 01, 01-B e 01-C. Não iniciar a 02 até aprovação e disponibilidade de instruções com status pronta.
+- Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
 
 ## 7. Backlog
 
-- Sem bloqueios conhecidos. Tarefa 02 aguarda aprovação da 01 e arquivo com instruções; não iniciar telas de negócio sem tarefa pronta.
+- Sem bloqueios conhecidos. A fila 01B a 16 está autorizada; seguir a ordem e as dependências de 00-LEIA-PRIMEIRO.md.
 
 ## 8. Perguntas em aberto para o cliente
 
@@ -76,7 +78,6 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Sangria e suprimento: existe mais de um caixa por loja ou a transferência é entre lojas?
 - Qual a lista completa de tamanhos, recheios, adicionais e decorações, com preços?
 - “Vale” é forma de pagamento usada?
-- Atendimento deve ver a tela de Produção?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
