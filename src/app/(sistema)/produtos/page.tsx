@@ -1,2 +1,2 @@
-import { PaginaModulo } from '@/componentes/pagina-modulo';
-export default function Pagina() { return <PaginaModulo rota="/produtos" />; }
+import { TelaProdutos } from '@/componentes/tela-produtos';
+export default function Pagina() { return <TelaProdutos />; }

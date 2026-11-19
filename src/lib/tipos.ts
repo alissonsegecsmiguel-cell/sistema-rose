@@ -4,14 +4,16 @@ export interface Loja { id: string; nome: string; endereco: string }
 export interface Usuario { id: string; nome: string; perfil: Perfil; lojaId: string; descricaoAcesso: string; tituloAcesso: string }
 export interface FormaPagamento { id: string; nome: string; observacao?: string }
 export interface Cliente { id: string; lojaId: string; nome: string; telefone: string; aniversario?: string; endereco?: string; creditoCentavos?: number; observacoes?: string; criadoEm?: string }
-export interface CategoriaProduto { id: string; nome: string; ajuda?: string }
-export interface Produto { id: string; lojaId: string; nome: string; categoriaId: string; valorCentavos: number; precoDeTeste: boolean }
-export interface OpcaoBolo { id: string; nome: string; valorCentavos: number; observacao?: string }
+export interface CategoriaProduto { id: string; nome: string; ajuda?: string; ordem: number }
+export type UnidadeVenda = 'unidade' | 'cento' | 'kg';
+export interface Produto { id: string; nome: string; categoriaId: string; valorCentavos: number; precoDeTeste: boolean; unidadeVenda: UnidadeVenda; vendeBalcao: boolean; aceitaEncomenda: boolean; pedeObservacao: boolean; ajudaObservacao?: string; lojasDisponiveis: string[]; ativo: boolean }
+export type GrupoBolo = 'formatos' | 'tamanhos' | 'massas' | 'recheios' | 'adicionais' | 'decoracoes';
+export interface OpcaoBolo { id: string; nome: string; valorCentavos: number; observacao?: string; ativo: boolean; ordem: number; aConfirmar?: boolean; servePessoas?: number; pesoAproximado?: string }
 export interface OpcoesBolo { id: string; formatos: OpcaoBolo[]; tamanhos: OpcaoBolo[]; massas: OpcaoBolo[]; recheios: OpcaoBolo[]; adicionais: OpcaoBolo[]; decoracoes: OpcaoBolo[]; observacao: string }
 export type StatusEncomenda = 'orcamento' | 'confirmado' | 'em_producao' | 'pronto' | 'entregue' | 'cancelado';
 export type SituacaoPagamento = 'pago' | 'parcial' | 'em_aberto';
 export interface AjusteValor { valorOriginalCentavos: number; motivo: string }
-export type ItemEncomenda = { id: string; tipo: 'bolo'; formato: string; tamanho: string; massa: string; recheios: string[]; adicionais: string[]; decoracoes: string[]; detalhes: string; valorCentavos: number; ajuste?: AjusteValor } | { id: string; tipo: 'produto'; produtoId: string; quantidade: number; observacao: string; valorUnitarioCentavos: number };
+export type ItemEncomenda = { id: string; tipo: 'bolo'; formato: string; tamanho: string; massa: string; recheios: string[]; adicionais: string[]; decoracoes: string[]; detalhes: string; valorCentavos: number; ajuste?: AjusteValor } | { id: string; tipo: 'produto'; produtoId: string; quantidade: number; observacao: string; valorUnitarioCentavos: number; unidadeVenda?: UnidadeVenda };
 export interface Pagamento { id: string; data: string; formaPagamentoId: string; valorCentavos: number; tipo: 'adiantamento' | 'pagamento' | 'devolucao'; usuarioId: string; lojaId: string }
 export interface EventoHistorico { id: string; data: string; usuarioId: string; acao: string; detalhe: string }
 export interface Encomenda { id: string; numero: number; lojaId: string; clienteId: string; status: StatusEncomenda; dataEntrega: string; horaEntrega: string; modalidade: 'retirada' | 'entrega'; enderecoEntrega?: string; itens: ItemEncomenda[]; pagamentos: Pagamento[]; descontoCentavos: number; taxaCartaoCentavos: number; observacoes: string; historico: EventoHistorico[]; criadoEm: string; criadoPor: string; creditoCancelamentoCentavos?: number }

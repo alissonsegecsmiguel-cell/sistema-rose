@@ -3,25 +3,30 @@
   "itens": [
     {
       "id": "bolos",
-      "nome": "Bolos"
+      "nome": "Bolos",
+      "ordem": 1
     },
     {
       "id": "docinhos",
       "nome": "Docinhos",
-      "ajuda": "Sabores e cor das forminhas"
+      "ajuda": "Sabores e cor das forminhas",
+      "ordem": 2
     },
     {
       "id": "cupcakes",
       "nome": "Cupcakes",
-      "ajuda": "Massa, recheio e personalização"
+      "ajuda": "Massa, recheio e personalização",
+      "ordem": 3
     },
     {
       "id": "bebidas",
-      "nome": "Bebidas"
+      "nome": "Bebidas",
+      "ordem": 4
     },
     {
       "id": "festa",
-      "nome": "Descartáveis e festa"
+      "nome": "Descartáveis e festa",
+      "ordem": 5
     }
   ]
 }

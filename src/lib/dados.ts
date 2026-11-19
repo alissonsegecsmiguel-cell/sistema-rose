@@ -11,10 +11,11 @@ import encomendasClientes from '@/dados-teste/encomendas-clientes.json';
 import encomendasProducao from '@/dados-teste/encomendas-producao.json';
 import caixasTeste from '@/dados-teste/caixas.json';
 import type { Caixa, ConferenciaCaixa, MovimentoCaixa, PagamentoVenda, Venda } from './tipos';
+import type { CategoriaProduto, GrupoBolo, OpcaoBolo, Produto, UnidadeVenda } from './tipos';
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v5';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v6';
 const formatadorDia = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' });
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
@@ -52,12 +53,12 @@ export function listarEncomendas(dados: DadosPrototipo, lojaId: LojaSelecionada)
 export function obterEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string) { return listarEncomendas(dados, lojaId).find(e => e.id === id); }
 export function listarClientes(dados: DadosPrototipo, lojaId: LojaSelecionada) { void lojaId; return dados.clientes; }
 export function obterCliente(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string) { return listarClientes(dados, lojaId).find(c => c.id === id); }
-export function listarProdutos(dados: DadosPrototipo, lojaId: LojaSelecionada) { return daLoja(dados.produtos, lojaId); }
+export function listarProdutos(dados: DadosPrototipo, lojaId: LojaSelecionada, canal: 'encomenda' | 'balcao' = 'encomenda') { return dados.produtos.filter(p => p.ativo && (lojaId === 'consolidado' || p.lojasDisponiveis.includes(lojaId)) && (canal === 'balcao' ? p.vendeBalcao : p.aceitaEncomenda)); }
 export function listarLojas(dados: DadosPrototipo) { return dados.lojas; }
 export function listarUsuarios(dados: DadosPrototipo, lojaId: LojaSelecionada) { return daLoja(dados.usuarios, lojaId); }
 export function obterUsuario(dados: DadosPrototipo, id: string | null) { return dados.usuarios.find(u => u.id === id); }
 export function listarFormasPagamento(dados: DadosPrototipo) { return dados.formasPagamento; }
-export function listarCategoriasProduto(dados: DadosPrototipo) { return dados.categoriasProduto; }
+export function listarCategoriasProduto(dados: DadosPrototipo) { return [...dados.categoriasProduto].sort((a, b) => a.ordem - b.ordem); }
 export function obterOpcoesBolo(dados: DadosPrototipo) { return dados.opcoesBolo; }
 export function totalEncomenda(e: Encomenda) {
   return e.itens.reduce((s, i) => s + (i.tipo === 'bolo' ? i.valorCentavos : i.quantidade * i.valorUnitarioCentavos), 0) - e.descontoCentavos + e.taxaCartaoCentavos;
@@ -263,6 +264,31 @@ export function restaurarDadosDeTeste() {
   try { localStorage.removeItem(CHAVE_ARMAZENAMENTO); } catch { /* Continua em memória. */ }
   return carregarDadosDeTeste();
 }
+export function filtrarCatalogo(dados: DadosPrototipo, busca = '', categoria = '', ativo = 'ativo') { return dados.produtos.filter(p => (!busca || p.nome.toLocaleLowerCase('pt-BR').includes(busca.toLocaleLowerCase('pt-BR'))) && (!categoria || p.categoriaId === categoria) && (ativo === 'todos' || p.ativo === (ativo === 'ativo'))); }
+export function salvarProduto(dados: DadosPrototipo, produto: Produto) {
+  if (!produto.nome.trim() || !dados.categoriasProduto.some(c => c.id === produto.categoriaId) || !Number.isSafeInteger(produto.valorCentavos) || produto.valorCentavos < 0 || !produto.lojasDisponiveis.length || produto.lojasDisponiveis.some(id => !dados.lojas.some(l => l.id === id))) throw new Error('Informe nome, categoria, preço em centavos e ao menos uma loja disponível.');
+  const anterior = dados.produtos.find(p => p.id === produto.id); if (anterior && anterior.unidadeVenda !== produto.unidadeVenda && (dados.encomendas.some(e => e.itens.some(i => i.tipo === 'produto' && i.produtoId === produto.id)) || dados.vendas.some(v => v.itens.some(i => i.produtoId === produto.id)))) throw new Error('Este produto já foi usado. Crie um produto novo para mudar a unidade de venda e preservar o histórico.');
+  return { ...dados, produtos: anterior ? dados.produtos.map(p => p.id === produto.id ? structuredClone(produto) : p) : [...dados.produtos, structuredClone(produto)] };
+}
+export function salvarCategoriaProduto(dados: DadosPrototipo, categoria: CategoriaProduto) { if (!categoria.nome.trim()) throw new Error('Informe o nome da categoria.'); if (dados.categoriasProduto.some(c => c.id !== categoria.id && c.nome.trim().toLocaleLowerCase('pt-BR') === categoria.nome.trim().toLocaleLowerCase('pt-BR'))) throw new Error('Já existe uma categoria com este nome.'); return { ...dados, categoriasProduto: dados.categoriasProduto.some(c => c.id === categoria.id) ? dados.categoriasProduto.map(c => c.id === categoria.id ? categoria : c) : [...dados.categoriasProduto, categoria] }; }
+export function excluirCategoriaProduto(dados: DadosPrototipo, id: string) { if (dados.produtos.some(p => p.categoriaId === id)) throw new Error('Categoria com produtos não pode ser excluída. Inative ou mova os produtos primeiro.'); return { ...dados, categoriasProduto: dados.categoriasProduto.filter(c => c.id !== id) }; }
+export function moverCategoriaProduto(dados: DadosPrototipo, id: string, direcao: number) { const lista = listarCategoriasProduto(dados), i = lista.findIndex(c => c.id === id), outro = i + direcao; if (i < 0 || outro < 0 || outro >= lista.length) return dados; [lista[i], lista[outro]] = [lista[outro], lista[i]]; return { ...dados, categoriasProduto: lista.map((c, i) => ({ ...c, ordem: i + 1 })) }; }
+export function salvarOpcaoBolo(dados: DadosPrototipo, grupo: GrupoBolo, opcao: OpcaoBolo) { if (!opcao.nome.trim() || !Number.isSafeInteger(opcao.valorCentavos) || opcao.valorCentavos < 0 || !Number.isSafeInteger(opcao.ordem) || opcao.ordem < 0) throw new Error('Informe nome, valor válido e ordem inteira.'); const lista = dados.opcoesBolo[grupo], salva = { ...opcao, observacao: opcao.aConfirmar ? 'a confirmar com o cliente' : '' }; return { ...dados, opcoesBolo: { ...dados.opcoesBolo, [grupo]: lista.some(o => o.id === opcao.id) ? lista.map(o => o.id === opcao.id ? salva : o) : [...lista, salva] } }; }
+export function salvarLimiteRecheios(dados: DadosPrototipo, limite: number) { if (!Number.isSafeInteger(limite) || limite < 1 || limite > dados.opcoesBolo.recheios.filter(o => o.ativo).length) throw new Error('Informe um limite entre 1 e a quantidade de recheios ativos.'); return { ...dados, configuracao: { ...dados.configuracao, limiteRecheios: limite } }; }
+export function opcoesAtivasBolo(dados: DadosPrototipo, grupo: GrupoBolo) { return dados.opcoesBolo[grupo].filter(o => o.ativo).sort((a, b) => a.ordem - b.ordem); }
+export const GRUPOS_BOLO: { id: GrupoBolo; titulo: string; campo: 'formato' | 'tamanho' | 'massa' | 'recheios' | 'adicionais' | 'decoracoes'; multiplo: boolean }[] = [
+  { id: 'formatos', titulo: 'Formatos', campo: 'formato', multiplo: false }, { id: 'tamanhos', titulo: 'Tamanhos', campo: 'tamanho', multiplo: false }, { id: 'massas', titulo: 'Massas', campo: 'massa', multiplo: false },
+  { id: 'recheios', titulo: 'Recheios', campo: 'recheios', multiplo: true }, { id: 'adicionais', titulo: 'Adicionais de recheio', campo: 'adicionais', multiplo: true }, { id: 'decoracoes', titulo: 'Decorações', campo: 'decoracoes', multiplo: true },
+];
+export const UNIDADES_VENDA: { id: UnidadeVenda; nome: string }[] = [{ id: 'unidade', nome: 'Unidade' }, { id: 'cento', nome: 'Cento' }, { id: 'kg', nome: 'Quilo (kg)' }];
+export function nomeUnidade(id?: string) { return UNIDADES_VENDA.find(u => u.id === id)?.nome ?? 'Unidade'; }
+export function novoProduto(dados: DadosPrototipo): Produto { return { id: novoId(), nome: '', categoriaId: listarCategoriasProduto(dados)[0]?.id ?? '', valorCentavos: 0, precoDeTeste: true, unidadeVenda: 'unidade', vendeBalcao: true, aceitaEncomenda: true, pedeObservacao: false, ajudaObservacao: '', lojasDisponiveis: dados.lojas.map(l => l.id), ativo: true }; }
+export function novaCategoriaProduto(dados: DadosPrototipo): CategoriaProduto { return { id: novoId(), nome: '', ajuda: '', ordem: dados.categoriasProduto.reduce((m, c) => Math.max(m, c.ordem), 0) + 1 }; }
+export function novaOpcaoBolo(dados: DadosPrototipo, grupo: GrupoBolo): OpcaoBolo { return { id: novoId(), nome: '', valorCentavos: 0, ativo: true, ordem: dados.opcoesBolo[grupo].reduce((m, o) => Math.max(m, o.ordem), 0) + 1, aConfirmar: false }; }
+export function ajudaObservacaoProduto(dados: DadosPrototipo, produto?: Produto) { return produto?.ajudaObservacao?.trim() || dados.categoriasProduto.find(c => c.id === produto?.categoriaId)?.ajuda || ''; }
+export function contarProdutosCategoria(dados: DadosPrototipo, id: string) { return dados.produtos.filter(p => p.categoriaId === id).length; }
+/** Opções exibidas na montagem: ativas em ordem e, ao editar, as já escolhidas mesmo que inativas. */
+export function opcoesMontagem(dados: DadosPrototipo, grupo: GrupoBolo, selecionadas: string[] = []) { return dados.opcoesBolo[grupo].filter(o => o.ativo || selecionadas.includes(o.id)).sort((a, b) => a.ordem - b.ordem); }
 export function somarDiasData(data: string, dias: number) { const d = new Date(`${data}T12:00:00Z`); if (Number.isNaN(d.getTime())) return dataRelativa(0); d.setUTCDate(d.getUTCDate() + dias); return d.toISOString().slice(0, 10); }
 export function producaoDoPeriodo(dados: DadosPrototipo, lojaId: string, inicio: string, fim = inicio) { return listarEncomendas(dados, lojaId).filter(e => ['confirmado', 'em_producao', 'pronto'].includes(e.status) && e.dataEntrega >= inicio && e.dataEntrega <= fim).sort((a, b) => `${a.dataEntrega} ${a.horaEntrega}`.localeCompare(`${b.dataEntrega} ${b.horaEntrega}`)); }
 export function resumoProducao(dados: DadosPrototipo, lojaId: string, inicio = dataRelativa(0), fim = inicio) {

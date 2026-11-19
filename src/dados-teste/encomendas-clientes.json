@@ -32,10 +32,11 @@
         {
           "id": "item-cliente-0-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 20,
           "observacao": "Sabores e forminhas de teste.",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         }
       ],
       "pagamentos": [
@@ -93,10 +94,11 @@
         {
           "id": "item-cliente-1-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-filial",
+          "produtoId": "brigadeiro",
           "quantidade": 20,
           "observacao": "Sabores e forminhas de teste.",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         }
       ],
       "pagamentos": [
@@ -153,10 +155,11 @@
         {
           "id": "item-cliente-2-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 20,
           "observacao": "Sabores e forminhas de teste.",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         }
       ],
       "pagamentos": [
@@ -214,10 +217,11 @@
         {
           "id": "item-cliente-3-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-filial",
+          "produtoId": "brigadeiro",
           "quantidade": 20,
           "observacao": "Sabores e forminhas de teste.",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         }
       ],
       "pagamentos": [
@@ -274,10 +278,11 @@
         {
           "id": "item-cliente-4-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 20,
           "observacao": "Sabores e forminhas de teste.",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         }
       ],
       "pagamentos": [
@@ -335,10 +340,11 @@
         {
           "id": "item-cliente-5-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-filial",
+          "produtoId": "brigadeiro",
           "quantidade": 20,
           "observacao": "Sabores e forminhas de teste.",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         }
       ],
       "pagamentos": [

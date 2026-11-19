@@ -5,7 +5,7 @@ import { podeAcessar } from '../src/lib/permissoes';
 test('caixa soma fonte única, troco e movimentos; bloqueia correção após fechar', () => {
   let d = carregarDadosDeTeste(); const u = d.usuarios[0].id; d = abrirCaixa(d, 'matriz', u, 10000); const c = obterCaixa(d, 'matriz')!, antes = resumoCaixa(d, c);
   expect(d.caixas.filter(c => c.status === 'fechado')).toHaveLength(6); expect(d.caixas.filter(c => c.conferencia.some(f => f.diferencaCentavos === -500))).toHaveLength(1);
-  const venda = finalizarVenda(d, c.id, u, { itens: [{ id: 'teste', tipo: 'produto', produtoId: 'brigadeiro-matriz', quantidade: 4, valorUnitarioCentavos: 250, observacao: '' }], descontoCentavos: 0, taxaCartaoCentavos: 0, pagamentos: [{ formaPagamentoId: 'dinheiro', valorCentavos: 500, recebidoCentavos: 1000 }, { formaPagamentoId: 'pix', valorCentavos: 500 }] }); d = venda.dados;
+  const venda = finalizarVenda(d, c.id, u, { itens: [{ id: 'teste', tipo: 'produto', produtoId: 'brigadeiro', quantidade: 4, valorUnitarioCentavos: 250, observacao: '' }], descontoCentavos: 0, taxaCartaoCentavos: 0, pagamentos: [{ formaPagamentoId: 'dinheiro', valorCentavos: 500, recebidoCentavos: 1000 }, { formaPagamentoId: 'pix', valorCentavos: 500 }] }); d = venda.dados;
   expect(venda.venda.trocoCentavos).toBe(500); expect(resumoCaixa(d, c).dinheiro).toBe(antes.dinheiro + 500);
   d = registrarMovimentoCaixa(d, c.id, u, { tipo: 'sangria', formaPagamentoId: 'dinheiro', valorCentavos: 1000, categoria: 'Outros', descricao: 'Cofre de teste' });
   d = registrarPagamentoEncomenda(d, 'matriz', 'encomenda-teste-09', 'pix', 5000, u);

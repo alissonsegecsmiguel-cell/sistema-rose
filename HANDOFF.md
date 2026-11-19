@@ -44,6 +44,10 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: Produção agrupa o período Próximos 3 dias como hoje e os dois dias seguintes; observações de doces são agrupadas exatamente como cadastradas. Status é da encomenda inteira, mesmo quando há vários bolos. Função aoMarcarPronto registra histórico e será ligada ao estoque na tarefa 11. **(decidido sem o Alisson, revisar)**
 
+- 18/11/2026: catálogo único de produtos, com preço igual nas duas lojas e campo Disponível em; ids sem sufixo de loja nas encomendas e vendas de teste. **(decidido sem o Alisson, revisar: preços diferentes por loja?)**
+
+- 18/11/2026: produtos e opções do bolo são inativados, nunca excluídos; inativos somem da nova encomenda e do PDV, mas pedidos antigos mantêm nome e valor. Opção inativa já escolhida continua visível ao alterar o pedido, com selo. Mudar a unidade de venda de produto já usado é bloqueado (crie outro produto). Quantidade continua inteira também para cento e kg. Ajuda da observação: texto do produto ou, em branco, o da categoria. Categoria com produtos, inclusive inativos, não pode ser excluída. Pré-visualização da montagem fica abaixo das regras gerais, em coluna única, para as tabelas caberem. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -92,6 +96,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: tarefa 08 concluída. Produção por data e período, cartões por bolo, agrupamento exato de doces e separação de bebidas/festa. Status e histórico compartilhados com encomendas, comandas do dia em 80mm/A4 e cartão na Visão geral. Dois casos fictícios de produção múltipla adicionados; manual e tokens atualizados. Validação: lint, dois builds sem alterações inesperadas e 96 testes aprovados. Commit identificado pela mensagem “Tarefa 08: Produção do dia”; hash literal no relatório local 08-relatorio.md.
 
+- 18/11/2026: tarefa 09 concluída. Tela /produtos com abas Produtos, Categorias e Montagem do bolo; catálogo único com Disponível em, canais balcão/encomenda, unidade de venda e observação por produto; categorias ordenáveis; opções do bolo com ativo, ordem, a confirmar, rendimento dos tamanhos e limite de recheios; pré-visualização com as mesmas pílulas. Nova encomenda e PDV leem o catálogo; pedidos antigos preservados. Chave v6. Validação: lint, dois builds sem alterações inesperadas e 104 testes aprovados. Commit identificado pela mensagem “Tarefa 09: Produtos e opções do bolo”; hash literal no relatório local 09-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -106,6 +112,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Sangria e suprimento: existe mais de um caixa por loja ou a transferência é entre lojas?
 - Qual a lista completa de tamanhos, recheios, adicionais e decorações, com preços?
 - “Vale” é forma de pagamento usada?
+- Os preços dos produtos variam entre Matriz e Filial?
+- Quantos recheios cabem por bolo, e o rendimento (pessoas e peso) de cada tamanho?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
@@ -115,7 +123,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v5`, protegida por try/catch; a versão 5 inclui caixa, vendas e movimentos.
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v6`, protegida por try/catch; a versão 6 traz o catálogo único de produtos e as opções do bolo editáveis.
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 

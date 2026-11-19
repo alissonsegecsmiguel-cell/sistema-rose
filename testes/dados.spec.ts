@@ -8,7 +8,7 @@ test('massa de dados cobre cenários, loja e valores inteiros', () => {
   for (const loja of dados.lojas) {
     expect(listarEncomendas(dados,loja.id).every(e=>e.lojaId===loja.id)).toBe(true);
     expect(listarClientes(dados,loja.id)).toHaveLength(12);
-    expect(listarProdutos(dados,loja.id).every(e=>e.lojaId===loja.id)).toBe(true);
+    expect(listarProdutos(dados,loja.id).every(p=>p.ativo && p.lojasDisponiveis.includes(loja.id))).toBe(true);
   }
   expect(listarEncomendas(dados,'consolidado')).toHaveLength(dados.encomendas.length);
   function verificar(v: unknown, chave = '') { if (chave.endsWith('Centavos')) expect(Number.isSafeInteger(v)).toBe(true); if (v && typeof v === 'object') for (const [k,valor] of Object.entries(v)) verificar(valor,k); }

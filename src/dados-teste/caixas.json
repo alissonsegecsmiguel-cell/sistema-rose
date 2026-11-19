@@ -85,10 +85,11 @@
         {
           "id": "item-venda-caixa-teste-matriz-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 4,
           "valorUnitarioCentavos": 250,
-          "observacao": "Venda de teste"
+          "observacao": "Venda de teste",
+          "unidadeVenda": "unidade"
         }
       ],
       "descontoCentavos": 0,
@@ -119,10 +120,11 @@
         {
           "id": "item-venda-caixa-teste-matriz-2",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 4,
           "valorUnitarioCentavos": 250,
-          "observacao": "Venda de teste"
+          "observacao": "Venda de teste",
+          "unidadeVenda": "unidade"
         }
       ],
       "descontoCentavos": 0,
@@ -153,10 +155,11 @@
         {
           "id": "item-venda-caixa-teste-matriz-3",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 4,
           "valorUnitarioCentavos": 250,
-          "observacao": "Venda de teste"
+          "observacao": "Venda de teste",
+          "unidadeVenda": "unidade"
         }
       ],
       "descontoCentavos": 0,
@@ -187,10 +190,11 @@
         {
           "id": "item-venda-caixa-teste-filial-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-filial",
+          "produtoId": "brigadeiro",
           "quantidade": 4,
           "valorUnitarioCentavos": 250,
-          "observacao": "Venda de teste"
+          "observacao": "Venda de teste",
+          "unidadeVenda": "unidade"
         }
       ],
       "descontoCentavos": 0,
@@ -221,10 +225,11 @@
         {
           "id": "item-venda-caixa-teste-filial-2",
           "tipo": "produto",
-          "produtoId": "brigadeiro-filial",
+          "produtoId": "brigadeiro",
           "quantidade": 4,
           "valorUnitarioCentavos": 250,
-          "observacao": "Venda de teste"
+          "observacao": "Venda de teste",
+          "unidadeVenda": "unidade"
         }
       ],
       "descontoCentavos": 0,
@@ -255,10 +260,11 @@
         {
           "id": "item-venda-caixa-teste-filial-3",
           "tipo": "produto",
-          "produtoId": "brigadeiro-filial",
+          "produtoId": "brigadeiro",
           "quantidade": 4,
           "valorUnitarioCentavos": 250,
-          "observacao": "Venda de teste"
+          "observacao": "Venda de teste",
+          "unidadeVenda": "unidade"
         }
       ],
       "descontoCentavos": 0,

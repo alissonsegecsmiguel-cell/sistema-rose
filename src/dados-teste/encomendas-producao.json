@@ -32,10 +32,11 @@
         {
           "id": "item-producao-0-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 20,
           "observacao": "Forminhas rosas, ninho (teste)",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         },
         {
           "id": "item-producao-segundo-bolo",
@@ -102,10 +103,11 @@
         {
           "id": "item-producao-1-1",
           "tipo": "produto",
-          "produtoId": "brigadeiro-matriz",
+          "produtoId": "brigadeiro",
           "quantidade": 30,
           "observacao": "Forminhas douradas, chocolate (teste)",
-          "valorUnitarioCentavos": 250
+          "valorUnitarioCentavos": 250,
+          "unidadeVenda": "unidade"
         }
       ],
       "pagamentos": [],

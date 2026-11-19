@@ -6,63 +6,96 @@
     {
       "id": "formatos-1",
       "nome": "Redondo",
-      "valorCentavos": 0
+      "valorCentavos": 0,
+      "ativo": true,
+      "ordem": 1,
+      "aConfirmar": false
     },
     {
       "id": "formatos-2",
       "nome": "Quadrado",
-      "valorCentavos": 0
+      "valorCentavos": 0,
+      "ativo": true,
+      "ordem": 2,
+      "aConfirmar": false
     }
   ],
   "tamanhos": [
     {
       "id": "tamanhos-1",
       "nome": "Mini",
-      "valorCentavos": 4500
+      "valorCentavos": 4500,
+      "ativo": true,
+      "ordem": 1,
+      "aConfirmar": false
     },
     {
       "id": "tamanhos-2",
       "nome": "PP",
-      "valorCentavos": 6500
+      "valorCentavos": 6500,
+      "ativo": true,
+      "ordem": 2,
+      "aConfirmar": false
     },
     {
       "id": "tamanhos-3",
       "nome": "P",
-      "valorCentavos": 9000
+      "valorCentavos": 9000,
+      "ativo": true,
+      "ordem": 3,
+      "aConfirmar": false
     },
     {
       "id": "tamanhos-4",
       "nome": "M",
       "valorCentavos": 13000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 4,
+      "aConfirmar": true
     },
     {
       "id": "tamanhos-5",
       "nome": "G",
       "valorCentavos": 18000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 5,
+      "aConfirmar": true
     }
   ],
   "massas": [
     {
       "id": "massas-1",
       "nome": "Branca",
-      "valorCentavos": 0
+      "valorCentavos": 0,
+      "ativo": true,
+      "ordem": 1,
+      "aConfirmar": false
     },
     {
       "id": "massas-2",
       "nome": "Chocolate",
-      "valorCentavos": 0
+      "valorCentavos": 0,
+      "ativo": true,
+      "ordem": 2,
+      "aConfirmar": false
     },
     {
       "id": "massas-3",
       "nome": "Red velvet",
-      "valorCentavos": 0
+      "valorCentavos": 0,
+      "ativo": true,
+      "ordem": 3,
+      "aConfirmar": false
     },
     {
       "id": "massas-4",
       "nome": "Cenoura",
-      "valorCentavos": 0
+      "valorCentavos": 0,
+      "ativo": true,
+      "ordem": 4,
+      "aConfirmar": false
     }
   ],
   "recheios": [
@@ -70,13 +103,19 @@
       "id": "recheios-1",
       "nome": "Ninho",
       "valorCentavos": 0,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 1,
+      "aConfirmar": true
     },
     {
       "id": "recheios-2",
       "nome": "Chocolate",
       "valorCentavos": 0,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 2,
+      "aConfirmar": true
     }
   ],
   "adicionais": [
@@ -84,13 +123,19 @@
       "id": "adicionais-1",
       "nome": "Crocante de castanha",
       "valorCentavos": 1000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 1,
+      "aConfirmar": true
     },
     {
       "id": "adicionais-2",
       "nome": "Ovomaltine",
       "valorCentavos": 1000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 2,
+      "aConfirmar": true
     }
   ],
   "decoracoes": [
@@ -98,31 +143,46 @@
       "id": "decoracoes-1",
       "nome": "Placas",
       "valorCentavos": 1000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 1,
+      "aConfirmar": true
     },
     {
       "id": "decoracoes-2",
       "nome": "Personalização",
       "valorCentavos": 1000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 2,
+      "aConfirmar": true
     },
     {
       "id": "decoracoes-3",
       "nome": "Glitter",
       "valorCentavos": 1000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 3,
+      "aConfirmar": true
     },
     {
       "id": "decoracoes-4",
       "nome": "Fitas",
       "valorCentavos": 1000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 4,
+      "aConfirmar": true
     },
     {
       "id": "decoracoes-5",
       "nome": "Bento",
       "valorCentavos": 1000,
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "ativo": true,
+      "ordem": 5,
+      "aConfirmar": true
     }
   ]
 }

@@ -172,6 +172,7 @@
 .dialogo-grande { width: min(calc(100% - var(--espaco-6)), var(--largura-dialogo-grande)); max-width: var(--largura-dialogo-grande); }
 .formulario-com-resumo { display: grid; grid-template-columns: minmax(0, 1fr) var(--largura-resumo); gap: var(--espaco-5); align-items: start; }
 .resumo-desktop { position: sticky; top: var(--espaco-5); }
+.previa-bolo { border-color: var(--cor-primaria); }
 .resumo-valores { display: flex; flex-direction: column; gap: var(--espaco-2); margin: 0; }
 .resumo-valores > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--espaco-2); }
 .resumo-valores dd { margin: 0; font-weight: var(--peso-forte); }
