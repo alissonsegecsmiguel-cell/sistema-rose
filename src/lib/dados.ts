@@ -7,10 +7,11 @@ import produtos from '@/dados-teste/produtos.json';
 import categorias from '@/dados-teste/categorias-produto.json';
 import clientes from '@/dados-teste/clientes.json';
 import encomendas from '@/dados-teste/encomendas.json';
+import encomendasClientes from '@/dados-teste/encomendas-clientes.json';
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v3';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v4';
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
 
@@ -25,8 +26,8 @@ export function dataRelativa(dias: number, agora = new Date()) {
 export function carregarDadosDeTeste(): DadosPrototipo {
   return structuredClone({
     configuracao, lojas: lojas.itens, usuarios: usuarios.itens, formasPagamento: formas.itens, rascunhos: [],
-    opcoesBolo: opcoes, produtos: produtos.itens, categoriasProduto: categorias.itens, clientes: clientes.itens,
-    encomendas: encomendas.itens.map(e => ({ ...e,
+    opcoesBolo: opcoes, produtos: produtos.itens, categoriasProduto: categorias.itens, clientes: clientes.itens.map(c => ({ ...c, criadoEm: `${dataRelativa(-90)}T12:00:00-03:00`, aniversario: c.aniversarioMesAtual ? `2000-${dataRelativa(0).slice(5, 7)}-${c.aniversario!.slice(8)}` : c.aniversario })),
+    encomendas: [...encomendas.itens, ...encomendasClientes.itens].map(e => ({ ...e,
       dataEntrega: dataRelativa(e.diasAPartirDeHoje),
       criadoEm: `${dataRelativa(e.diasAPartirDeHoje - 7)}T12:00:00-03:00`,
       pagamentos: e.pagamentos.map(p => ({ ...p, data: `${dataRelativa(e.diasAPartirDeHoje - 3)}T10:00:00-03:00` })),
@@ -40,7 +41,7 @@ function daLoja<T extends { lojaId: string }>(registros: T[], lojaId: LojaSeleci
 }
 export function listarEncomendas(dados: DadosPrototipo, lojaId: LojaSelecionada) { return daLoja(dados.encomendas, lojaId); }
 export function obterEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string) { return listarEncomendas(dados, lojaId).find(e => e.id === id); }
-export function listarClientes(dados: DadosPrototipo, lojaId: LojaSelecionada) { return daLoja(dados.clientes, lojaId); }
+export function listarClientes(dados: DadosPrototipo, lojaId: LojaSelecionada) { void lojaId; return dados.clientes; }
 export function obterCliente(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string) { return listarClientes(dados, lojaId).find(c => c.id === id); }
 export function listarProdutos(dados: DadosPrototipo, lojaId: LojaSelecionada) { return daLoja(dados.produtos, lojaId); }
 export function listarLojas(dados: DadosPrototipo) { return dados.lojas; }
@@ -195,8 +196,20 @@ export function validarCliente(c: Cliente) { return { ...(!c.nome.trim() ? { nom
 export function salvarCliente(dados: DadosPrototipo, c: Cliente) {
   if (Object.keys(validarCliente(c)).length) throw new Error('Preencha nome e telefone corretamente.');
   if (localizarClientePorTelefone(dados, c.telefone, c.id)) throw new Error('Telefone já cadastrado. Use o cliente existente.');
-  return { ...dados, clientes: dados.clientes.some(x => x.id === c.id) ? dados.clientes.map(x => x.id === c.id ? structuredClone(c) : x) : [...dados.clientes, structuredClone(c)] };
+  const salvo = { ...c, criadoEm: c.criadoEm || new Date().toISOString() };
+  return { ...dados, clientes: dados.clientes.some(x => x.id === c.id) ? dados.clientes.map(x => x.id === c.id ? structuredClone(salvo) : x) : [...dados.clientes, structuredClone(salvo)] };
 }
+export function encomendasDoCliente(dados: DadosPrototipo, clienteId: string) { return filtrarEncomendas(dados, 'consolidado', {}).filter(e => e.clienteId === clienteId); }
+export function resumoCliente(dados: DadosPrototipo, clienteId: string) {
+  const lista = encomendasDoCliente(dados, clienteId), finalizadas = lista.filter(e => e.status === 'entregue'), limite = new Date(`${dataRelativa(0)}T12:00:00Z`); limite.setUTCMonth(limite.getUTCMonth() - 6);
+  const total = finalizadas.reduce((s, e) => s + totalEncomenda(e), 0), pendentes = lista.filter(e => !['orcamento', 'cancelado'].includes(e.status) && saldoEncomenda(e) > 0);
+  return { quantidade: lista.filter(e => !['orcamento', 'cancelado'].includes(e.status)).length, total, ticketMedio: finalizadas.length ? Math.round(total / finalizadas.length) : 0, ultima: [...lista].sort((a, b) => b.criadoEm.localeCompare(a.criadoEm))[0], saldo: pendentes.reduce((s, e) => s + saldoEncomenda(e), 0), pendentes, recorrente: finalizadas.filter(e => e.dataEntrega >= limite.toISOString().slice(0, 10) && e.dataEntrega <= dataRelativa(0)).length >= 2 };
+}
+export function filtrarClientes(dados: DadosPrototipo, busca = '', filtro = 'todos') {
+  const texto = busca.toLocaleLowerCase('pt-BR'), digitos = busca.replace(/\D/g, '');
+  return dados.clientes.filter(c => { const s = resumoCliente(dados, c.id); return (!texto || c.nome.toLocaleLowerCase('pt-BR').includes(texto) || (digitos.length >= 3 && c.telefone.replace(/\D/g, '').includes(digitos))) && (filtro === 'todos' || (filtro === 'recorrentes' && s.recorrente) || (filtro === 'pendencia' && s.saldo > 0) || (filtro === 'aniversario' && c.aniversario?.slice(5, 7) === dataRelativa(0).slice(5, 7))); });
+}
+export function enderecoWhatsapp(c: Cliente) { return `https://wa.me/55${c.telefone.replace(/\D/g, '')}`; }
 export function proximoNumeroEncomenda(dados: DadosPrototipo, lojaId: string) { return Math.max(0, ...listarEncomendas(dados, lojaId).map(e => e.numero)) + 1; }
 export function validarRascunho(dados: DadosPrototipo, r: Rascunho): Record<string, string> {
   const e = r.encomenda, t = calcularTotais(r), erros: Record<string, string> = {};

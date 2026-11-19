@@ -5,21 +5,28 @@
       "id": "cliente-teste-01",
       "lojaId": "matriz",
       "nome": "Cliente Teste 01",
-      "telefone": "(00) 90000-0001"
+      "telefone": "(00) 90000-0001",
+      "aniversarioMesAtual": true,
+      "aniversario": "2000-01-20",
+      "observacoes": "Teste: prefere retirar a tarde. Informacao ficticia."
     },
     {
       "id": "cliente-teste-02",
       "lojaId": "matriz",
       "nome": "Cliente Teste 02",
       "telefone": "(00) 90000-0002",
-      "aniversario": "2000-02-10",
-      "endereco": "[Endereço fictício do Cliente Teste 02]"
+      "aniversario": "2000-01-25",
+      "endereco": "[Endereço fictício do Cliente Teste 02]",
+      "aniversarioMesAtual": true,
+      "observacoes": "Teste: prefere retirar a tarde. Informacao ficticia."
     },
     {
       "id": "cliente-teste-03",
       "lojaId": "matriz",
       "nome": "Cliente Teste 03",
-      "telefone": "(00) 90000-0003"
+      "telefone": "(00) 90000-0003",
+      "aniversarioMesAtual": false,
+      "observacoes": "Teste: prefere retirar a tarde. Informacao ficticia."
     },
     {
       "id": "cliente-teste-04",
@@ -27,13 +34,15 @@
       "nome": "Cliente Teste 04",
       "telefone": "(00) 90000-0004",
       "aniversario": "2000-04-10",
-      "endereco": "[Endereço fictício do Cliente Teste 04]"
+      "endereco": "[Endereço fictício do Cliente Teste 04]",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-05",
       "lojaId": "matriz",
       "nome": "Cliente Teste 05",
-      "telefone": "(00) 90000-0005"
+      "telefone": "(00) 90000-0005",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-06",
@@ -41,13 +50,15 @@
       "nome": "Cliente Teste 06",
       "telefone": "(00) 90000-0006",
       "aniversario": "2000-06-10",
-      "endereco": "[Endereço fictício do Cliente Teste 06]"
+      "endereco": "[Endereço fictício do Cliente Teste 06]",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-07",
       "lojaId": "filial",
       "nome": "Cliente Teste 07",
-      "telefone": "(00) 90000-0007"
+      "telefone": "(00) 90000-0007",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-08",
@@ -55,13 +66,15 @@
       "nome": "Cliente Teste 08",
       "telefone": "(00) 90000-0008",
       "aniversario": "2000-08-10",
-      "endereco": "[Endereço fictício do Cliente Teste 08]"
+      "endereco": "[Endereço fictício do Cliente Teste 08]",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-09",
       "lojaId": "filial",
       "nome": "Cliente Teste 09",
-      "telefone": "(00) 90000-0009"
+      "telefone": "(00) 90000-0009",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-10",
@@ -69,13 +82,15 @@
       "nome": "Cliente Teste 10",
       "telefone": "(00) 90000-0010",
       "aniversario": "2000-10-10",
-      "endereco": "[Endereço fictício do Cliente Teste 10]"
+      "endereco": "[Endereço fictício do Cliente Teste 10]",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-11",
       "lojaId": "filial",
       "nome": "Cliente Teste 11",
-      "telefone": "(00) 90000-0011"
+      "telefone": "(00) 90000-0011",
+      "aniversarioMesAtual": false
     },
     {
       "id": "cliente-teste-12",
@@ -83,7 +98,8 @@
       "nome": "Cliente Teste 12",
       "telefone": "(00) 90000-0012",
       "aniversario": "2000-12-10",
-      "endereco": "[Endereço fictício do Cliente Teste 12]"
+      "endereco": "[Endereço fictício do Cliente Teste 12]",
+      "aniversarioMesAtual": false
     }
   ]
 }

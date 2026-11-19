@@ -2,18 +2,18 @@ import { test, expect } from '@playwright/test';
 import { carregarDadosDeTeste, dataRelativa, listarClientes, listarEncomendas, listarProdutos, salvarEncomenda, situacaoPagamento } from '../src/lib/dados';
 import { formatarData, formatarHora, formatarMoeda, formatarTelefone } from '../src/lib/formatar';
 test('massa de dados cobre cenários, loja e valores inteiros', () => {
-  const dados = carregarDadosDeTeste(); expect(dados.clientes).toHaveLength(12); expect(dados.encomendas).toHaveLength(20);
+  const dados = carregarDadosDeTeste(); expect(dados.clientes).toHaveLength(12); expect(dados.encomendas.length).toBeGreaterThanOrEqual(20);
   expect(new Set(dados.encomendas.map(e => e.status)).size).toBe(6); expect(new Set(dados.encomendas.map(situacaoPagamento)).size).toBe(3);
   expect(new Set(dados.encomendas.map(e => e.modalidade)).size).toBe(2); expect(dados.encomendas.filter(e => e.itens.some(i => i.tipo === 'bolo') && e.itens.some(i => i.tipo === 'produto')).length).toBeGreaterThanOrEqual(3);
   for (const loja of dados.lojas) {
     expect(listarEncomendas(dados,loja.id).every(e=>e.lojaId===loja.id)).toBe(true);
-    expect(listarClientes(dados,loja.id).every(e=>e.lojaId===loja.id)).toBe(true);
+    expect(listarClientes(dados,loja.id)).toHaveLength(12);
     expect(listarProdutos(dados,loja.id).every(e=>e.lojaId===loja.id)).toBe(true);
   }
-  expect(listarEncomendas(dados,'consolidado')).toHaveLength(20);
+  expect(listarEncomendas(dados,'consolidado')).toHaveLength(dados.encomendas.length);
   function verificar(v: unknown, chave = '') { if (chave.endsWith('Centavos')) expect(Number.isSafeInteger(v)).toBe(true); if (v && typeof v === 'object') for (const [k,valor] of Object.entries(v)) verificar(valor,k); }
   verificar(dados);
-  for (const e of dados.encomendas) expect(dados.clientes.find(c=>c.id===e.clienteId)?.lojaId).toBe(e.lojaId);
+  for (const e of dados.encomendas) expect(dados.clientes.some(c=>c.id===e.clienteId)).toBe(true);
 });
 test('datas usam dia civil de São Paulo inclusive na virada do ano', () => {
   const instante = new Date('2027-01-01T01:30:00Z');

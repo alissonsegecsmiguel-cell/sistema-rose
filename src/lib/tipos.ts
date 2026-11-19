@@ -3,7 +3,7 @@ export type LojaSelecionada = string | 'consolidado';
 export interface Loja { id: string; nome: string; endereco: string }
 export interface Usuario { id: string; nome: string; perfil: Perfil; lojaId: string; descricaoAcesso: string; tituloAcesso: string }
 export interface FormaPagamento { id: string; nome: string; observacao?: string }
-export interface Cliente { id: string; lojaId: string; nome: string; telefone: string; aniversario?: string; endereco?: string; creditoCentavos?: number }
+export interface Cliente { id: string; lojaId: string; nome: string; telefone: string; aniversario?: string; endereco?: string; creditoCentavos?: number; observacoes?: string; criadoEm?: string }
 export interface CategoriaProduto { id: string; nome: string; ajuda?: string }
 export interface Produto { id: string; lojaId: string; nome: string; categoriaId: string; valorCentavos: number; precoDeTeste: boolean }
 export interface OpcaoBolo { id: string; nome: string; valorCentavos: number; observacao?: string }

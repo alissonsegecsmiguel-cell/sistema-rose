@@ -7,7 +7,7 @@ test('permissões por segmento, filtros combinados e totais', () => {
   expect(podeAcessar('atendimento', '/encomendas-falso')).toBe(false);
   const d = carregarDadosDeTeste(), lista = filtrarEncomendas(d, 'matriz', { inicio: dataRelativa(0), fim: dataRelativa(0), status: ['em_producao'], pagamento: 'em_aberto', modalidade: 'retirada', busca: 'Cliente Teste 03' });
   expect(totaisEncomendas(lista)).toEqual({ quantidade: 1, total: 5000, saldo: 5000 });
-  expect(filtrarEncomendas(d, 'filial', { busca: '900000003' })).toHaveLength(0);
+  expect(filtrarEncomendas(d, 'filial', { busca: '900000003', inicio: dataRelativa(0) })).toHaveLength(0);
   expect(diasDoMes(d, 'consolidado', '2028-02')).toHaveLength(29);
 });
 for (const largura of [1440, 1024, 760, 390]) for (const perfil of ['Administrativo', 'Atendimento Matriz', 'Atendimento Filial']) {
