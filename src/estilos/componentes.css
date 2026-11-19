@@ -167,3 +167,13 @@
 .calendario .selo { white-space: normal; }
 .linha-tempo { list-style: none; padding: 0 0 0 var(--espaco-4); margin: 0; border-left: 2px solid var(--cor-borda-forte); display: flex; flex-direction: column; gap: var(--espaco-5); }
 @media (max-width: 390px) { .calendario { grid-template-columns: 1fr; } .calendario-cabecalho, .calendario-espaco, .calendario-vazio { display: none; } .calendario-semana { display: block; } }
+.campo textarea { width: 100%; min-height: var(--altura-grande); border: 1px solid var(--cor-borda-forte); border-radius: var(--raio-1); padding: var(--espaco-2) var(--espaco-3); background: var(--cor-superficie); color: var(--cor-texto); resize: vertical; }
+.campo textarea[aria-invalid="true"] { border-color: var(--cor-erro); }
+.dialogo-grande { width: min(calc(100% - var(--espaco-6)), var(--largura-dialogo-grande)); max-width: var(--largura-dialogo-grande); }
+.formulario-com-resumo { display: grid; grid-template-columns: minmax(0, 1fr) var(--largura-resumo); gap: var(--espaco-5); align-items: start; }
+.resumo-desktop { position: sticky; top: var(--espaco-5); }
+.resumo-valores { display: flex; flex-direction: column; gap: var(--espaco-2); margin: 0; }
+.resumo-valores > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--espaco-2); }
+.resumo-valores dd { margin: 0; font-weight: var(--peso-forte); }
+.barra-resumo-movel { display: none; }
+@media (max-width: 760px) { .formulario-com-resumo { grid-template-columns: 1fr; } .resumo-desktop { display: none; } .editor-encomenda { padding-bottom: calc(var(--alvo-toque) + var(--espaco-7) + env(safe-area-inset-bottom)); } .barra-resumo-movel { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--espaco-2); position: fixed; bottom: 0; left: 0; right: 0; padding: var(--espaco-3) var(--espaco-4) calc(var(--espaco-3) + env(safe-area-inset-bottom)); background: var(--cor-superficie); border-top: 1px solid var(--cor-borda); z-index: 3; } .dialogo-grande { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; border-radius: 0; } }

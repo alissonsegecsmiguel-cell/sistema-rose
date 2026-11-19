@@ -9,5 +9,6 @@
   "observacaoFuso": "a confirmar com o cliente",
   "observacaoMarca": "Grafia com acento a confirmar com o cliente; o logo escreve delicias.",
   "prototipo": true,
-  "noindex": true
+  "noindex": true,
+  "limiteRecheios": 2
 }

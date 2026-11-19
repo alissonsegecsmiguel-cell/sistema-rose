@@ -1,2 +1,3 @@
-import { PaginaModulo } from '@/componentes/pagina-modulo';
-export default function Pagina() { return <PaginaModulo rota="/encomendas/nova" />; }
+import { Suspense } from 'react';
+import { TelaNovaEncomenda } from '@/componentes/formulario-encomenda';
+export default function Pagina() { return <Suspense><TelaNovaEncomenda /></Suspense>; }

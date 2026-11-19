@@ -7,9 +7,9 @@ import produtos from '@/dados-teste/produtos.json';
 import categorias from '@/dados-teste/categorias-produto.json';
 import clientes from '@/dados-teste/clientes.json';
 import encomendas from '@/dados-teste/encomendas.json';
-import type { DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, SessaoPrototipo, SituacaoPagamento } from './tipos';
+import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Rascunho, SessaoPrototipo, SituacaoPagamento } from './tipos';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v1';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v2';
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
 
@@ -23,7 +23,7 @@ export function dataRelativa(dias: number, agora = new Date()) {
 
 export function carregarDadosDeTeste(): DadosPrototipo {
   return structuredClone({
-    configuracao, lojas: lojas.itens, usuarios: usuarios.itens, formasPagamento: formas.itens,
+    configuracao, lojas: lojas.itens, usuarios: usuarios.itens, formasPagamento: formas.itens, rascunhos: [],
     opcoesBolo: opcoes, produtos: produtos.itens, categoriasProduto: categorias.itens, clientes: clientes.itens,
     encomendas: encomendas.itens.map(e => ({ ...e,
       dataEntrega: dataRelativa(e.diasAPartirDeHoje),
@@ -117,6 +117,54 @@ export function salvarEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, 
   return { ...dados, encomendas: anterior ? dados.encomendas.map(e => e.id === salva.id ? salva : e) : [...dados.encomendas, salva] };
 }
 
+export function novoId() { return crypto.randomUUID(); }
+export function criarRascunho(lojaId: string, usuarioId: string): Rascunho {
+  return { id: novoId(), usuarioId, desconto: { tipo: 'valor', valor: 0 }, taxa: { tipo: 'valor', valor: 0 }, encomenda: { id: novoId(), numero: 0, lojaId: lojaId === 'consolidado' ? '' : lojaId, clienteId: '', status: 'confirmado', dataEntrega: dataRelativa(0), horaEntrega: '', modalidade: 'retirada', itens: [], pagamentos: [], descontoCentavos: 0, taxaCartaoCentavos: 0, observacoes: '', historico: [], criadoEm: new Date().toISOString(), criadoPor: usuarioId } };
+}
+export function calcularValorBolo(dados: DadosPrototipo, i: Extract<ItemEncomenda, { tipo: 'bolo' }>) {
+  return (dados.opcoesBolo.tamanhos.find(t => t.id === i.tamanho)?.valorCentavos ?? 0) + i.adicionais.reduce((s, id) => s + (dados.opcoesBolo.adicionais.find(o => o.id === id)?.valorCentavos ?? 0), 0) + i.decoracoes.reduce((s, id) => s + (dados.opcoesBolo.decoracoes.find(o => o.id === id)?.valorCentavos ?? 0), 0);
+}
+export function novoItemBolo(): Extract<ItemEncomenda, { tipo: 'bolo' }> { return { id: novoId(), tipo: 'bolo', formato: '', tamanho: '', massa: '', recheios: [], adicionais: [], decoracoes: [], detalhes: '', valorCentavos: 0 }; }
+export function calcularTotais(r: Rascunho) {
+  const subtotal = r.encomenda.itens.reduce((s, i) => s + (i.tipo === 'bolo' ? i.valorCentavos : i.quantidade * i.valorUnitarioCentavos), 0);
+  const descontoCentavos = r.desconto.tipo === 'valor' ? r.desconto.valor : Math.round(subtotal * r.desconto.valor / 10000);
+  const taxaCartaoCentavos = r.taxa.tipo === 'valor' ? r.taxa.valor : Math.round((subtotal - descontoCentavos) * r.taxa.valor / 10000);
+  const total = subtotal - descontoCentavos + taxaCartaoCentavos, pago = r.encomenda.pagamentos.reduce((s, p) => s + p.valorCentavos, 0);
+  return { subtotal, descontoCentavos, taxaCartaoCentavos, total, pago, saldo: total - pago };
+}
+export function salvarRascunho(dados: DadosPrototipo, r: Rascunho) {
+  const t = calcularTotais(r), atualizado = { ...r, encomenda: { ...r.encomenda, descontoCentavos: t.descontoCentavos, taxaCartaoCentavos: t.taxaCartaoCentavos } };
+  return { ...dados, rascunhos: dados.rascunhos.some(x => x.id === r.id) ? dados.rascunhos.map(x => x.id === r.id ? atualizado : x) : [...dados.rascunhos, atualizado] };
+}
+export function descartarRascunho(dados: DadosPrototipo, id: string) { return { ...dados, rascunhos: dados.rascunhos.filter(r => r.id !== id) }; }
+export function localizarClientePorTelefone(dados: DadosPrototipo, telefone: string, exceto?: string) { const digitos = telefone.replace(/\D/g, ''); return dados.clientes.find(c => c.id !== exceto && c.telefone.replace(/\D/g, '') === digitos); }
+export function validarCliente(c: Cliente) { return { ...(!c.nome.trim() ? { nome: 'Informe o nome.' } : {}), ...(!/^\d{10,11}$/.test(c.telefone.replace(/\D/g, '')) ? { telefone: 'Informe o telefone com DDD, com 10 ou 11 dígitos.' } : {}) }; }
+export function salvarCliente(dados: DadosPrototipo, c: Cliente) {
+  if (Object.keys(validarCliente(c)).length) throw new Error('Preencha nome e telefone corretamente.');
+  if (localizarClientePorTelefone(dados, c.telefone, c.id)) throw new Error('Telefone já cadastrado. Use o cliente existente.');
+  return { ...dados, clientes: dados.clientes.some(x => x.id === c.id) ? dados.clientes.map(x => x.id === c.id ? structuredClone(c) : x) : [...dados.clientes, structuredClone(c)] };
+}
+export function proximoNumeroEncomenda(dados: DadosPrototipo, lojaId: string) { return Math.max(0, ...listarEncomendas(dados, lojaId).map(e => e.numero)) + 1; }
+export function validarRascunho(dados: DadosPrototipo, r: Rascunho): Record<string, string> {
+  const e = r.encomenda, t = calcularTotais(r), erros: Record<string, string> = {};
+  if (!dados.lojas.some(l => l.id === e.lojaId)) erros.loja = 'Escolha a loja.';
+  if (!obterCliente(dados, e.lojaId, e.clienteId)) erros.cliente = 'Escolha um cliente.';
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(e.dataEntrega)) erros.data = 'Informe a data.';
+  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(e.horaEntrega)) erros.hora = 'Informe a hora.';
+  if (e.modalidade === 'entrega' && !e.enderecoEntrega?.trim()) erros.endereco = 'Informe o endereço de entrega.';
+  if (!e.itens.length) erros.itens = 'Adicione pelo menos um item.';
+  if (t.total < 0 || t.descontoCentavos > t.subtotal) erros.desconto = 'O desconto não pode superar o subtotal.';
+  if (![r.desconto.valor, r.taxa.valor, t.total].every(v => Number.isSafeInteger(v) && v >= 0)) erros.valores = 'Desconto, taxa e total devem ser valores positivos em centavos.';
+  if (t.saldo < 0) erros.pagamento = 'O valor pago não pode superar o total.';
+  return erros;
+}
+export function confirmarRascunho(dados: DadosPrototipo, lojaId: string, r: Rascunho, status: 'orcamento' | 'confirmado') {
+  const erros = validarRascunho(dados, r); if (Object.keys(erros).length) throw new Error(Object.values(erros).join(' '));
+  const t = calcularTotais(r), e = { ...r.encomenda, numero: proximoNumeroEncomenda(dados, r.encomenda.lojaId), status, descontoCentavos: t.descontoCentavos, taxaCartaoCentavos: t.taxaCartaoCentavos };
+  const detalhes = e.itens.flatMap(i => i.tipo === 'bolo' && i.ajuste ? [`Ajuste do bolo de ${i.ajuste.valorOriginalCentavos} para ${i.valorCentavos} centavos: ${i.ajuste.motivo}`] : []);
+  const evento = { id: novoId(), data: new Date().toISOString(), usuarioId: r.usuarioId, acao: status === 'orcamento' ? 'Orçamento criado' : 'Encomenda criada', detalhe: ['Registro no protótipo com valores de teste.', ...detalhes, r.desconto.motivo ? `Motivo do desconto: ${r.desconto.motivo}` : ''].filter(Boolean).join(' ') };
+  return { dados: descartarRascunho(salvarEncomenda(dados, lojaId, e, evento), r.id), encomenda: e };
+}
 export function lerSessaoLocal(): SessaoPrototipo {
   const inicial: SessaoPrototipo = { dados: carregarDadosDeTeste(), usuarioId: null, lojaId: 'matriz' };
   try {
@@ -128,7 +176,7 @@ export function lerSessaoLocal(): SessaoPrototipo {
     const usuario = obterUsuario(inicial.dados, salva.usuarioId);
     if (!usuario) return inicial;
     const lojaId = usuario.perfil === 'atendimento' ? usuario.lojaId : (salva.lojaId === 'consolidado' || inicial.dados.lojas.some(l => l.id === salva.lojaId) ? salva.lojaId : usuario.lojaId);
-    return { ...salva, usuarioId: usuario.id, lojaId, dados: { ...inicial.dados, encomendas: salva.dados.encomendas, clientes: salva.dados.clientes, produtos: salva.dados.produtos } };
+    return { ...salva, usuarioId: usuario.id, lojaId, dados: { ...inicial.dados, ...salva.dados, rascunhos: Array.isArray(salva.dados.rascunhos) ? salva.dados.rascunhos : [] } };
   } catch { return inicial; }
 }
 export function gravarSessaoLocal(sessao: SessaoPrototipo) {

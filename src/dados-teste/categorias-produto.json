@@ -7,11 +7,13 @@
     },
     {
       "id": "docinhos",
-      "nome": "Docinhos"
+      "nome": "Docinhos",
+      "ajuda": "Sabores e cor das forminhas"
     },
     {
       "id": "cupcakes",
-      "nome": "Cupcakes"
+      "nome": "Cupcakes",
+      "ajuda": "Massa, recheio e personalização"
     },
     {
       "id": "bebidas",

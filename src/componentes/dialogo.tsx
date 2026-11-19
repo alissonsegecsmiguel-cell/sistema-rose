@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { Botao } from './botao';
-export function Dialogo({ aberto, aoFechar, titulo, children, gaveta = false }: { aberto: boolean; aoFechar: () => void; titulo: string; children: ReactNode; gaveta?: boolean }) {
+export function Dialogo({ aberto, aoFechar, titulo, children, gaveta = false, grande = false }: { aberto: boolean; aoFechar: () => void; titulo: string; children: ReactNode; gaveta?: boolean; grande?: boolean }) {
   const ref = useRef<HTMLDialogElement>(null); const id = useId();
   useEffect(() => {
     const dialogo = ref.current; if (!dialogo || !aberto) return;
@@ -10,7 +10,7 @@ export function Dialogo({ aberto, aoFechar, titulo, children, gaveta = false }: 
     const overflowAnterior = document.body.style.overflow; document.body.style.overflow = 'hidden';
     return () => { dialogo.close(); document.body.style.overflow = overflowAnterior; anterior?.focus(); };
   }, [aberto]);
-  return <dialog ref={ref} className={`dialogo ${gaveta ? 'dialogo-gaveta' : ''}`} aria-labelledby={id} onCancel={e => { e.preventDefault(); aoFechar(); }} onKeyDown={e => {
+  return <dialog ref={ref} className={`dialogo ${gaveta ? 'dialogo-gaveta' : ''} ${grande ? 'dialogo-grande' : ''}`} aria-labelledby={id} onCancel={e => { e.preventDefault(); aoFechar(); }} onKeyDown={e => {
     if (e.key !== 'Tab') return;
     const focaveis = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]')).filter(el => el.getClientRects().length > 0);
     const primeiro = focaveis[0]; const ultimo = focaveis.at(-1);
