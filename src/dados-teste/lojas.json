@@ -4,12 +4,16 @@
     {
       "id": "matriz",
       "nome": "Matriz",
-      "endereco": "[a confirmar com o cliente]"
+      "endereco": "[a confirmar com o cliente]",
+      "telefone": "[a confirmar com o cliente]",
+      "cnpj": ""
     },
     {
       "id": "filial",
       "nome": "Filial",
-      "endereco": "[a confirmar com o cliente]"
+      "endereco": "[a confirmar com o cliente]",
+      "telefone": "[a confirmar com o cliente]",
+      "cnpj": ""
     }
   ]
 }

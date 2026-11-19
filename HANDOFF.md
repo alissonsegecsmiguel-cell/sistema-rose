@@ -64,6 +64,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: relatórios usam a regra do DRE para faturamento (vendas de balcão pela data e encomendas entregues pela entrega, valor dos itens antes do desconto); a conferência com os caixas fechados mostra a diferença explicada (adiantamentos, saldos, descontos), que fica zerada. Posição de estoque e margem por produto são sempre atuais; custo dos produtos compara os preços dos insumos do início do período com os de hoje. Vendas por cliente consideram só encomendas, pois o balcão não identifica cliente. Encomendas contam para quem as criou. CSV com BOM UTF-8, separador ponto e vírgula e vírgula decimal. O histórico de teste passou a ter descontos ocasionais com motivo, para o relatório de descontos. **(decidido sem o Alisson, revisar)**
 
+- 19/11/2026: configurações gravadas no navegador como o resto do protótipo. Usuários criados aparecem em /entrar como perfis de teste; inativos somem de /entrar e continuam no histórico; não é possível inativar o próprio usuário nem o último Administrativo. Dinheiro é sempre ativo e o único que entra na gaveta. Formas inativas somem das escolhas de pagamento. Taxa padrão é só sugestão (texto de ajuda) na taxa avulsa da encomenda e do PDV. Antecedência mínima (2 dias) e horário de funcionamento (8h às 18h) geram avisos, nunca bloqueio. O limite de margem baixa fica num único lugar (montagem do bolo) e é editável em Configurações e na Ficha técnica. Troco padrão por loja. Chave local v11. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -126,6 +128,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: tarefa 14 concluída. Tela /relatorios com 15 relatórios em quatro grupos (Vendas, Resultado, Estoque e compras, Produção) e página /relatorios/[slug] com filtro de período e loja, indicadores, barras SVG, tabelas ordenáveis, CSV para Excel em português e impressão A4. Funções em src/lib/relatorios.ts com testes de mais vendidos, faturamento por loja, margem por produto e conferência de faturamento com DRE e caixas fechados. FiltroPeriodo, ExportarCsv, TabelaOrdenavel e PaginaRelatorio no manual. Histórico de teste com descontos ocasionais. Validação: lint, dois builds sem alterações inesperadas e 159 testes aprovados. Commit identificado pela mensagem “Tarefa 14: Relatórios”; hash literal no relatório local 14-relatorio.md.
 
+- 19/11/2026: tarefa 15 concluída. Tela /configuracoes com abas Lojas, Usuários, Formas de pagamento, Caixa, Encomendas, Marca e Dados de teste. Usuários novos entram por /entrar e inativos saem; formas com taxa padrão, prazo e situação, usadas pela conciliação e sugeridas na taxa avulsa da encomenda e do PDV; troco padrão por loja na abertura do caixa; observação obrigatória na diferença configurável; antecedência mínima e horário de funcionamento como avisos na nova encomenda; limite de margem baixa; marca em leitura e restauração dos dados. Chave v11. Validação: lint, dois builds sem alterações inesperadas e 166 testes aprovados. Commit identificado pela mensagem “Tarefa 15: Configurações”; hash literal no relatório local 15-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -149,6 +153,7 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Quais são as taxas e prazos reais da maquininha (débito, crédito, parcelado) e do Pix?
 - Quais despesas fixas mensais existem (aluguel, folha, pró-labore) e em que dia vencem?
 - Quais relatórios o dono olha toda semana e qual deve abrir primeiro?
+- Qual o horário de funcionamento de cada loja e a antecedência mínima desejada para encomendas?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
@@ -158,7 +163,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v10`, protegida por try/catch; a versão 10 traz categorias financeiras, contas a receber, conciliações e o histórico de 90 dias.
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v11`, protegida por try/catch; a versão 11 traz as configurações (lojas, usuários, formas de pagamento, caixa e encomendas).
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 

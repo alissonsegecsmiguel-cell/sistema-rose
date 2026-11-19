@@ -7,7 +7,9 @@
       "perfil": "administrativo",
       "lojaId": "matriz",
       "tituloAcesso": "Administrativo",
-      "descricaoAcesso": "Acesso a todos os módulos, nas duas lojas."
+      "descricaoAcesso": "Acesso a todos os módulos, nas duas lojas.",
+      "ativo": true,
+      "email": ""
     },
     {
       "id": "atendente-teste-01",
@@ -15,7 +17,9 @@
       "perfil": "atendimento",
       "lojaId": "matriz",
       "tituloAcesso": "Atendimento Matriz",
-      "descricaoAcesso": "Encomendas, produção, caixa e clientes da Matriz."
+      "descricaoAcesso": "Encomendas, produção, caixa e clientes da Matriz.",
+      "ativo": true,
+      "email": ""
     },
     {
       "id": "atendente-teste-02",
@@ -23,7 +27,9 @@
       "perfil": "atendimento",
       "lojaId": "filial",
       "tituloAcesso": "Atendimento Filial",
-      "descricaoAcesso": "Encomendas, produção, caixa e clientes da Filial."
+      "descricaoAcesso": "Encomendas, produção, caixa e clientes da Filial.",
+      "ativo": true,
+      "email": ""
     }
   ]
 }

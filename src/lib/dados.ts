@@ -17,7 +17,7 @@ import estoquesTeste from '@/dados-teste/estoques.json';
 import comprasTeste from '@/dados-teste/compras.json';
 import financeiroTeste from '@/dados-teste/categorias-financeiras.json';
 import { gerarHistorico } from './historico-teste';
-import type { CategoriaFinanceira, Conciliacao, ContaReceber } from './tipos';
+import type { CategoriaFinanceira, Conciliacao, ContaReceber, FormaPagamento, Loja, Usuario } from './tipos';
 import type { Compra, ContaPagar } from './tipos';
 import { baixarEncomenda, baixarVenda, estornar } from './estoque';
 import type { Caixa, ConferenciaCaixa, MovimentoCaixa, PagamentoVenda, Venda } from './tipos';
@@ -26,7 +26,7 @@ import type { FichaTecnica, Insumo, MontagemTamanho, UnidadeCompra, UnidadeUso }
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v10';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v11';
 const formatadorDia = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' });
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
@@ -300,8 +300,8 @@ export function lerSessaoLocal(): SessaoPrototipo {
     const salva = JSON.parse(texto) as SessaoPrototipo;
     // Dados de navegador são descartáveis. Incompatibilidade/corrupção restaura a base segura.
     if (!salva.dados || !Array.isArray(salva.dados.encomendas) || !Array.isArray(salva.dados.clientes) || !Array.isArray(salva.dados.produtos) || !Array.isArray(salva.dados.lojas) || !Array.isArray(salva.dados.usuarios)) return inicial;
-    const usuario = obterUsuario(inicial.dados, salva.usuarioId);
-    if (!usuario) return inicial;
+    const usuarios = Array.isArray(salva.dados.usuarios) ? salva.dados.usuarios : inicial.dados.usuarios, usuario = usuarios.find(u => u.id === salva.usuarioId && u.ativo !== false);
+    if (!usuario) return { ...inicial, dados: { ...inicial.dados, ...salva.dados, rascunhos: Array.isArray(salva.dados.rascunhos) ? salva.dados.rascunhos : [] } };
     const lojaId = usuario.perfil === 'atendimento' ? usuario.lojaId : (salva.lojaId === 'consolidado' || inicial.dados.lojas.some(l => l.id === salva.lojaId) ? salva.lojaId : usuario.lojaId);
     return { ...salva, usuarioId: usuario.id, lojaId, dados: { ...inicial.dados, ...salva.dados, rascunhos: Array.isArray(salva.dados.rascunhos) ? salva.dados.rascunhos : [] } };
   } catch { return inicial; }
@@ -381,6 +381,35 @@ export function salvarContaReceber(dados: DadosPrototipo, c: ContaReceber) { if 
 export function receberConta(dados: DadosPrototipo, id: string, data: string, formaPagamentoId: string, usuarioId: string) { void usuarioId; const c = dados.contasReceber.find(x => x.id === id); if (!c || c.status !== 'aberta') throw new Error('Conta indisponível.'); return { ...dados, contasReceber: dados.contasReceber.map(x => x.id === id ? { ...x, status: 'recebida' as const, recebimento: { data: `${data}T12:00:00-03:00`, formaPagamentoId } } : x) }; }
 export function conferirConciliacao(dados: DadosPrototipo, c: Omit<Conciliacao, 'id' | 'conferidoEm' | 'usuarioId'>, usuarioId: string) { if (!Number.isSafeInteger(c.recebidoCentavos) || c.recebidoCentavos < 0) throw new Error('Valor inválido.'); const resto = dados.conciliacoes.filter(x => !(x.lojaId === c.lojaId && x.data === c.data && x.formaPagamentoId === c.formaPagamentoId)); return { ...dados, conciliacoes: [...resto, { ...c, id: novoId(), conferidoEm: new Date().toISOString(), usuarioId }] }; }
 export function salvarCategoriaFinanceira(dados: DadosPrototipo, c: CategoriaFinanceira) { if (!c.nome.trim()) throw new Error('Informe o nome da categoria.'); if (dados.categoriasFinanceiras.some(x => x.id !== c.id && x.nome.trim().toLocaleLowerCase('pt-BR') === c.nome.trim().toLocaleLowerCase('pt-BR'))) throw new Error('Já existe uma categoria com este nome.'); const salva = { ...c, nome: c.nome.trim() }; return { ...dados, categoriasFinanceiras: dados.categoriasFinanceiras.some(x => x.id === c.id) ? dados.categoriasFinanceiras.map(x => x.id === c.id ? salva : x) : [...dados.categoriasFinanceiras, salva] }; }
+// Configurações
+export function trocoPadrao(dados: DadosPrototipo, lojaId: string) { return dados.configuracao.trocoPadraoPorLoja?.[lojaId] ?? dados.configuracao.trocoPadraoCentavos; }
+export function formasAtivas(dados: DadosPrototipo) { return dados.formasPagamento.filter(f => f.ativa !== false); }
+/** Sugestão de taxa pelas formas de cartão, com o valor sobre a base informada. */
+export function sugestaoTaxas(dados: DadosPrototipo, baseCentavos: number) { return formasAtivas(dados).filter(f => (f.taxaPercentual ?? 0) > 0).map(f => `${f.nome} ${new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(f.taxaPercentual!)}% (${formatarMoeda(Math.round(baseCentavos * f.taxaPercentual! / 100))})`).join(' • '); }
+export function novoUsuario(): Usuario { return { id: novoId(), nome: '', perfil: 'atendimento', lojaId: 'matriz', tituloAcesso: '', descricaoAcesso: '', email: '', ativo: true }; }
+export function salvarUsuario(dados: DadosPrototipo, u: Usuario, usuarioAtualId?: string) {
+  if (!u.nome.trim() || !dados.lojas.some(l => l.id === u.lojaId)) throw new Error('Informe nome e loja do usuário.');
+  if (u.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(u.email)) throw new Error('Confira o e-mail.');
+  if (u.id === usuarioAtualId && u.ativo === false) throw new Error('Você não pode inativar o próprio usuário.');
+  if (u.ativo === false && u.perfil === 'administrativo' && !dados.usuarios.some(x => x.id !== u.id && x.perfil === 'administrativo' && x.ativo !== false)) throw new Error('Mantenha ao menos um Administrativo ativo.');
+  const loja = dados.lojas.find(l => l.id === u.lojaId)!.nome, salvo: Usuario = { ...u, nome: u.nome.trim(), tituloAcesso: u.perfil === 'administrativo' ? 'Administrativo' : `Atendimento ${loja}`, descricaoAcesso: u.perfil === 'administrativo' ? 'Acesso a todos os módulos, nas duas lojas.' : `Encomendas, produção, caixa e clientes da ${loja}.` };
+  return { ...dados, usuarios: dados.usuarios.some(x => x.id === u.id) ? dados.usuarios.map(x => x.id === u.id ? salvo : x) : [...dados.usuarios, salvo] };
+}
+export function salvarLoja(dados: DadosPrototipo, l: Loja) { if (!l.nome.trim()) throw new Error('Informe o nome da loja.'); return { ...dados, lojas: dados.lojas.map(x => x.id === l.id ? { ...l, nome: l.nome.trim() } : x) }; }
+export function salvarFormaPagamento(dados: DadosPrototipo, f: FormaPagamento) { if (!f.nome.trim() || !Number.isFinite(f.taxaPercentual) || (f.taxaPercentual ?? 0) < 0 || (f.taxaPercentual ?? 0) > 100 || !Number.isSafeInteger(f.prazoRecebimentoDias ?? 0) || (f.prazoRecebimentoDias ?? 0) < 0) throw new Error('Informe nome, taxa entre 0 e 100% e prazo em dias.'); return { ...dados, formasPagamento: dados.formasPagamento.map(x => x.id === f.id ? { ...f, nome: f.nome.trim(), ativa: f.id === 'dinheiro' ? true : f.ativa } : x) }; }
+export function salvarConfiguracaoCaixa(dados: DadosPrototipo, trocos: Record<string, number>, exigirObservacaoDiferenca: boolean) { if (Object.values(trocos).some(v => !Number.isSafeInteger(v) || v < 0)) throw new Error('Troco inválido.'); return { ...dados, configuracao: { ...dados.configuracao, trocoPadraoPorLoja: trocos, exigirObservacaoDiferenca } }; }
+export function salvarConfiguracaoEncomendas(dados: DadosPrototipo, c: { antecedenciaMinimaDias: number; horarioAbertura: string; horarioFechamento: string; limiteMargemPercentual: number }) {
+  if (!Number.isSafeInteger(c.antecedenciaMinimaDias) || c.antecedenciaMinimaDias < 0) throw new Error('Antecedência deve ser um número inteiro de dias.');
+  if (!/^\d{2}:\d{2}$/.test(c.horarioAbertura) || !/^\d{2}:\d{2}$/.test(c.horarioFechamento) || c.horarioAbertura >= c.horarioFechamento) throw new Error('O horário de abertura deve ser antes do fechamento.');
+  return { ...salvarLimiteMargem(dados, c.limiteMargemPercentual), configuracao: { ...dados.configuracao, antecedenciaMinimaDias: c.antecedenciaMinimaDias, horarioAbertura: c.horarioAbertura, horarioFechamento: c.horarioFechamento } };
+}
+/** Avisos não bloqueantes da data e hora da encomenda, pelas configurações. */
+export function avisosAgendaEncomenda(dados: DadosPrototipo, data: string, hora: string) {
+  const c = dados.configuracao, r: string[] = [], minimo = dataRelativa(c.antecedenciaMinimaDias ?? 0);
+  if (data && data >= dataRelativa(0) && data < minimo) r.push(`Antecedência menor que a sugerida de ${c.antecedenciaMinimaDias} dias. Confirme com a produção.`);
+  if (hora && c.horarioAbertura && c.horarioFechamento && (hora < c.horarioAbertura || hora > c.horarioFechamento)) r.push(`Horário fora do funcionamento (${c.horarioAbertura} às ${c.horarioFechamento}).`);
+  return r;
+}
 export function somarDiasData(data: string, dias: number) { const d = new Date(`${data}T12:00:00Z`); if (Number.isNaN(d.getTime())) return dataRelativa(0); d.setUTCDate(d.getUTCDate() + dias); return d.toISOString().slice(0, 10); }
 export function producaoDoPeriodo(dados: DadosPrototipo, lojaId: string, inicio: string, fim = inicio) { return listarEncomendas(dados, lojaId).filter(e => ['confirmado', 'em_producao', 'pronto'].includes(e.status) && e.dataEntrega >= inicio && e.dataEntrega <= fim).sort((a, b) => `${a.dataEntrega} ${a.horaEntrega}`.localeCompare(`${b.dataEntrega} ${b.horaEntrega}`)); }
 export function resumoProducao(dados: DadosPrototipo, lojaId: string, inicio = dataRelativa(0), fim = inicio) {
@@ -428,7 +457,7 @@ export function conferirCaixa(dados: DadosPrototipo, caixa: Caixa, informados: R
 export function fecharCaixa(dados: DadosPrototipo, caixaId: string, usuarioId: string, informados: Record<string, number>, observacao: string) {
   const c = caixaAberto(dados, caixaId, usuarioId), conferencia = conferirCaixa(dados, c, informados);
   if (conferencia.some(f => !Number.isSafeInteger(f.informadoCentavos) || f.informadoCentavos < 0)) throw new Error('Valores informados devem ser positivos em centavos.');
-  if (conferencia.some(f => f.diferencaCentavos !== 0) && !observacao.trim()) throw new Error('Explique a diferença antes de fechar.');
+  if (dados.configuracao.exigirObservacaoDiferenca !== false && conferencia.some(f => f.diferencaCentavos !== 0) && !observacao.trim()) throw new Error('Explique a diferença antes de fechar.');
   return { ...dados, caixas: dados.caixas.map(x => x.id === c.id ? { ...c, status: 'fechado' as const, fechadoEm: new Date().toISOString(), fechadoPor: usuarioId, conferencia, observacaoFechamento: observacao } : x) };
 }
 export function reabrirCaixa(dados: DadosPrototipo, caixaId: string, usuarioId: string, motivo: string) {

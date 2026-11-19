@@ -17,5 +17,14 @@
     "Pró-labore",
     "Pagamento a fornecedor",
     "Outros"
-  ]
+  ],
+  "trocoPadraoPorLoja": {
+    "matriz": 10000,
+    "filial": 10000
+  },
+  "exigirObservacaoDiferenca": true,
+  "antecedenciaMinimaDias": 2,
+  "horarioAbertura": "08:00",
+  "horarioFechamento": "18:00",
+  "observacaoConfiguracoes": "Valores de teste, a confirmar com o cliente."
 }

@@ -9,7 +9,7 @@ type Acao = { tipo: 'dados'; dados: DadosPrototipo } | { tipo: 'carregar'; sessa
 function reduzir(estado: Estado, acao: Acao): Estado {
   if (acao.tipo === 'dados') return { ...estado, dados: acao.dados };
   if (acao.tipo === 'carregar') return { ...acao.sessao, pronto: true };
-  if (acao.tipo === 'perfil') { const usuario = obterUsuario(estado.dados, acao.id); return { ...estado, usuarioId: usuario?.id ?? null, lojaId: usuario?.lojaId ?? 'matriz' }; }
+  if (acao.tipo === 'perfil') { const usuario = obterUsuario(estado.dados, acao.id); if (usuario && usuario.ativo === false) return estado; return { ...estado, usuarioId: usuario?.id ?? null, lojaId: usuario?.lojaId ?? 'matriz' }; }
   if (acao.tipo === 'loja') {
     if (obterUsuario(estado.dados, estado.usuarioId)?.perfil !== 'administrativo') return estado;
     return acao.id === 'consolidado' || estado.dados.lojas.some(l => l.id === acao.id) ? { ...estado, lojaId: acao.id } : estado;
