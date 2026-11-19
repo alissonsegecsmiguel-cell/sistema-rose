@@ -226,3 +226,5 @@
 .campo-arquivo input[type="file"] { min-height: var(--alvo-toque); padding: var(--espaco-2); border: 1px dashed var(--cor-borda-forte); border-radius: var(--raio-1); background: var(--cor-superficie); max-width: 100%; }
 .grafico-ponto { fill: var(--cor-superficie); stroke: var(--cor-primaria); stroke-width: 2; }
 .quebra-livre { overflow-wrap: anywhere; }
+.botao-ordenar { min-height: var(--alvo-toque); padding: 0; border: 0; background: transparent; color: inherit; font: inherit; font-weight: var(--peso-medio); text-align: left; cursor: pointer; }
+.cartao-relatorio h3 a { color: var(--cor-primaria-texto); }

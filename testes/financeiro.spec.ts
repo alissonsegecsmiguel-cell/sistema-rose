@@ -17,7 +17,7 @@ test('histórico determinístico e DRE do mês passado batendo com os caixas fec
   for (const loja of ['matriz', 'filial', 'consolidado']) {
     const dre = dreDoMes(d, loja, passado); expect(dre.receitaBruta).toBeGreaterThan(0); const c = conferenciaReceita(d, loja, passado); expect(c.diferenca).toBe(0); expect(c.receitaBruta).toBe(dre.receitaBruta);
     // Mês só com histórico gerado (todas as encomendas pagas na entrega): receita igual aos caixas fechados.
-    if (conferenciaReceita(d, loja, retrasado).saldo === 0 && conferenciaReceita(d, loja, retrasado).outras === 0) expect(dreDoMes(d, loja, retrasado).receitaBruta).toBe(recebidoEmCaixasFechados(d, loja, retrasado));
+    const r2 = conferenciaReceita(d, loja, retrasado); if (r2.saldo === 0 && r2.outras === 0) expect(dreDoMes(d, loja, retrasado).receitaBruta - r2.descontos).toBe(recebidoEmCaixasFechados(d, loja, retrasado));
   }
   const dre = dreDoMes(d, 'matriz', passado);
   expect(dre.receitaLiquida).toBe(dre.receitaBruta - dre.descontos - dre.taxas); expect(dre.taxas).toBeGreaterThan(0); expect(dre.cmv).toBeGreaterThan(0);

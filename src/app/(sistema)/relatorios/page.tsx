@@ -1,2 +1,2 @@
-import { PaginaModulo } from '@/componentes/pagina-modulo';
-export default function Pagina() { return <PaginaModulo rota="/relatorios" />; }
+import { TelaRelatorios } from '@/componentes/tela-relatorios';
+export default function Pagina() { return <TelaRelatorios />; }

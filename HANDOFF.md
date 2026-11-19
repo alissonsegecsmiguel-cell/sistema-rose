@@ -62,6 +62,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: DRE gerencial por competência: receita bruta é o valor dos itens das vendas e encomendas entregues no mês (antes de descontos); taxas de cartão pela taxa de teste da forma; CMV pela ficha técnica atual; despesas pelas contas com vencimento no mês; contas de grupo custo (compras de insumos e embalagens) ficam fora do DRE porque o CMV já as representa. Como a receita é por competência e o caixa por recebimento, a tela mostra a conferência com os caixas fechados (adiantamentos, saldos em aberto e descontos explicam a diferença, que fica zerada). Fluxo de caixa: cartão entra na data de liquidação, já sem a taxa; atrasados aparecem no previsto de hoje. Pagamento em dinheiro pelo caixa da loja lança saída no caixa aberto do dia. Prazos e taxas de teste: débito D+1 1,5%, crédito D+30 3,5%, Pix D+0. Chave local v10. **(decidido sem o Alisson, revisar)**
 
+- 19/11/2026: relatórios usam a regra do DRE para faturamento (vendas de balcão pela data e encomendas entregues pela entrega, valor dos itens antes do desconto); a conferência com os caixas fechados mostra a diferença explicada (adiantamentos, saldos, descontos), que fica zerada. Posição de estoque e margem por produto são sempre atuais; custo dos produtos compara os preços dos insumos do início do período com os de hoje. Vendas por cliente consideram só encomendas, pois o balcão não identifica cliente. Encomendas contam para quem as criou. CSV com BOM UTF-8, separador ponto e vírgula e vírgula decimal. O histórico de teste passou a ter descontos ocasionais com motivo, para o relatório de descontos. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -122,6 +124,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: tarefa 13 concluída. Tela /financeiro com abas Resumo, Contas a pagar, Contas a receber, Fluxo de caixa, DRE, Conciliação e Categorias. Histórico determinístico de 90 dias (src/lib/historico-teste.ts) com vendas, encomendas, caixas fechados e despesas fixas; 14 categorias financeiras ligadas às categorias de insumo; contas manuais com recorrência mensal; pagar e receber, com saída no caixa aberto quando em dinheiro; saldos de encomendas como contas a receber calculadas; fluxo realizado e previsto diário e mensal com barras SVG; DRE gerencial com mês anterior, variação, impressão A4 e conferência com os caixas fechados; conciliação por forma com prazo, taxa e diferença. Cálculos em src/lib/financeiro.ts. Histórico de caixas paginado. Chave v10. Validação: lint, dois builds sem alterações inesperadas e 152 testes aprovados. Commit identificado pela mensagem “Tarefa 13: Financeiro”; hash literal no relatório local 13-relatorio.md.
 
+- 19/11/2026: tarefa 14 concluída. Tela /relatorios com 15 relatórios em quatro grupos (Vendas, Resultado, Estoque e compras, Produção) e página /relatorios/[slug] com filtro de período e loja, indicadores, barras SVG, tabelas ordenáveis, CSV para Excel em português e impressão A4. Funções em src/lib/relatorios.ts com testes de mais vendidos, faturamento por loja, margem por produto e conferência de faturamento com DRE e caixas fechados. FiltroPeriodo, ExportarCsv, TabelaOrdenavel e PaginaRelatorio no manual. Histórico de teste com descontos ocasionais. Validação: lint, dois builds sem alterações inesperadas e 159 testes aprovados. Commit identificado pela mensagem “Tarefa 14: Relatórios”; hash literal no relatório local 14-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -144,6 +148,7 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Quais fornecedores e prazos usam hoje? As notas chegam em XML para todos os fornecedores?
 - Quais são as taxas e prazos reais da maquininha (débito, crédito, parcelado) e do Pix?
 - Quais despesas fixas mensais existem (aluguel, folha, pró-labore) e em que dia vencem?
+- Quais relatórios o dono olha toda semana e qual deve abrir primeiro?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
