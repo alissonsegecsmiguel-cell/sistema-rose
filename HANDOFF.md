@@ -42,6 +42,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: um caixa por loja e dia; sangria retira dinheiro e suprimento repõe troco. Pagamentos podem ser registrados antes da abertura, entram quando o caixa é aberto e ficam bloqueados após o fechamento; reabertura exige Administrativo e motivo. Transferência entre caixas aguarda confirmação do cliente. Datas dos pagamentos fictícios foram limitadas a hoje para não simular recebimentos futuros já realizados. **(decidido sem o Alisson, revisar)**
 
+- 18/11/2026: Produção agrupa o período Próximos 3 dias como hoje e os dois dias seguintes; observações de doces são agrupadas exatamente como cadastradas. Status é da encomenda inteira, mesmo quando há vários bolos. Função aoMarcarPronto registra histórico e será ligada ao estoque na tarefa 11. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -87,6 +89,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Teste adicional da tarefa 07: Consolidado somente leitura, seis caixas históricos em leitura e saídas de impressão do fechamento em 80mm/A4 e do cupom não fiscal aprovados. Execução isolada registrada em relatorios/fila/evidencias-07/teste-extra.json; soma-se à suíte completa da tarefa.
 
 - 18/11/2026: tarefa 07 concluída. Caixa por loja e dia, PDV com pagamento dividido e troco, movimentos, conferência e fechamento com diferença justificada. Pagamentos de encomendas lidos sem duplicação; correções bloqueadas após fechar e liberadas pela reabertura administrativa. Histórico e impressão de fechamento e cupom não fiscal. Chave v5. Validação: lint, dois builds sem alterações inesperadas e 83 testes aprovados. Commit identificado pela mensagem “Tarefa 07: Caixa e frente de caixa (PDV)”; hash literal no relatório local 07-relatorio.md.
+
+- 18/11/2026: tarefa 08 concluída. Produção por data e período, cartões por bolo, agrupamento exato de doces e separação de bebidas/festa. Status e histórico compartilhados com encomendas, comandas do dia em 80mm/A4 e cartão na Visão geral. Dois casos fictícios de produção múltipla adicionados; manual e tokens atualizados. Validação: lint, dois builds sem alterações inesperadas e 96 testes aprovados. Commit identificado pela mensagem “Tarefa 08: Produção do dia”; hash literal no relatório local 08-relatorio.md.
 
 ## 6. Em andamento
 

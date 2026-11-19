@@ -158,7 +158,7 @@
 }
 .faixa-dias { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--espaco-3); }
 .faixa-dias a { padding: var(--espaco-3); min-height: var(--alvo-toque); text-decoration: none; overflow-wrap: anywhere; }
-@media (min-width: 761px) { .tabela-container { overflow-x: auto; } .tabela { min-width: 960px; } .tabela th, .tabela td { overflow-wrap: normal; } }
+@media (min-width: 761px) { .tabela-container { overflow-x: auto; } .tabela { min-width: var(--largura-tabela); } .tabela th, .tabela td { overflow-wrap: normal; } }
 @media (max-width: 760px) { .faixa-dias { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .calendario { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--espaco-2); }
 .calendario-dia { background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio-2); padding: var(--espaco-2); min-height: var(--alvo-toque); display: flex; flex-direction: column; gap: var(--espaco-1); color: var(--cor-texto); overflow-wrap: anywhere; }
@@ -187,7 +187,7 @@
 .comanda-item { border-top: 1px dashed var(--cor-borda-forte); padding-top: var(--espaco-4); break-inside: avoid; }
 @media print { .nao-imprimir, .menu-lateral, .barra-superior, .faixa-prototipo, .pular-conteudo, .notificacao-area { display: none !important; } .casca, .area-sistema { display: block !important; } .conteudo-sistema { padding: 0 !important; } body { background: var(--cor-superficie); } .papel { padding: 0; max-width: 100%; box-shadow: none; } .pagina-impressao { display: block; } }
 .caixa-resumo { background: var(--cor-superficie); padding: var(--espaco-3); border: 1px solid var(--cor-borda); border-radius: var(--raio-2); position: sticky; top: 0; z-index: 1; }
-.totais-formas { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: var(--espaco-2); }
+.totais-formas { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--largura-tile-caixa), 1fr)); gap: var(--espaco-2); }
 .totais-formas > div { display: flex; flex-direction: column; padding: var(--espaco-2); background: var(--cor-superficie-alt); border-radius: var(--raio-1); }
-.grade-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: var(--espaco-3); }
+.grade-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--largura-produto)), 1fr)); gap: var(--espaco-3); }
 @media print { .caixa-resumo { position: static; } }

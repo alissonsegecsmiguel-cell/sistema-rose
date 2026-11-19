@@ -8,6 +8,7 @@ import categorias from '@/dados-teste/categorias-produto.json';
 import clientes from '@/dados-teste/clientes.json';
 import encomendas from '@/dados-teste/encomendas.json';
 import encomendasClientes from '@/dados-teste/encomendas-clientes.json';
+import encomendasProducao from '@/dados-teste/encomendas-producao.json';
 import caixasTeste from '@/dados-teste/caixas.json';
 import type { Caixa, ConferenciaCaixa, MovimentoCaixa, PagamentoVenda, Venda } from './tipos';
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
@@ -33,7 +34,7 @@ export function carregarDadosDeTeste(): DadosPrototipo {
     caixas: caixasTeste.caixas.map(c => ({ ...c, data: dataRelativa(-c.diasAtras), abertoEm: `${dataRelativa(-c.diasAtras)}T08:00:00-03:00`, fechadoEm: `${dataRelativa(-c.diasAtras)}T19:00:00-03:00`, fechadoPor: c.abertoPor })),
     vendas: caixasTeste.vendas.map(v => ({ ...v, data: `${dataRelativa(-v.diasAtras)}T14:00:00-03:00` })),
     movimentosCaixa: caixasTeste.movimentos.map(m => ({ ...m, data: `${dataRelativa(-m.diasAtras)}T09:00:00-03:00` })),
-    encomendas: [...encomendas.itens, ...encomendasClientes.itens].map(e => ({ ...e,
+    encomendas: [...encomendas.itens, ...encomendasClientes.itens, ...encomendasProducao.itens].map(e => ({ ...e,
       dataEntrega: dataRelativa(e.diasAPartirDeHoje),
       criadoEm: `${dataRelativa(Math.min(0, e.diasAPartirDeHoje - 7))}T12:00:00-03:00`,
       pagamentos: e.pagamentos.map(p => ({ ...p, data: `${dataRelativa(Math.min(0, e.diasAPartirDeHoje - 3))}T10:00:00-03:00` })),
@@ -138,7 +139,8 @@ export function alterarStatusEncomenda(dados: DadosPrototipo, lojaId: string, id
   const anterior = sequenciaStatus.indexOf(e.status), proximo = sequenciaStatus.indexOf(status);
   if (proximo < 0 || proximo > anterior + 1 || proximo === anterior) throw new Error('Escolha o próximo status ou retorne com motivo.');
   if (proximo < anterior && !motivo.trim()) throw new Error('Informe o motivo para voltar o status.');
-  return salvarEncomenda(dados, lojaId, { ...e, status }, eventoEncomenda(usuarioId, 'Status alterado', `${nomeStatus(e.status)} → ${nomeStatus(status)}${motivo ? `. Motivo: ${motivo}` : ''}`));
+  const base = salvarEncomenda(dados, lojaId, { ...e, status }, eventoEncomenda(usuarioId, 'Status alterado', `${nomeStatus(e.status)} → ${nomeStatus(status)}${motivo ? `. Motivo: ${motivo}` : ''}`));
+  return status === 'pronto' ? aoMarcarPronto(base, e.id, usuarioId) : base;
 }
 export function registrarPagamentoEncomenda(dados: DadosPrototipo, lojaId: string, id: string, formaPagamentoId: string, valorCentavos: number, usuarioId: string) {
   const e = obterEncomenda(dados, lojaId, id); if (!e || e.status === 'cancelado') throw new Error('Encomenda indisponível.');
@@ -261,6 +263,15 @@ export function restaurarDadosDeTeste() {
   try { localStorage.removeItem(CHAVE_ARMAZENAMENTO); } catch { /* Continua em memória. */ }
   return carregarDadosDeTeste();
 }
+export function somarDiasData(data: string, dias: number) { const d = new Date(`${data}T12:00:00Z`); if (Number.isNaN(d.getTime())) return dataRelativa(0); d.setUTCDate(d.getUTCDate() + dias); return d.toISOString().slice(0, 10); }
+export function producaoDoPeriodo(dados: DadosPrototipo, lojaId: string, inicio: string, fim = inicio) { return listarEncomendas(dados, lojaId).filter(e => ['confirmado', 'em_producao', 'pronto'].includes(e.status) && e.dataEntrega >= inicio && e.dataEntrega <= fim).sort((a, b) => `${a.dataEntrega} ${a.horaEntrega}`.localeCompare(`${b.dataEntrega} ${b.horaEntrega}`)); }
+export function resumoProducao(dados: DadosPrototipo, lojaId: string, inicio = dataRelativa(0), fim = inicio) {
+  const lista = producaoDoPeriodo(dados, lojaId, inicio, fim), bolos = lista.flatMap(e => e.itens.filter(i => i.tipo === 'bolo').map(i => ({ encomenda: e, item: i }))), produtos = lista.flatMap(e => e.itens.filter(i => i.tipo === 'produto').map(i => ({ encomenda: e, item: i })));
+  const agrupar = (campo: 'tamanho' | 'massa' | 'recheios') => { const resultado = new Map<string, { nome: string; quantidade: number; tamanhos: Record<string, number> }>(); for (const { item } of bolos) for (const id of campo === 'recheios' ? item.recheios : [item[campo]]) { const opcoes = campo === 'tamanho' ? dados.opcoesBolo.tamanhos : campo === 'massa' ? dados.opcoesBolo.massas : dados.opcoesBolo.recheios, nome = opcoes.find(o => o.id === id)?.nome || id, tamanho = dados.opcoesBolo.tamanhos.find(o => o.id === item.tamanho)?.nome || item.tamanho, grupo = resultado.get(id) ?? { nome, quantidade: 0, tamanhos: {} }; grupo.quantidade++; grupo.tamanhos[tamanho] = (grupo.tamanhos[tamanho] || 0) + 1; resultado.set(id, grupo); } return Array.from(resultado.values()); };
+  const grupos = new Map<string, { id: string; nome: string; observacao: string; quantidade: number; separar: boolean }>(); for (const { item } of produtos) { const p = dados.produtos.find(p => p.id === item.produtoId), id = `${item.produtoId}|${item.observacao}`, grupo = grupos.get(id) || { id, nome: p?.nome || 'Produto indisponível', observacao: item.observacao, quantidade: 0, separar: ['bebidas', 'festa'].includes(p?.categoriaId || '') }; grupo.quantidade += item.quantidade; grupos.set(id, grupo); }
+  return { lista, bolos, tamanhos: agrupar('tamanho'), massas: agrupar('massa'), recheios: agrupar('recheios'), produtos: Array.from(grupos.values()), quantidadeBolos: bolos.length, bolosProntos: bolos.filter(b => b.encomenda.status === 'pronto').length, doces: produtos.filter(p => !['bebidas', 'festa'].includes(dados.produtos.find(x => x.id === p.item.produtoId)?.categoriaId || '')).reduce((s, p) => s + p.item.quantidade, 0), docesProntos: produtos.filter(p => p.encomenda.status === 'pronto' && !['bebidas', 'festa'].includes(dados.produtos.find(x => x.id === p.item.produtoId)?.categoriaId || '')).reduce((s, p) => s + p.item.quantidade, 0) };
+}
+export function aoMarcarPronto(dados: DadosPrototipo, encomendaId: string, usuarioId: string) { const e = dados.encomendas.find(e => e.id === encomendaId)!; return salvarEncomenda(dados, e.lojaId, e, eventoEncomenda(usuarioId, 'Produção pronta', 'Produção marcada como pronta.')); }
 export function diaDoRegistro(iso: string) { return dataRelativa(0, new Date(iso)); }
 export function listarCaixas(dados: DadosPrototipo, lojaId: string) { return daLoja(dados.caixas, lojaId).sort((a, b) => b.data.localeCompare(a.data)); }
 export function obterCaixa(dados: DadosPrototipo, lojaId: string, data = dataRelativa(0)) { return listarCaixas(dados, lojaId).find(c => c.data === data); }

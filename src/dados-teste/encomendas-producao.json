@@ -1,0 +1,126 @@
+{
+  "_aviso": "Dados ficticios para testar producao de varios bolos e observacoes diferentes.",
+  "itens": [
+    {
+      "id": "encomenda-teste-27",
+      "numero": 27,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-01",
+      "status": "confirmado",
+      "diasAPartirDeHoje": 1,
+      "horaEntrega": "14:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-producao-0-0",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        },
+        {
+          "id": "item-producao-0-1",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 20,
+          "observacao": "Forminhas rosas, ninho (teste)",
+          "valorUnitarioCentavos": 250
+        },
+        {
+          "id": "item-producao-segundo-bolo",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-3",
+          "massa": "massas-1",
+          "recheios": [
+            "recheios-1"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 11000
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "historico-producao-0-0",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    },
+    {
+      "id": "encomenda-teste-28",
+      "numero": 28,
+      "lojaId": "matriz",
+      "clienteId": "cliente-teste-01",
+      "status": "em_producao",
+      "diasAPartirDeHoje": 1,
+      "horaEntrega": "17:00",
+      "modalidade": "retirada",
+      "itens": [
+        {
+          "id": "item-producao-1-0",
+          "tipo": "bolo",
+          "formato": "formatos-1",
+          "tamanho": "tamanhos-4",
+          "massa": "massas-2",
+          "recheios": [
+            "recheios-1",
+            "recheios-2"
+          ],
+          "adicionais": [
+            "adicionais-1"
+          ],
+          "decoracoes": [
+            "decoracoes-1"
+          ],
+          "detalhes": "Bolo fictício para demonstração.",
+          "valorCentavos": 15000
+        },
+        {
+          "id": "item-producao-1-1",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 30,
+          "observacao": "Forminhas douradas, chocolate (teste)",
+          "valorUnitarioCentavos": 250
+        }
+      ],
+      "pagamentos": [],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "observacoes": "Valores de teste, sem validade comercial.",
+      "historico": [
+        {
+          "id": "historico-producao-1-0",
+          "usuarioId": "atendente-teste-01",
+          "acao": "criada",
+          "detalhe": "Encomenda fictícia criada para o protótipo."
+        }
+      ],
+      "criadoPor": "atendente-teste-01"
+    }
+  ]
+}
