@@ -27,6 +27,7 @@ import { FaixaDias } from '@/componentes/faixa-dias';
 import { proximosDias } from '@/lib/dados';
 import { ManualEncomendas } from '@/componentes/manual-encomendas';
 import { ManualFormulario } from '@/componentes/manual-formulario';
+import { ManualAcoes } from '@/componentes/manual-acoes';
 import { usePrototipo } from '@/lib/prototipo-store';
 import { listarEncomendas, obterCliente, listarPerfisDeTeste, situacaoPagamento, totalEncomenda } from '@/lib/dados';
 import { formatarMoeda, formatarData } from '@/lib/formatar';
@@ -57,6 +58,7 @@ export default function DesignSystem() {
     <Secao id="dias" titulo="Faixa de dias"><p className="suave">Links com dia, data e quantidade. Sete colunas no computador e duas no celular; foco visível e alvo mínimo de 44px. Tabelas largas permitem rolagem interna no computador, preservando palavras e valores; no celular, viram cartões.</p>{estado.pronto && <FaixaDias dias={proximosDias(estado.dados, estado.lojaId)} />}</Secao>
     <ManualEncomendas />
     <ManualFormulario />
+    <ManualAcoes />
     <Secao id="navegacao" titulo="16. Menu lateral e barra superior">
       <p className="suave">Administrativo acessa todos os módulos; Atendimento acessa cinco. Em até 760px, a faixa usa texto curto e restauração por ícone; a barra fica em uma linha, com menu, logo de 32px, loja e iniciais. O rótulo da seleção permanece acessível. A loja do Atendimento aparece como texto curto.</p>
       <h3>Faixa de protótipo responsiva</h3>

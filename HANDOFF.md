@@ -36,6 +36,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: adiantamentos contam no dia do recebimento, inclusive para encomendas futuras; limite inicial de dois recheios. Ambas as regras aguardam confirmação do cliente. Percentuais incidem sobre o subtotal (desconto) e valor após desconto (taxa), com arredondamento por centavo. A loja fica bloqueada após incluir itens ou pagamentos para evitar transferências silenciosas; remova-os antes de trocar. Rascunhos são separados por usuário e loja. **(decidido sem o Alisson, revisar)**
 
+- 18/11/2026: cancelamento com devolução parcial mantém a diferença como crédito, informado no diálogo e histórico. Corrigir um pagamento cancelado recalcula esse crédito sem duplicá-lo. Impressão de 80mm usa folha de 80 × 297mm na prévia; o corte contínuo depende do driver da impressora, integração ainda fora do escopo. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -74,6 +76,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: tarefa 04 concluída. Formulário completo com montagem de bolo, múltiplos produtos, cadastro rápido, rascunhos persistentes, ajustes justificados, desconto, taxa e adiantamentos. Pedido misto do exemplo e salvamento de dois rascunhos conferidos. Chave local v2. Validação: lint, dois builds sem alterações inesperadas e 53 testes aprovados. Commit identificado pela mensagem “Tarefa 04: Nova encomenda e orçamento”; hash literal no relatório local 04-relatorio.md.
 
+- 18/11/2026: tarefa 05 concluída. Status com histórico, edição reutilizando formulário sem alterar pagamentos, cancelamento com devolução negativa ou crédito, registro e correção de pagamentos. Comandas sem valores e comprovante em 80mm e A4; fluxo orçamento até retirada testado nos três perfis e quatro larguras. Chave v3. Validação: lint, dois builds sem alterações inesperadas e 56 testes aprovados. Commit identificado pela mensagem “Tarefa 05: Ações da encomenda, histórico e comandas”; hash literal no relatório local 05-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -97,7 +101,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v2`, protegida por try/catch; a versão 2 inclui os rascunhos persistentes e ajustes de preço.
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v3`, protegida por try/catch; a versão 3 inclui rascunhos, ajustes, devoluções e créditos.
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 

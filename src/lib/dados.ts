@@ -7,9 +7,10 @@ import produtos from '@/dados-teste/produtos.json';
 import categorias from '@/dados-teste/categorias-produto.json';
 import clientes from '@/dados-teste/clientes.json';
 import encomendas from '@/dados-teste/encomendas.json';
-import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Rascunho, SessaoPrototipo, SituacaoPagamento } from './tipos';
+import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
+import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v2';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v3';
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
 
@@ -110,7 +111,7 @@ export function salvarEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, 
   if (!dados.lojas.some(l => l.id === encomenda.lojaId)) throw new Error('Loja inválida.');
   if (!obterCliente(dados, encomenda.lojaId, encomenda.clienteId)) throw new Error('Cliente de outra loja.');
   encomenda.itens.forEach(validarItem);
-  if (![encomenda.descontoCentavos, encomenda.taxaCartaoCentavos, ...encomenda.pagamentos.map(p => p.valorCentavos)].every(v => Number.isSafeInteger(v) && v >= 0)) throw new Error('Dinheiro deve ser inteiro em centavos.');
+  if (![encomenda.descontoCentavos, encomenda.taxaCartaoCentavos].every(v => Number.isSafeInteger(v) && v >= 0) || !encomenda.pagamentos.every(p => Number.isSafeInteger(p.valorCentavos) && (p.tipo === 'devolucao' ? p.valorCentavos <= 0 : p.valorCentavos >= 0))) throw new Error('Dinheiro deve ser inteiro em centavos.');
   const anterior = obterEncomenda(dados, lojaId, encomenda.id);
   if (dados.encomendas.some(e => e.id === encomenda.id) && !anterior) throw new Error('Encomenda de outra loja.');
   const salva = structuredClone({ ...encomenda, historico: [...(anterior?.historico ?? []), evento] });
@@ -118,6 +119,58 @@ export function salvarEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, 
 }
 
 export function novoId() { return crypto.randomUUID(); }
+export const sequenciaStatus: StatusEncomenda[] = ['orcamento', 'confirmado', 'em_producao', 'pronto', 'entregue'];
+export function nomeStatus(status: StatusEncomenda) { return { orcamento: 'Orçamento', confirmado: 'Confirmado', em_producao: 'Em produção', pronto: 'Pronto', entregue: 'Entregue/Retirado', cancelado: 'Cancelado' }[status]; }
+export function pagamentoPodeSerCorrigido(dados: DadosPrototipo, pagamento: Pagamento) { void dados; void pagamento; return true; }
+function eventoEncomenda(usuarioId: string, acao: string, detalhe: string): EventoHistorico { return { id: novoId(), data: new Date().toISOString(), usuarioId, acao, detalhe }; }
+export function alterarStatusEncomenda(dados: DadosPrototipo, lojaId: string, id: string, status: StatusEncomenda, usuarioId: string, motivo = '') {
+  const e = obterEncomenda(dados, lojaId, id); if (!e || e.status === 'cancelado' || status === 'cancelado') throw new Error('Encomenda indisponível para esta ação.');
+  const anterior = sequenciaStatus.indexOf(e.status), proximo = sequenciaStatus.indexOf(status);
+  if (proximo < 0 || proximo > anterior + 1 || proximo === anterior) throw new Error('Escolha o próximo status ou retorne com motivo.');
+  if (proximo < anterior && !motivo.trim()) throw new Error('Informe o motivo para voltar o status.');
+  return salvarEncomenda(dados, lojaId, { ...e, status }, eventoEncomenda(usuarioId, 'Status alterado', `${nomeStatus(e.status)} → ${nomeStatus(status)}${motivo ? `. Motivo: ${motivo}` : ''}`));
+}
+export function registrarPagamentoEncomenda(dados: DadosPrototipo, lojaId: string, id: string, formaPagamentoId: string, valorCentavos: number, usuarioId: string) {
+  const e = obterEncomenda(dados, lojaId, id); if (!e || e.status === 'cancelado') throw new Error('Encomenda indisponível.');
+  if (!Number.isSafeInteger(valorCentavos) || valorCentavos <= 0 || valorCentavos > saldoEncomenda(e)) throw new Error('Informe um valor positivo que não supere o saldo.');
+  if (!dados.formasPagamento.some(f => f.id === formaPagamentoId)) throw new Error('Forma de pagamento inválida.');
+  const pagamento: Pagamento = { id: novoId(), data: new Date().toISOString(), formaPagamentoId, valorCentavos, tipo: dataRelativa(0) < e.dataEntrega ? 'adiantamento' : 'pagamento', usuarioId, lojaId: e.lojaId };
+  return salvarEncomenda(dados, lojaId, { ...e, pagamentos: [...e.pagamentos, pagamento] }, eventoEncomenda(usuarioId, 'Pagamento registrado', `${formatarMoeda(valorCentavos)} em ${dados.formasPagamento.find(f => f.id === formaPagamentoId)?.nome}.`));
+}
+export function corrigirPagamentoEncomenda(dados: DadosPrototipo, lojaId: string, id: string, pagamentoId: string, formaPagamentoId: string, valorCentavos: number, motivo: string, usuarioId: string) {
+  const e = obterEncomenda(dados, lojaId, id), p = e?.pagamentos.find(p => p.id === pagamentoId);
+  if (!e || !p || !pagamentoPodeSerCorrigido(dados, p)) throw new Error('Este pagamento não pode ser corrigido após o fechamento do caixa.');
+  if (!motivo.trim()) throw new Error('Informe o motivo da correção.');
+  if (!Number.isSafeInteger(valorCentavos) || valorCentavos <= 0 || (p.tipo !== 'devolucao' && valorCentavos > saldoEncomenda(e) + p.valorCentavos)) throw new Error('Valor inválido para a correção.');
+  const novo = { ...p, formaPagamentoId, valorCentavos: p.tipo === 'devolucao' ? -valorCentavos : valorCentavos };
+  const pagamentos = e.pagamentos.map(x => x.id === p.id ? novo : x), credito = pagamentos.reduce((s, x) => s + x.valorCentavos, 0);
+  if (credito < 0) throw new Error('A devolução não pode superar o recebido.');
+  const base = salvarEncomenda(dados, lojaId, { ...e, pagamentos, ...(e.status === 'cancelado' ? { creditoCancelamentoCentavos: credito } : {}) }, eventoEncomenda(usuarioId, 'Pagamento corrigido', `De ${dados.formasPagamento.find(f => f.id === p.formaPagamentoId)?.nome}, ${formatarMoeda(p.valorCentavos)}, para ${dados.formasPagamento.find(f => f.id === formaPagamentoId)?.nome}, ${formatarMoeda(novo.valorCentavos)}. Motivo: ${motivo}`));
+  return e.status === 'cancelado' ? { ...base, clientes: base.clientes.map(c => c.id === e.clienteId ? { ...c, creditoCentavos: (c.creditoCentavos || 0) - (e.creditoCancelamentoCentavos || 0) + credito } : c) } : base;
+}
+export function cancelarEncomenda(dados: DadosPrototipo, lojaId: string, id: string, usuarioId: string, motivo: string, destino: 'devolver' | 'credito', formaPagamentoId: string, valorCentavos: number) {
+  const e = obterEncomenda(dados, lojaId, id); if (!e || e.status === 'cancelado') throw new Error('Encomenda indisponível.');
+  if (!motivo.trim()) throw new Error('Informe o motivo do cancelamento.');
+  const pago = e.pagamentos.reduce((s, p) => s + p.valorCentavos, 0), devolver = destino === 'devolver' ? valorCentavos : 0;
+  if (!Number.isSafeInteger(devolver) || devolver < 0 || devolver > pago) throw new Error('A devolução deve ficar entre zero e o valor pago.');
+  const pagamentos: Pagamento[] = devolver ? [...e.pagamentos, { id: novoId(), data: new Date().toISOString(), formaPagamentoId, valorCentavos: -devolver, tipo: 'devolucao', usuarioId, lojaId: e.lojaId }] : e.pagamentos;
+  const credito = pago - devolver, base = salvarEncomenda(dados, lojaId, { ...e, status: 'cancelado', pagamentos, creditoCancelamentoCentavos: credito }, eventoEncomenda(usuarioId, 'Encomenda cancelada', `Motivo: ${motivo}. Devolução: ${formatarMoeda(devolver)}. Crédito do cliente: ${formatarMoeda(credito)}.`));
+  return { ...base, clientes: base.clientes.map(c => c.id === e.clienteId ? { ...c, creditoCentavos: (c.creditoCentavos || 0) + credito } : c) };
+}
+export function criarRascunhoEdicao(e: Encomenda, usuarioId: string): Rascunho { return { id: novoId(), usuarioId, origemId: e.id, encomenda: structuredClone(e), desconto: { tipo: 'valor', valor: e.descontoCentavos }, taxa: { tipo: 'valor', valor: e.taxaCartaoCentavos } }; }
+export function salvarEdicaoEncomenda(dados: DadosPrototipo, lojaId: string, r: Rascunho) {
+  const anterior = obterEncomenda(dados, lojaId, r.origemId || ''); if (!anterior || ['entregue', 'cancelado'].includes(anterior.status)) throw new Error('Pedidos finalizados não podem ser alterados.');
+  const novo = { ...r.encomenda, pagamentos: anterior.pagamentos, status: anterior.status }, validado = { ...r, encomenda: novo }, erros = validarRascunho(dados, validado);
+  if (Object.keys(erros).length) throw new Error(Object.values(erros).join(' '));
+  const t = calcularTotais(validado), e = { ...novo, descontoCentavos: t.descontoCentavos, taxaCartaoCentavos: t.taxaCartaoCentavos }, alteracoes: string[] = [];
+  if (e.dataEntrega !== anterior.dataEntrega) alteracoes.push(`Data alterada de ${formatarData(anterior.dataEntrega)} para ${formatarData(e.dataEntrega)}`);
+  if (e.horaEntrega !== anterior.horaEntrega) alteracoes.push(`Hora alterada de ${anterior.horaEntrega} para ${e.horaEntrega}`);
+  for (const i of e.itens) { const antes = anterior.itens.find(x => x.id === i.id); if (!antes) alteracoes.push(`Item incluído: ${resumirItens(dados, { ...e, itens: [i] })}`); else if (JSON.stringify(antes) !== JSON.stringify(i)) alteracoes.push(`Item alterado: ${resumirItens(dados, { ...e, itens: [i] })}${i.tipo === 'bolo' && antes.tipo === 'bolo' ? `, valor de ${formatarMoeda(antes.valorCentavos)} para ${formatarMoeda(i.valorCentavos)}` : ''}`); }
+  for (const i of anterior.itens.filter(i => !e.itens.some(x => x.id === i.id))) alteracoes.push(`Item removido: ${resumirItens(dados, { ...anterior, itens: [i] })}`);
+  if (totalEncomenda(anterior) !== totalEncomenda(e)) alteracoes.push(`Total alterado de ${formatarMoeda(totalEncomenda(anterior))} para ${formatarMoeda(totalEncomenda(e))}`);
+  for (const campo of ['clienteId', 'modalidade', 'enderecoEntrega', 'observacoes'] as const) if (e[campo] !== anterior[campo]) alteracoes.push(`${{ clienteId: 'Cliente', modalidade: 'Modalidade', enderecoEntrega: 'Endereço', observacoes: 'Observações' }[campo]} alterado: ${campo === 'clienteId' ? obterCliente(dados, lojaId, e.clienteId)?.nome : e[campo]}`);
+  return { dados: descartarRascunho(salvarEncomenda(dados, lojaId, e, eventoEncomenda(r.usuarioId, 'Encomenda alterada', alteracoes.join('. ') || 'Revisada sem alterações.')), r.id), encomenda: e };
+}
 export function criarRascunho(lojaId: string, usuarioId: string): Rascunho {
   return { id: novoId(), usuarioId, desconto: { tipo: 'valor', valor: 0 }, taxa: { tipo: 'valor', valor: 0 }, encomenda: { id: novoId(), numero: 0, lojaId: lojaId === 'consolidado' ? '' : lojaId, clienteId: '', status: 'confirmado', dataEntrega: dataRelativa(0), horaEntrega: '', modalidade: 'retirada', itens: [], pagamentos: [], descontoCentavos: 0, taxaCartaoCentavos: 0, observacoes: '', historico: [], criadoEm: new Date().toISOString(), criadoPor: usuarioId } };
 }

@@ -177,3 +177,12 @@
 .resumo-valores dd { margin: 0; font-weight: var(--peso-forte); }
 .barra-resumo-movel { display: none; }
 @media (max-width: 760px) { .formulario-com-resumo { grid-template-columns: 1fr; } .resumo-desktop { display: none; } .editor-encomenda { padding-bottom: calc(var(--alvo-toque) + var(--espaco-7) + env(safe-area-inset-bottom)); } .barra-resumo-movel { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--espaco-2); position: fixed; bottom: 0; left: 0; right: 0; padding: var(--espaco-3) var(--espaco-4) calc(var(--espaco-3) + env(safe-area-inset-bottom)); background: var(--cor-superficie); border-top: 1px solid var(--cor-borda); z-index: 3; } .dialogo-grande { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; border-radius: 0; } }
+.menu-acoes { position: relative; }
+.menu-acoes-lista { position: absolute; top: calc(100% + var(--espaco-2)); left: 0; z-index: 5; width: var(--largura-menu-usuario); max-width: calc(100vw - var(--espaco-6)); padding: var(--espaco-2); background: var(--cor-superficie); border: 1px solid var(--cor-borda-forte); border-radius: var(--raio-2); box-shadow: var(--sombra-2); display: flex; flex-direction: column; }
+.menu-acoes-lista .botao { justify-content: flex-start; text-align: left; }
+.pagina-impressao { display: flex; flex-direction: column; gap: var(--espaco-5); }
+.papel { background: var(--cor-superficie); padding: var(--espaco-4); width: 100%; max-width: var(--papel-cupom); overflow-wrap: anywhere; }
+.papel-a4 .papel { max-width: var(--papel-a4); }
+.comanda-entrega { font-size: var(--fonte-5); }
+.comanda-item { border-top: 1px dashed var(--cor-borda-forte); padding-top: var(--espaco-4); break-inside: avoid; }
+@media print { .nao-imprimir, .menu-lateral, .barra-superior, .faixa-prototipo, .pular-conteudo, .notificacao-area { display: none !important; } .casca, .area-sistema { display: block !important; } .conteudo-sistema { padding: 0 !important; } body { background: var(--cor-superficie); } .papel { padding: 0; max-width: 100%; box-shadow: none; } .pagina-impressao { display: block; } }

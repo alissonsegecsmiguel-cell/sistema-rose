@@ -1,0 +1,10 @@
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { Botao } from './botao';
+export function MenuAcoes({ itens }: { itens: { id: string; rotulo: string; href?: string; acao?: () => void }[] }) {
+  const [aberto, setAberto] = useState(false), ref = useRef<HTMLDivElement>(null);
+  const fechar = () => { setAberto(false); ref.current?.querySelector('button')?.focus(); };
+  useEffect(() => { if (!aberto) return; ref.current?.querySelector<HTMLElement>('[role="menuitem"]')?.focus(); const fora = (e: PointerEvent) => { if (!ref.current?.contains(e.target as Node)) setAberto(false); }; document.addEventListener('pointerdown', fora); return () => document.removeEventListener('pointerdown', fora); }, [aberto]);
+  return <div ref={ref} className="menu-acoes"><Botao variante="secundario" aria-haspopup="menu" aria-expanded={aberto} onClick={() => setAberto(!aberto)}>Mais ações</Botao>{aberto && <div role="menu" aria-label="Mais ações" className="menu-acoes-lista" onKeyDown={e => { if (e.key === 'Escape') { e.preventDefault(); fechar(); } if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) { e.preventDefault(); const todos = Array.from(e.currentTarget.querySelectorAll<HTMLElement>('[role="menuitem"]')), atual = todos.indexOf(document.activeElement as HTMLElement); todos[e.key === 'Home' ? 0 : e.key === 'End' ? todos.length - 1 : (atual + (e.key === 'ArrowDown' ? 1 : -1) + todos.length) % todos.length]?.focus(); } }} onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget)) setAberto(false); }}>{itens.map(i => i.href ? <Link role="menuitem" className="botao botao-fantasma" href={i.href} key={i.id} onClick={() => setAberto(false)}>{i.rotulo}</Link> : <button role="menuitem" type="button" className="botao botao-fantasma" key={i.id} onClick={() => { fechar(); i.acao?.(); }}>{i.rotulo}</button>)}</div>}</div>;
+}

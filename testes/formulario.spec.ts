@@ -25,6 +25,21 @@ for (const largura of [1440, 1024, 760, 390]) for (const perfil of ['Administrat
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     if (largura <= 760) { const barra = page.locator('.barra-resumo-movel'); await expect(barra).toBeVisible(); const caixa = await barra.boundingBox(); expect(caixa!.y + caixa!.height).toBeLessThanOrEqual(901); }
     await salvar(page, largura, true); await expect(page.locator('main .selo').first()).toHaveText('Orçamento');
+    await page.getByRole('button', { name: 'Converter em encomenda', exact: true }).focus(); await page.keyboard.press('Enter');
+    await page.getByRole('button', { name: 'Mais ações', exact: true }).click();
+    await page.keyboard.press('Escape'); await expect(page.getByRole('button', { name: 'Mais ações', exact: true })).toBeFocused();
+    await page.getByRole('button', { name: 'Mais ações', exact: true }).click(); await page.getByRole('menuitem', { name: 'Alterar encomenda', exact: true }).click();
+    await expect(page.getByLabel('Cliente', { exact: true })).not.toHaveValue('');
+    await page.getByLabel('Observações da encomenda').fill('Alteração fictícia de teste');
+    if (largura <= 760) await page.getByRole('button', { name: 'Revisar e salvar', exact: true }).click();
+    await page.getByRole('button', { name: 'Salvar alterações', exact: true }).click();
+    for (const acao of ['Iniciar produção', 'Marcar como pronto', perfil.endsWith('Filial') ? 'Marcar como retirado' : 'Marcar como retirado']) await page.getByRole('button', { name: acao, exact: true }).click();
+    await page.getByRole('button', { name: 'Registrar pagamento agora', exact: true }).click();
+    await page.getByRole('dialog', { name: 'Registrar pagamento', exact: true }).getByRole('button', { name: 'Confirmar pagamento', exact: true }).click();
+    await expect(page.locator('main .selo').first()).toHaveText('Retirado');
+    await page.getByRole('button', { name: 'Mais ações', exact: true }).click(); await page.getByRole('menuitem', { name: 'Imprimir comanda de bolos', exact: true }).click();
+    await expect(page.locator('.papel')).not.toContainText('R$');
+    for (const formato of ['cupom', 'a4']) { await page.getByLabel('Tamanho de impressão').selectOption(formato); await page.emulateMedia({ media: 'print' }); await expect(page.locator('.faixa-prototipo')).not.toBeVisible(); await page.screenshot({ path: `relatorios/fila/evidencias-05/impressao-${formato}-${largura}-${perfil}.png`, fullPage: true }); await page.emulateMedia({ media: 'screen' }); }
   });
 }
 test('pedido misto, cadastro rápido, dois rascunhos persistentes e adiantamento', async ({ page }) => {
