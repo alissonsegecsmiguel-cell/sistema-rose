@@ -35,6 +35,11 @@
       "id": "revenda",
       "nome": "Revenda",
       "categoriaFinanceiraId": ""
+    },
+    {
+      "id": "limpeza",
+      "nome": "Limpeza e higiene",
+      "categoriaFinanceiraId": ""
     }
   ],
   "itens": [
@@ -51,9 +56,51 @@
       "ativo": true,
       "historicoPrecos": [
         {
+          "diasAtras": 88,
+          "valorCentavos": 559,
+          "origem": "compra",
+          "referencia": "compra-teste-01"
+        },
+        {
+          "diasAtras": 67,
+          "valorCentavos": 559,
+          "origem": "compra",
+          "referencia": "compra-teste-07"
+        },
+        {
+          "diasAtras": 63,
+          "valorCentavos": 559,
+          "origem": "compra",
+          "referencia": "compra-teste-08"
+        },
+        {
           "diasAtras": 45,
           "valorCentavos": 590,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 42,
+          "valorCentavos": 565,
+          "origem": "compra",
+          "referencia": "compra-teste-14"
+        },
+        {
+          "diasAtras": 38,
+          "valorCentavos": 577,
+          "origem": "compra",
+          "referencia": "compra-teste-15"
+        },
+        {
+          "diasAtras": 17,
+          "valorCentavos": 641,
+          "origem": "compra",
+          "referencia": "compra-teste-21"
+        },
+        {
+          "diasAtras": 14,
+          "valorCentavos": 650,
+          "origem": "compra",
+          "referencia": "compra-teste-22"
         },
         {
           "diasAtras": 12,
@@ -70,7 +117,7 @@
       "unidadeUso": "g",
       "fatorConversao": 200,
       "custoAtualCentavos": 350,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 14,
       "estoqueMinimo": 4000,
       "ativo": true,
       "historicoPrecos": [
@@ -78,6 +125,30 @@
           "diasAtras": 90,
           "valorCentavos": 350,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 88,
+          "valorCentavos": 321,
+          "origem": "compra",
+          "referencia": "compra-teste-01"
+        },
+        {
+          "diasAtras": 63,
+          "valorCentavos": 331,
+          "origem": "compra",
+          "referencia": "compra-teste-08"
+        },
+        {
+          "diasAtras": 38,
+          "valorCentavos": 341,
+          "origem": "compra",
+          "referencia": "compra-teste-15"
+        },
+        {
+          "diasAtras": 14,
+          "valorCentavos": 350,
+          "origem": "compra",
+          "referencia": "compra-teste-22"
         }
       ]
     },
@@ -89,7 +160,7 @@
       "unidadeUso": "ml",
       "fatorConversao": 1000,
       "custoAtualCentavos": 550,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 17,
       "estoqueMinimo": 10000,
       "ativo": true,
       "historicoPrecos": [
@@ -97,6 +168,24 @@
           "diasAtras": 90,
           "valorCentavos": 550,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 67,
+          "valorCentavos": 519,
+          "origem": "compra",
+          "referencia": "compra-teste-07"
+        },
+        {
+          "diasAtras": 42,
+          "valorCentavos": 535,
+          "origem": "compra",
+          "referencia": "compra-teste-14"
+        },
+        {
+          "diasAtras": 17,
+          "valorCentavos": 550,
+          "origem": "compra",
+          "referencia": "compra-teste-21"
         }
       ]
     },
@@ -113,9 +202,33 @@
       "ativo": true,
       "historicoPrecos": [
         {
+          "diasAtras": 88,
+          "valorCentavos": 4405,
+          "origem": "compra",
+          "referencia": "compra-teste-01"
+        },
+        {
+          "diasAtras": 63,
+          "valorCentavos": 4539,
+          "origem": "compra",
+          "referencia": "compra-teste-08"
+        },
+        {
+          "diasAtras": 38,
+          "valorCentavos": 4672,
+          "origem": "compra",
+          "referencia": "compra-teste-15"
+        },
+        {
           "diasAtras": 20,
           "valorCentavos": 4500,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 14,
+          "valorCentavos": 4800,
+          "origem": "compra",
+          "referencia": "compra-teste-22"
         },
         {
           "diasAtras": 5,
@@ -189,7 +302,7 @@
       "unidadeUso": "un",
       "fatorConversao": 30,
       "custoAtualCentavos": 2400,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 17,
       "estoqueMinimo": 60,
       "ativo": true,
       "historicoPrecos": [
@@ -197,6 +310,24 @@
           "diasAtras": 90,
           "valorCentavos": 2400,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 67,
+          "valorCentavos": 2267,
+          "origem": "compra",
+          "referencia": "compra-teste-07"
+        },
+        {
+          "diasAtras": 42,
+          "valorCentavos": 2333,
+          "origem": "compra",
+          "referencia": "compra-teste-14"
+        },
+        {
+          "diasAtras": 17,
+          "valorCentavos": 2400,
+          "origem": "compra",
+          "referencia": "compra-teste-21"
         }
       ]
     },
@@ -208,7 +339,7 @@
       "unidadeUso": "g",
       "fatorConversao": 1000,
       "custoAtualCentavos": 600,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 10,
       "estoqueMinimo": 10000,
       "ativo": true,
       "historicoPrecos": [
@@ -216,6 +347,30 @@
           "diasAtras": 90,
           "valorCentavos": 600,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 84,
+          "valorCentavos": 551,
+          "origem": "compra",
+          "referencia": "compra-teste-02"
+        },
+        {
+          "diasAtras": 60,
+          "valorCentavos": 567,
+          "origem": "compra",
+          "referencia": "compra-teste-09"
+        },
+        {
+          "diasAtras": 35,
+          "valorCentavos": 583,
+          "origem": "compra",
+          "referencia": "compra-teste-16"
+        },
+        {
+          "diasAtras": 10,
+          "valorCentavos": 600,
+          "origem": "compra",
+          "referencia": "compra-teste-23"
         }
       ]
     },
@@ -227,7 +382,7 @@
       "unidadeUso": "g",
       "fatorConversao": 1000,
       "custoAtualCentavos": 500,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 10,
       "estoqueMinimo": 10000,
       "ativo": true,
       "historicoPrecos": [
@@ -235,6 +390,30 @@
           "diasAtras": 90,
           "valorCentavos": 500,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 84,
+          "valorCentavos": 459,
+          "origem": "compra",
+          "referencia": "compra-teste-02"
+        },
+        {
+          "diasAtras": 60,
+          "valorCentavos": 472,
+          "origem": "compra",
+          "referencia": "compra-teste-09"
+        },
+        {
+          "diasAtras": 35,
+          "valorCentavos": 486,
+          "origem": "compra",
+          "referencia": "compra-teste-16"
+        },
+        {
+          "diasAtras": 10,
+          "valorCentavos": 500,
+          "origem": "compra",
+          "referencia": "compra-teste-23"
         }
       ]
     },
@@ -327,14 +506,38 @@
       "ativo": true,
       "historicoPrecos": [
         {
+          "diasAtras": 81,
+          "valorCentavos": 5048,
+          "origem": "compra",
+          "referencia": "compra-teste-03"
+        },
+        {
+          "diasAtras": 56,
+          "valorCentavos": 5201,
+          "origem": "compra",
+          "referencia": "compra-teste-10"
+        },
+        {
           "diasAtras": 50,
           "valorCentavos": 5000,
           "origem": "manual"
         },
         {
+          "diasAtras": 31,
+          "valorCentavos": 5353,
+          "origem": "compra",
+          "referencia": "compra-teste-17"
+        },
+        {
           "diasAtras": 25,
           "valorCentavos": 5200,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 7,
+          "valorCentavos": 5500,
+          "origem": "compra",
+          "referencia": "compra-teste-24"
         },
         {
           "diasAtras": 3,
@@ -370,7 +573,7 @@
       "unidadeUso": "g",
       "fatorConversao": 1000,
       "custoAtualCentavos": 4500,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 7,
       "estoqueMinimo": 1000,
       "ativo": true,
       "historicoPrecos": [
@@ -378,6 +581,30 @@
           "diasAtras": 90,
           "valorCentavos": 4500,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 81,
+          "valorCentavos": 4130,
+          "origem": "compra",
+          "referencia": "compra-teste-03"
+        },
+        {
+          "diasAtras": 56,
+          "valorCentavos": 4255,
+          "origem": "compra",
+          "referencia": "compra-teste-10"
+        },
+        {
+          "diasAtras": 31,
+          "valorCentavos": 4380,
+          "origem": "compra",
+          "referencia": "compra-teste-17"
+        },
+        {
+          "diasAtras": 7,
+          "valorCentavos": 4500,
+          "origem": "compra",
+          "referencia": "compra-teste-24"
         }
       ]
     },
@@ -427,7 +654,7 @@
       "unidadeUso": "g",
       "fatorConversao": 1000,
       "custoAtualCentavos": 1800,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 3,
       "estoqueMinimo": 1000,
       "ativo": true,
       "historicoPrecos": [
@@ -435,6 +662,30 @@
           "diasAtras": 90,
           "valorCentavos": 1800,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 77,
+          "valorCentavos": 1548,
+          "origem": "compra",
+          "referencia": "compra-teste-04"
+        },
+        {
+          "diasAtras": 53,
+          "valorCentavos": 1548,
+          "origem": "compra",
+          "referencia": "compra-teste-11"
+        },
+        {
+          "diasAtras": 28,
+          "valorCentavos": 1590,
+          "origem": "compra",
+          "referencia": "compra-teste-18"
+        },
+        {
+          "diasAtras": 3,
+          "valorCentavos": 1800,
+          "origem": "compra",
+          "referencia": "compra-teste-25"
         }
       ]
     },
@@ -484,7 +735,7 @@
       "unidadeUso": "un",
       "fatorConversao": 100,
       "custoAtualCentavos": 800,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 24,
       "estoqueMinimo": 300,
       "ativo": true,
       "historicoPrecos": [
@@ -492,6 +743,24 @@
           "diasAtras": 90,
           "valorCentavos": 800,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 74,
+          "valorCentavos": 756,
+          "origem": "compra",
+          "referencia": "compra-teste-05"
+        },
+        {
+          "diasAtras": 49,
+          "valorCentavos": 778,
+          "origem": "compra",
+          "referencia": "compra-teste-12"
+        },
+        {
+          "diasAtras": 24,
+          "valorCentavos": 800,
+          "origem": "compra",
+          "referencia": "compra-teste-19"
         }
       ]
     },
@@ -522,7 +791,7 @@
       "unidadeUso": "un",
       "fatorConversao": 1,
       "custoAtualCentavos": 600,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 24,
       "estoqueMinimo": 20,
       "ativo": true,
       "historicoPrecos": [
@@ -530,6 +799,24 @@
           "diasAtras": 90,
           "valorCentavos": 600,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 74,
+          "valorCentavos": 567,
+          "origem": "compra",
+          "referencia": "compra-teste-05"
+        },
+        {
+          "diasAtras": 49,
+          "valorCentavos": 583,
+          "origem": "compra",
+          "referencia": "compra-teste-12"
+        },
+        {
+          "diasAtras": 24,
+          "valorCentavos": 600,
+          "origem": "compra",
+          "referencia": "compra-teste-19"
         }
       ]
     },
@@ -674,7 +961,7 @@
       "unidadeUso": "un",
       "fatorConversao": 1,
       "custoAtualCentavos": 700,
-      "atualizadoDiasAtras": 90,
+      "atualizadoDiasAtras": 21,
       "estoqueMinimo": 12,
       "produtoRevendaId": "refrigerante",
       "ativo": true,
@@ -683,6 +970,24 @@
           "diasAtras": 90,
           "valorCentavos": 700,
           "origem": "manual"
+        },
+        {
+          "diasAtras": 70,
+          "valorCentavos": 662,
+          "origem": "compra",
+          "referencia": "compra-teste-06"
+        },
+        {
+          "diasAtras": 45,
+          "valorCentavos": 681,
+          "origem": "compra",
+          "referencia": "compra-teste-13"
+        },
+        {
+          "diasAtras": 21,
+          "valorCentavos": 700,
+          "origem": "compra",
+          "referencia": "compra-teste-20"
         }
       ]
     },

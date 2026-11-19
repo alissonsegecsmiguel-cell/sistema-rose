@@ -56,6 +56,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: saldo sempre calculado pelos movimentos; transferência é um único movimento com origem e destino. Abaixo do mínimo compara o total da loja (todos os estoques) com o mínimo do insumo; no Consolidado vale se alguma loja estiver abaixo. Perdas contam Desperdício, Vencimento e Quebra ou dano pelo custo do dia do registro. Contagem ajusta só os itens contados, com diferença pelo saldo no momento da conclusão. Venda no PDV baixa do estoque de produção da loja; cancelamento estorna. Estoque padrão não pode ser inativado. Chave local v8. **(decidido sem o Alisson, revisar)**
 
+- 19/11/2026: compra atualiza o custo do insumo pelo valor unitário da nota, sem ratear frete e desconto; frete e desconto entram só nas contas a pagar, rateados por categoria. Contas a pagar usam a categoria do insumo como referência provisória até a tarefa 13; itens sem estoque escolhem categoria (criada Limpeza e higiene). À vista gera conta já paga. Vínculos são memorizados por fornecedor e descrição exata da nota; sem vínculo, sugere pelo nome parecido. XML lido no navegador com DOMParser; os testes de unidade usam um leitor mínimo equivalente. Histórico de compras de teste termina exatamente no custo atual de cada insumo, para não mudar os custos das tarefas anteriores. Chave local v9. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -112,6 +114,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: tarefa 11 concluída. Tela /estoque com abas Saldos, Movimentações, Transferir, Entrada ou retirada, Contagem, Perdas e Estoques; 4 estoques e 60 dias de movimentos de teste com contagem concluída e desperdícios. Transferência entre estoques e lojas com aviso e confirmação de saldo negativo; retirada com motivo e descrição obrigatória no desperdício; contagem com saldo escondido, rascunho, diferenças, ajustes e folha A4; painel de perdas com barras SVG. Baixa automática ao marcar Pronto e na venda do PDV, com estorno ao voltar etapa ou cancelar venda e aviso de item sem ficha. Saldos e movimentos no detalhe do insumo e cartão de mínimo na Visão geral. Funções em src/lib/estoque.ts. Chave v8. Validação: lint, dois builds sem alterações inesperadas e 135 testes aprovados. Commit identificado pela mensagem “Tarefa 11: Estoque”; hash literal no relatório local 11-relatorio.md.
 
+- 19/11/2026: tarefa 12 concluída. Tela /compras com abas Compras, Nova compra, Fornecedores e Preços; leitura de NF-e no navegador (src/lib/nfe.ts) com dois XMLs fictícios em public/exemplos e botão de exemplo; notinha avulsa no mesmo formulário de conferência, com vínculo a insumo, conversão por extenso, novo custo e itens fora do estoque; lançamento gera entradas no almoxarifado, custo e histórico de compra, vínculos memorizados e contas a pagar por categoria com as mesmas parcelas. Detalhes de compra e fornecedor, preços com variação e alerta acima de 10%. 6 fornecedores e 25 compras de teste. Chave v9. Validação: lint, dois builds sem alterações inesperadas e 144 testes aprovados. Commit identificado pela mensagem “Tarefa 12: Compras e fornecedores”; hash literal no relatório local 12-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -131,6 +135,7 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Quais são as fichas técnicas reais (ingredientes e rendimentos) e quantos gramas de massa e de recheio vão em cada tamanho?
 - Qual margem mínima o dono considera aceitável (hoje 50% no protótipo)?
 - Quais estoques existem em cada loja (nomes) e qual o estoque mínimo de cada insumo?
+- Quais fornecedores e prazos usam hoje? As notas chegam em XML para todos os fornecedores?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
@@ -140,7 +145,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v8`, protegida por try/catch; a versão 8 traz estoques, movimentos e contagens.
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v9`, protegida por try/catch; a versão 9 traz fornecedores, compras, vínculos e contas a pagar.
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 

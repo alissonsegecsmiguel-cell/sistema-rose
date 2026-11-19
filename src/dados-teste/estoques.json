@@ -7569,6 +7569,756 @@
         "tipo": "contagem",
         "id": "contagem-teste-1"
       }
+    },
+    {
+      "id": "mov-compra-1-leite-condensado",
+      "diasAtras": 88,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-condensado",
+      "quantidade": 10665,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 559,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5000: LEITE CONDENSADO 395 G TESTE CX27",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-01"
+      }
+    },
+    {
+      "id": "mov-compra-1-creme-de-leite",
+      "diasAtras": 88,
+      "tipo": "entrada_compra",
+      "insumoId": "creme-de-leite",
+      "quantidade": 4800,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 321,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5000: CREME DE LEITE 200 G TESTE CX24",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-01"
+      }
+    },
+    {
+      "id": "mov-compra-1-manteiga",
+      "diasAtras": 88,
+      "tipo": "entrada_compra",
+      "insumoId": "manteiga",
+      "quantidade": 5000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 4405,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5000: MANTEIGA SEM SAL TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-01"
+      }
+    },
+    {
+      "id": "mov-compra-2-farinha-trigo",
+      "diasAtras": 84,
+      "tipo": "entrada_compra",
+      "insumoId": "farinha-trigo",
+      "quantidade": 25000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 551,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5001: FARINHA DE TRIGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-02"
+      }
+    },
+    {
+      "id": "mov-compra-2-acucar-refinado",
+      "diasAtras": 84,
+      "tipo": "entrada_compra",
+      "insumoId": "acucar-refinado",
+      "quantidade": 20000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 459,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5001: AÇÚCAR REFINADO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-02"
+      }
+    },
+    {
+      "id": "mov-compra-3-chocolate-meio-amargo",
+      "diasAtras": 81,
+      "tipo": "entrada_compra",
+      "insumoId": "chocolate-meio-amargo",
+      "quantidade": 3000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 5048,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5002: CHOCOLATE MEIO AMARGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-03"
+      }
+    },
+    {
+      "id": "mov-compra-3-cacau-po",
+      "diasAtras": 81,
+      "tipo": "entrada_compra",
+      "insumoId": "cacau-po",
+      "quantidade": 1000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 4130,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5002: CACAU EM PÓ TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-03"
+      }
+    },
+    {
+      "id": "mov-compra-4-morango",
+      "diasAtras": 77,
+      "tipo": "entrada_compra",
+      "insumoId": "morango",
+      "quantidade": 4000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 1548,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5003: MORANGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-04"
+      }
+    },
+    {
+      "id": "mov-compra-5-forminha-docinho",
+      "diasAtras": 74,
+      "tipo": "entrada_compra",
+      "insumoId": "forminha-docinho",
+      "quantidade": 1000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 756,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5004: FORMINHA DE DOCINHO, 100 UN TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-05"
+      }
+    },
+    {
+      "id": "mov-compra-5-caixa-bolo-p",
+      "diasAtras": 74,
+      "tipo": "entrada_compra",
+      "insumoId": "caixa-bolo-p",
+      "quantidade": 20,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 567,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5004: CAIXA DE BOLO PEQUENA TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-05"
+      }
+    },
+    {
+      "id": "mov-compra-6-refrigerante-2l",
+      "diasAtras": 70,
+      "tipo": "entrada_compra",
+      "insumoId": "refrigerante-2l",
+      "quantidade": 12,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 662,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5005: REFRIGERANTE 2L PARA REVENDA TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-06"
+      }
+    },
+    {
+      "id": "mov-compra-7-leite-integral",
+      "diasAtras": 67,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-integral",
+      "quantidade": 12000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 519,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5006: LEITE INTEGRAL TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-07"
+      }
+    },
+    {
+      "id": "mov-compra-7-ovos",
+      "diasAtras": 67,
+      "tipo": "entrada_compra",
+      "insumoId": "ovos",
+      "quantidade": 120,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 2267,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5006: OVOS, BANDEJA COM 30 TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-07"
+      }
+    },
+    {
+      "id": "mov-compra-7-leite-condensado",
+      "diasAtras": 67,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-condensado",
+      "quantidade": 10665,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 559,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5006: LEITE CONDENSADO 395 G TESTE CX27",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-07"
+      }
+    },
+    {
+      "id": "mov-compra-8-leite-condensado",
+      "diasAtras": 63,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-condensado",
+      "quantidade": 10665,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 559,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5007: LEITE CONDENSADO 395 G TESTE CX27",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-08"
+      }
+    },
+    {
+      "id": "mov-compra-8-creme-de-leite",
+      "diasAtras": 63,
+      "tipo": "entrada_compra",
+      "insumoId": "creme-de-leite",
+      "quantidade": 4800,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 331,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5007: CREME DE LEITE 200 G TESTE CX24",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-08"
+      }
+    },
+    {
+      "id": "mov-compra-8-manteiga",
+      "diasAtras": 63,
+      "tipo": "entrada_compra",
+      "insumoId": "manteiga",
+      "quantidade": 5000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 4539,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5007: MANTEIGA SEM SAL TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-08"
+      }
+    },
+    {
+      "id": "mov-compra-9-farinha-trigo",
+      "diasAtras": 60,
+      "tipo": "entrada_compra",
+      "insumoId": "farinha-trigo",
+      "quantidade": 25000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 567,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5008: FARINHA DE TRIGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-09"
+      }
+    },
+    {
+      "id": "mov-compra-9-acucar-refinado",
+      "diasAtras": 60,
+      "tipo": "entrada_compra",
+      "insumoId": "acucar-refinado",
+      "quantidade": 20000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 472,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5008: AÇÚCAR REFINADO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-09"
+      }
+    },
+    {
+      "id": "mov-compra-10-chocolate-meio-amargo",
+      "diasAtras": 56,
+      "tipo": "entrada_compra",
+      "insumoId": "chocolate-meio-amargo",
+      "quantidade": 3000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 5201,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5009: CHOCOLATE MEIO AMARGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-10"
+      }
+    },
+    {
+      "id": "mov-compra-10-cacau-po",
+      "diasAtras": 56,
+      "tipo": "entrada_compra",
+      "insumoId": "cacau-po",
+      "quantidade": 1000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 4255,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5009: CACAU EM PÓ TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-10"
+      }
+    },
+    {
+      "id": "mov-compra-11-morango",
+      "diasAtras": 53,
+      "tipo": "entrada_compra",
+      "insumoId": "morango",
+      "quantidade": 4000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 1548,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5010: MORANGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-11"
+      }
+    },
+    {
+      "id": "mov-compra-12-forminha-docinho",
+      "diasAtras": 49,
+      "tipo": "entrada_compra",
+      "insumoId": "forminha-docinho",
+      "quantidade": 1000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 778,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5011: FORMINHA DE DOCINHO, 100 UN TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-12"
+      }
+    },
+    {
+      "id": "mov-compra-12-caixa-bolo-p",
+      "diasAtras": 49,
+      "tipo": "entrada_compra",
+      "insumoId": "caixa-bolo-p",
+      "quantidade": 20,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 583,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5011: CAIXA DE BOLO PEQUENA TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-12"
+      }
+    },
+    {
+      "id": "mov-compra-13-refrigerante-2l",
+      "diasAtras": 45,
+      "tipo": "entrada_compra",
+      "insumoId": "refrigerante-2l",
+      "quantidade": 12,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 681,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5012: REFRIGERANTE 2L PARA REVENDA TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-13"
+      }
+    },
+    {
+      "id": "mov-compra-14-leite-integral",
+      "diasAtras": 42,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-integral",
+      "quantidade": 12000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 535,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5013: LEITE INTEGRAL TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-14"
+      }
+    },
+    {
+      "id": "mov-compra-14-ovos",
+      "diasAtras": 42,
+      "tipo": "entrada_compra",
+      "insumoId": "ovos",
+      "quantidade": 120,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 2333,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5013: OVOS, BANDEJA COM 30 TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-14"
+      }
+    },
+    {
+      "id": "mov-compra-14-leite-condensado",
+      "diasAtras": 42,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-condensado",
+      "quantidade": 10665,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 565,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5013: LEITE CONDENSADO 395 G TESTE CX27",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-14"
+      }
+    },
+    {
+      "id": "mov-compra-15-leite-condensado",
+      "diasAtras": 38,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-condensado",
+      "quantidade": 10665,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 577,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5014: LEITE CONDENSADO 395 G TESTE CX27",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-15"
+      }
+    },
+    {
+      "id": "mov-compra-15-creme-de-leite",
+      "diasAtras": 38,
+      "tipo": "entrada_compra",
+      "insumoId": "creme-de-leite",
+      "quantidade": 4800,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 341,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5014: CREME DE LEITE 200 G TESTE CX24",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-15"
+      }
+    },
+    {
+      "id": "mov-compra-15-manteiga",
+      "diasAtras": 38,
+      "tipo": "entrada_compra",
+      "insumoId": "manteiga",
+      "quantidade": 5000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 4672,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5014: MANTEIGA SEM SAL TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-15"
+      }
+    },
+    {
+      "id": "mov-compra-16-farinha-trigo",
+      "diasAtras": 35,
+      "tipo": "entrada_compra",
+      "insumoId": "farinha-trigo",
+      "quantidade": 25000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 583,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5015: FARINHA DE TRIGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-16"
+      }
+    },
+    {
+      "id": "mov-compra-16-acucar-refinado",
+      "diasAtras": 35,
+      "tipo": "entrada_compra",
+      "insumoId": "acucar-refinado",
+      "quantidade": 20000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 486,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5015: AÇÚCAR REFINADO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-16"
+      }
+    },
+    {
+      "id": "mov-compra-17-chocolate-meio-amargo",
+      "diasAtras": 31,
+      "tipo": "entrada_compra",
+      "insumoId": "chocolate-meio-amargo",
+      "quantidade": 3000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 5353,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5016: CHOCOLATE MEIO AMARGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-17"
+      }
+    },
+    {
+      "id": "mov-compra-17-cacau-po",
+      "diasAtras": 31,
+      "tipo": "entrada_compra",
+      "insumoId": "cacau-po",
+      "quantidade": 1000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 4380,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5016: CACAU EM PÓ TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-17"
+      }
+    },
+    {
+      "id": "mov-compra-18-morango",
+      "diasAtras": 28,
+      "tipo": "entrada_compra",
+      "insumoId": "morango",
+      "quantidade": 4000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 1590,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5017: MORANGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-18"
+      }
+    },
+    {
+      "id": "mov-compra-19-forminha-docinho",
+      "diasAtras": 24,
+      "tipo": "entrada_compra",
+      "insumoId": "forminha-docinho",
+      "quantidade": 1000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 800,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5018: FORMINHA DE DOCINHO, 100 UN TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-19"
+      }
+    },
+    {
+      "id": "mov-compra-19-caixa-bolo-p",
+      "diasAtras": 24,
+      "tipo": "entrada_compra",
+      "insumoId": "caixa-bolo-p",
+      "quantidade": 20,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 600,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5018: CAIXA DE BOLO PEQUENA TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-19"
+      }
+    },
+    {
+      "id": "mov-compra-20-refrigerante-2l",
+      "diasAtras": 21,
+      "tipo": "entrada_compra",
+      "insumoId": "refrigerante-2l",
+      "quantidade": 12,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 700,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5019: REFRIGERANTE 2L PARA REVENDA TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-20"
+      }
+    },
+    {
+      "id": "mov-compra-21-leite-integral",
+      "diasAtras": 17,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-integral",
+      "quantidade": 12000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 550,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5020: LEITE INTEGRAL TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-21"
+      }
+    },
+    {
+      "id": "mov-compra-21-ovos",
+      "diasAtras": 17,
+      "tipo": "entrada_compra",
+      "insumoId": "ovos",
+      "quantidade": 120,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 2400,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5020: OVOS, BANDEJA COM 30 TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-21"
+      }
+    },
+    {
+      "id": "mov-compra-21-leite-condensado",
+      "diasAtras": 17,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-condensado",
+      "quantidade": 10665,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 641,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5020: LEITE CONDENSADO 395 G TESTE CX27",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-21"
+      }
+    },
+    {
+      "id": "mov-compra-22-leite-condensado",
+      "diasAtras": 14,
+      "tipo": "entrada_compra",
+      "insumoId": "leite-condensado",
+      "quantidade": 10665,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 650,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5021: LEITE CONDENSADO 395 G TESTE CX27",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-22"
+      }
+    },
+    {
+      "id": "mov-compra-22-creme-de-leite",
+      "diasAtras": 14,
+      "tipo": "entrada_compra",
+      "insumoId": "creme-de-leite",
+      "quantidade": 4800,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 350,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5021: CREME DE LEITE 200 G TESTE CX24",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-22"
+      }
+    },
+    {
+      "id": "mov-compra-22-manteiga",
+      "diasAtras": 14,
+      "tipo": "entrada_compra",
+      "insumoId": "manteiga",
+      "quantidade": 5000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 4800,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5021: MANTEIGA SEM SAL TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-22"
+      }
+    },
+    {
+      "id": "mov-compra-23-farinha-trigo",
+      "diasAtras": 10,
+      "tipo": "entrada_compra",
+      "insumoId": "farinha-trigo",
+      "quantidade": 25000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 600,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5022: FARINHA DE TRIGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-23"
+      }
+    },
+    {
+      "id": "mov-compra-23-acucar-refinado",
+      "diasAtras": 10,
+      "tipo": "entrada_compra",
+      "insumoId": "acucar-refinado",
+      "quantidade": 20000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 500,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5022: AÇÚCAR REFINADO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-23"
+      }
+    },
+    {
+      "id": "mov-compra-24-chocolate-meio-amargo",
+      "diasAtras": 7,
+      "tipo": "entrada_compra",
+      "insumoId": "chocolate-meio-amargo",
+      "quantidade": 3000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 5500,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5023: CHOCOLATE MEIO AMARGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-24"
+      }
+    },
+    {
+      "id": "mov-compra-24-cacau-po",
+      "diasAtras": 7,
+      "tipo": "entrada_compra",
+      "insumoId": "cacau-po",
+      "quantidade": 1000,
+      "estoqueDestinoId": "almox-filial",
+      "custoUnitarioCentavos": 4500,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5023: CACAU EM PÓ TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-24"
+      }
+    },
+    {
+      "id": "mov-compra-25-morango",
+      "diasAtras": 3,
+      "tipo": "entrada_compra",
+      "insumoId": "morango",
+      "quantidade": 4000,
+      "estoqueDestinoId": "almox-matriz",
+      "custoUnitarioCentavos": 1800,
+      "usuarioId": "admin-teste",
+      "descricao": "NF 5024: MORANGO TESTE",
+      "referencia": {
+        "tipo": "compra",
+        "id": "compra-teste-25"
+      }
     }
   ],
   "contagens": [

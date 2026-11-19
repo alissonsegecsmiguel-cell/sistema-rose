@@ -14,6 +14,8 @@ import insumosTeste from '@/dados-teste/insumos.json';
 import fichasTeste from '@/dados-teste/fichas-tecnicas.json';
 import { validarFicha } from './custos';
 import estoquesTeste from '@/dados-teste/estoques.json';
+import comprasTeste from '@/dados-teste/compras.json';
+import type { Compra, ContaPagar } from './tipos';
 import { baixarEncomenda, baixarVenda, estornar } from './estoque';
 import type { Caixa, ConferenciaCaixa, MovimentoCaixa, PagamentoVenda, Venda } from './tipos';
 import type { CategoriaProduto, GrupoBolo, OpcaoBolo, Produto, UnidadeVenda } from './tipos';
@@ -21,7 +23,7 @@ import type { FichaTecnica, Insumo, MontagemTamanho, UnidadeCompra, UnidadeUso }
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v8';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v9';
 const formatadorDia = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' });
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
@@ -40,7 +42,10 @@ export function carregarDadosDeTeste(): DadosPrototipo {
     opcoesBolo: opcoes, produtos: produtos.itens, categoriasProduto: categorias.itens, clientes: clientes.itens.map(c => ({ ...c, criadoEm: `${dataRelativa(-c.criadoDiasAtras)}T12:00:00-03:00`, aniversario: c.aniversarioMesAtual ? `${c.aniversario!.slice(0, 4)}-${dataRelativa(0).slice(5, 7)}-${c.aniversario!.slice(8)}` : c.aniversario })),
     caixas: caixasTeste.caixas.map(c => ({ ...c, data: dataRelativa(-c.diasAtras), abertoEm: `${dataRelativa(-c.diasAtras)}T08:00:00-03:00`, fechadoEm: `${dataRelativa(-c.diasAtras)}T19:00:00-03:00`, fechadoPor: c.abertoPor })),
     vendas: caixasTeste.vendas.map(v => ({ ...v, data: `${dataRelativa(-v.diasAtras)}T14:00:00-03:00` })),
-    estoques: estoquesTeste.estoques, movimentosEstoque: estoquesTeste.movimentos.map(({ diasAtras, ...m }) => ({ ...m, data: `${dataRelativa(-diasAtras)}T${diasAtras === 60 ? '08' : '11'}:00:00-03:00` })), contagens: estoquesTeste.contagens.map(({ diasAtras, ...c }) => ({ ...c, data: `${dataRelativa(-diasAtras)}T09:00:00-03:00`, concluidaEm: `${dataRelativa(-diasAtras)}T11:00:00-03:00` })),
+    fornecedores: comprasTeste.fornecedores, vinculosFornecedor: comprasTeste.vinculos,
+    compras: comprasTeste.compras.map(({ diasAtras, parcelas, ...c }) => ({ ...c, data: dataRelativa(-diasAtras), lancadaEm: `${dataRelativa(-diasAtras)}T12:00:00-03:00`, parcelas: parcelas.map(({ vencimentoDias, ...p }) => ({ ...p, vencimento: dataRelativa(-vencimentoDias) })) }) as Compra),
+    contasPagar: comprasTeste.contasPagar.map(({ vencimentoDias, pagamento, ...c }) => ({ ...c, vencimento: dataRelativa(-vencimentoDias), ...(pagamento ? { pagamento: { formaPagamentoId: pagamento.formaPagamentoId, origem: pagamento.origem, data: `${dataRelativa(-pagamento.diasAtras)}T12:00:00-03:00` } } : {}) }) as ContaPagar),
+    estoques: estoquesTeste.estoques, movimentosEstoque: estoquesTeste.movimentos.map(({ diasAtras, ...m }) => ({ ...m, data: `${dataRelativa(-diasAtras)}T${m.id.startsWith('mov-compra-') ? '12' : diasAtras === 60 ? '08' : '11'}:00:00-03:00` })), contagens: estoquesTeste.contagens.map(({ diasAtras, ...c }) => ({ ...c, data: `${dataRelativa(-diasAtras)}T09:00:00-03:00`, concluidaEm: `${dataRelativa(-diasAtras)}T11:00:00-03:00` })),
     categoriasInsumo: insumosTeste.categorias, fichas: fichasTeste.itens, montagemBolo: fichasTeste.montagemBolo,
     insumos: insumosTeste.itens.map(({ atualizadoDiasAtras, historicoPrecos, ...i }) => ({ ...i, atualizadoEm: `${dataRelativa(-atualizadoDiasAtras)}T10:00:00-03:00`, historicoPrecos: historicoPrecos.map(({ diasAtras, ...h }) => ({ ...h, data: `${dataRelativa(-diasAtras)}T10:00:00-03:00` })) })),
     movimentosCaixa: caixasTeste.movimentos.map(m => ({ ...m, data: `${dataRelativa(-m.diasAtras)}T09:00:00-03:00` })),

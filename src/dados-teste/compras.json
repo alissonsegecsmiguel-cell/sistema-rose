@@ -1,0 +1,1889 @@
+{
+  "_aviso": "Fornecedores, compras e contas fictícios para o protótipo. Documentos e valores de teste.",
+  "fornecedores": [
+    {
+      "id": "fornecedor-teste-01",
+      "nome": "Laticínios Teste Ltda",
+      "documento": "00.000.000/0001-01",
+      "telefone": "(00) 0000-0001",
+      "email": "contato1@fornecedor-teste.invalid",
+      "contato": "Contato Teste 01",
+      "categorias": [
+        "laticinios"
+      ],
+      "prazoPadraoDias": 28,
+      "observacoes": "Fornecedor fictício para o protótipo.",
+      "ativo": true
+    },
+    {
+      "id": "fornecedor-teste-02",
+      "nome": "Distribuidora Farinha Teste",
+      "documento": "00.000.000/0001-02",
+      "telefone": "(00) 0000-0002",
+      "email": "contato2@fornecedor-teste.invalid",
+      "contato": "Contato Teste 02",
+      "categorias": [
+        "farinhas"
+      ],
+      "prazoPadraoDias": 30,
+      "observacoes": "Fornecedor fictício para o protótipo.",
+      "ativo": true
+    },
+    {
+      "id": "fornecedor-teste-03",
+      "nome": "Chocolates Teste Comércio",
+      "documento": "00.000.000/0001-03",
+      "telefone": "(00) 0000-0003",
+      "email": "contato3@fornecedor-teste.invalid",
+      "contato": "Contato Teste 03",
+      "categorias": [
+        "chocolates"
+      ],
+      "prazoPadraoDias": 21,
+      "observacoes": "Fornecedor fictício para o protótipo.",
+      "ativo": true
+    },
+    {
+      "id": "fornecedor-teste-04",
+      "nome": "Hortifruti Teste",
+      "documento": "00.000.000/0001-04",
+      "telefone": "(00) 0000-0004",
+      "email": "contato4@fornecedor-teste.invalid",
+      "contato": "Contato Teste 04",
+      "categorias": [
+        "frutas"
+      ],
+      "prazoPadraoDias": 7,
+      "observacoes": "Fornecedor fictício para o protótipo.",
+      "ativo": true
+    },
+    {
+      "id": "fornecedor-teste-05",
+      "nome": "Embalagens Teste",
+      "documento": "00.000.000/0001-05",
+      "telefone": "(00) 0000-0005",
+      "email": "contato5@fornecedor-teste.invalid",
+      "contato": "Contato Teste 05",
+      "categorias": [
+        "embalagens",
+        "decoracao"
+      ],
+      "prazoPadraoDias": 30,
+      "observacoes": "Fornecedor fictício para o protótipo.",
+      "ativo": true
+    },
+    {
+      "id": "fornecedor-teste-06",
+      "nome": "Bebidas Teste Atacado",
+      "documento": "00.000.000/0001-06",
+      "telefone": "(00) 0000-0006",
+      "email": "contato6@fornecedor-teste.invalid",
+      "contato": "Contato Teste 06",
+      "categorias": [
+        "revenda"
+      ],
+      "prazoPadraoDias": 14,
+      "observacoes": "Fornecedor fictício para o protótipo.",
+      "ativo": true
+    }
+  ],
+  "compras": [
+    {
+      "id": "compra-teste-01",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-01",
+      "diasAtras": 88,
+      "numeroNota": "5000",
+      "origem": "xml",
+      "chaveNfe": "00000000000000000000550010000000050001000000",
+      "itens": [
+        {
+          "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+          "codigo": "TLEI",
+          "insumoId": "leite-condensado",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 10665,
+          "valorUnitarioCentavos": 15093,
+          "totalCentavos": 15093
+        },
+        {
+          "descricaoNota": "CREME DE LEITE 200 G TESTE CX24",
+          "codigo": "TCRE",
+          "insumoId": "creme-de-leite",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 4800,
+          "valorUnitarioCentavos": 7704,
+          "totalCentavos": 7704
+        },
+        {
+          "descricaoNota": "MANTEIGA SEM SAL TESTE",
+          "codigo": "TMAN",
+          "insumoId": "manteiga",
+          "quantidade": 5,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4405,
+          "totalCentavos": 22025
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 44822,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 60,
+          "valorCentavos": 22411
+        },
+        {
+          "vencimentoDias": 32,
+          "valorCentavos": 22411
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-02",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-02",
+      "diasAtras": 84,
+      "numeroNota": "5001",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "FARINHA DE TRIGO TESTE",
+          "codigo": "TFAR",
+          "insumoId": "farinha-trigo",
+          "quantidade": 25,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 551,
+          "totalCentavos": 13775
+        },
+        {
+          "descricaoNota": "AÇÚCAR REFINADO TESTE",
+          "codigo": "TACU",
+          "insumoId": "acucar-refinado",
+          "quantidade": 20,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 459,
+          "totalCentavos": 9180
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 22955,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-03",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-03",
+      "diasAtras": 81,
+      "numeroNota": "5002",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "CHOCOLATE MEIO AMARGO TESTE",
+          "codigo": "TCHO",
+          "insumoId": "chocolate-meio-amargo",
+          "quantidade": 3,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 5048,
+          "totalCentavos": 15144
+        },
+        {
+          "descricaoNota": "CACAU EM PÓ TESTE",
+          "codigo": "TCAC",
+          "insumoId": "cacau-po",
+          "quantidade": 1,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4130,
+          "totalCentavos": 4130
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 19274,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 60,
+          "valorCentavos": 9637
+        },
+        {
+          "vencimentoDias": 39,
+          "valorCentavos": 9637
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-04",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-04",
+      "diasAtras": 77,
+      "numeroNota": "5003",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "MORANGO TESTE",
+          "codigo": "TMOR",
+          "insumoId": "morango",
+          "quantidade": 4,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 1548,
+          "totalCentavos": 6192
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 6192,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-05",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-05",
+      "diasAtras": 74,
+      "numeroNota": "5004",
+      "origem": "xml",
+      "chaveNfe": "00000000000000000000550010000000050041000000",
+      "itens": [
+        {
+          "descricaoNota": "FORMINHA DE DOCINHO, 100 UN TESTE",
+          "codigo": "TFOR",
+          "insumoId": "forminha-docinho",
+          "quantidade": 10,
+          "unidade": "PCT",
+          "fatorConversao": 100,
+          "valorUnitarioCentavos": 756,
+          "totalCentavos": 7560
+        },
+        {
+          "descricaoNota": "CAIXA DE BOLO PEQUENA TESTE",
+          "codigo": "TCAI",
+          "insumoId": "caixa-bolo-p",
+          "quantidade": 20,
+          "unidade": "UN",
+          "fatorConversao": 1,
+          "valorUnitarioCentavos": 567,
+          "totalCentavos": 11340
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 18900,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 44,
+          "valorCentavos": 9450
+        },
+        {
+          "vencimentoDias": 14,
+          "valorCentavos": 9450
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-06",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-06",
+      "diasAtras": 70,
+      "numeroNota": "5005",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "REFRIGERANTE 2L PARA REVENDA TESTE",
+          "codigo": "TREF",
+          "insumoId": "refrigerante-2l",
+          "quantidade": 12,
+          "unidade": "UN",
+          "fatorConversao": 1,
+          "valorUnitarioCentavos": 662,
+          "totalCentavos": 7944
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 7944,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-07",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-01",
+      "diasAtras": 67,
+      "numeroNota": "5006",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "LEITE INTEGRAL TESTE",
+          "codigo": "TLEI",
+          "insumoId": "leite-integral",
+          "quantidade": 12,
+          "unidade": "L",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 519,
+          "totalCentavos": 6228
+        },
+        {
+          "descricaoNota": "OVOS, BANDEJA COM 30 TESTE",
+          "codigo": "TOVO",
+          "insumoId": "ovos",
+          "quantidade": 4,
+          "unidade": "CX",
+          "fatorConversao": 30,
+          "valorUnitarioCentavos": 2267,
+          "totalCentavos": 9068
+        },
+        {
+          "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+          "codigo": "TLEI",
+          "insumoId": "leite-condensado",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 10665,
+          "valorUnitarioCentavos": 15093,
+          "totalCentavos": 15093
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 30389,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 39,
+          "valorCentavos": 15194
+        },
+        {
+          "vencimentoDias": 11,
+          "valorCentavos": 15195
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-08",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-01",
+      "diasAtras": 63,
+      "numeroNota": "5007",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+          "codigo": "TLEI",
+          "insumoId": "leite-condensado",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 10665,
+          "valorUnitarioCentavos": 15093,
+          "totalCentavos": 15093
+        },
+        {
+          "descricaoNota": "CREME DE LEITE 200 G TESTE CX24",
+          "codigo": "TCRE",
+          "insumoId": "creme-de-leite",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 4800,
+          "valorUnitarioCentavos": 7944,
+          "totalCentavos": 7944
+        },
+        {
+          "descricaoNota": "MANTEIGA SEM SAL TESTE",
+          "codigo": "TMAN",
+          "insumoId": "manteiga",
+          "quantidade": 5,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4539,
+          "totalCentavos": 22695
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 45732,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-09",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-02",
+      "diasAtras": 60,
+      "numeroNota": "5008",
+      "origem": "xml",
+      "chaveNfe": "00000000000000000000550010000000050081000000",
+      "itens": [
+        {
+          "descricaoNota": "FARINHA DE TRIGO TESTE",
+          "codigo": "TFAR",
+          "insumoId": "farinha-trigo",
+          "quantidade": 25,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 567,
+          "totalCentavos": 14175
+        },
+        {
+          "descricaoNota": "AÇÚCAR REFINADO TESTE",
+          "codigo": "TACU",
+          "insumoId": "acucar-refinado",
+          "quantidade": 20,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 472,
+          "totalCentavos": 9440
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 23615,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 30,
+          "valorCentavos": 11807
+        },
+        {
+          "vencimentoDias": 0,
+          "valorCentavos": 11808
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-10",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-03",
+      "diasAtras": 56,
+      "numeroNota": "5009",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "CHOCOLATE MEIO AMARGO TESTE",
+          "codigo": "TCHO",
+          "insumoId": "chocolate-meio-amargo",
+          "quantidade": 3,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 5201,
+          "totalCentavos": 15603
+        },
+        {
+          "descricaoNota": "CACAU EM PÓ TESTE",
+          "codigo": "TCAC",
+          "insumoId": "cacau-po",
+          "quantidade": 1,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4255,
+          "totalCentavos": 4255
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 19858,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-11",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-04",
+      "diasAtras": 53,
+      "numeroNota": "5010",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "MORANGO TESTE",
+          "codigo": "TMOR",
+          "insumoId": "morango",
+          "quantidade": 4,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 1548,
+          "totalCentavos": 6192
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 6192,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 46,
+          "valorCentavos": 3096
+        },
+        {
+          "vencimentoDias": 39,
+          "valorCentavos": 3096
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-12",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-05",
+      "diasAtras": 49,
+      "numeroNota": "5011",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "FORMINHA DE DOCINHO, 100 UN TESTE",
+          "codigo": "TFOR",
+          "insumoId": "forminha-docinho",
+          "quantidade": 10,
+          "unidade": "PCT",
+          "fatorConversao": 100,
+          "valorUnitarioCentavos": 778,
+          "totalCentavos": 7780
+        },
+        {
+          "descricaoNota": "CAIXA DE BOLO PEQUENA TESTE",
+          "codigo": "TCAI",
+          "insumoId": "caixa-bolo-p",
+          "quantidade": 20,
+          "unidade": "UN",
+          "fatorConversao": 1,
+          "valorUnitarioCentavos": 583,
+          "totalCentavos": 11660
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 19440,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-13",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-06",
+      "diasAtras": 45,
+      "numeroNota": "5012",
+      "origem": "xml",
+      "chaveNfe": "00000000000000000000550010000000050121000000",
+      "itens": [
+        {
+          "descricaoNota": "REFRIGERANTE 2L PARA REVENDA TESTE",
+          "codigo": "TREF",
+          "insumoId": "refrigerante-2l",
+          "quantidade": 12,
+          "unidade": "UN",
+          "fatorConversao": 1,
+          "valorUnitarioCentavos": 681,
+          "totalCentavos": 8172
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 8172,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 31,
+          "valorCentavos": 4086
+        },
+        {
+          "vencimentoDias": 17,
+          "valorCentavos": 4086
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-14",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-01",
+      "diasAtras": 42,
+      "numeroNota": "5013",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "LEITE INTEGRAL TESTE",
+          "codigo": "TLEI",
+          "insumoId": "leite-integral",
+          "quantidade": 12,
+          "unidade": "L",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 535,
+          "totalCentavos": 6420
+        },
+        {
+          "descricaoNota": "OVOS, BANDEJA COM 30 TESTE",
+          "codigo": "TOVO",
+          "insumoId": "ovos",
+          "quantidade": 4,
+          "unidade": "CX",
+          "fatorConversao": 30,
+          "valorUnitarioCentavos": 2333,
+          "totalCentavos": 9332
+        },
+        {
+          "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+          "codigo": "TLEI",
+          "insumoId": "leite-condensado",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 10665,
+          "valorUnitarioCentavos": 15255,
+          "totalCentavos": 15255
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 31007,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-15",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-01",
+      "diasAtras": 38,
+      "numeroNota": "5014",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+          "codigo": "TLEI",
+          "insumoId": "leite-condensado",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 10665,
+          "valorUnitarioCentavos": 15579,
+          "totalCentavos": 15579
+        },
+        {
+          "descricaoNota": "CREME DE LEITE 200 G TESTE CX24",
+          "codigo": "TCRE",
+          "insumoId": "creme-de-leite",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 4800,
+          "valorUnitarioCentavos": 8184,
+          "totalCentavos": 8184
+        },
+        {
+          "descricaoNota": "MANTEIGA SEM SAL TESTE",
+          "codigo": "TMAN",
+          "insumoId": "manteiga",
+          "quantidade": 5,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4672,
+          "totalCentavos": 23360
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 47123,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 10,
+          "valorCentavos": 23561
+        },
+        {
+          "vencimentoDias": -18,
+          "valorCentavos": 23562
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-16",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-02",
+      "diasAtras": 35,
+      "numeroNota": "5015",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "FARINHA DE TRIGO TESTE",
+          "codigo": "TFAR",
+          "insumoId": "farinha-trigo",
+          "quantidade": 25,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 583,
+          "totalCentavos": 14575
+        },
+        {
+          "descricaoNota": "AÇÚCAR REFINADO TESTE",
+          "codigo": "TACU",
+          "insumoId": "acucar-refinado",
+          "quantidade": 20,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 486,
+          "totalCentavos": 9720
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 24295,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-17",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-03",
+      "diasAtras": 31,
+      "numeroNota": "5016",
+      "origem": "xml",
+      "chaveNfe": "00000000000000000000550010000000050161000000",
+      "itens": [
+        {
+          "descricaoNota": "CHOCOLATE MEIO AMARGO TESTE",
+          "codigo": "TCHO",
+          "insumoId": "chocolate-meio-amargo",
+          "quantidade": 3,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 5353,
+          "totalCentavos": 16059
+        },
+        {
+          "descricaoNota": "CACAU EM PÓ TESTE",
+          "codigo": "TCAC",
+          "insumoId": "cacau-po",
+          "quantidade": 1,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4380,
+          "totalCentavos": 4380
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 20439,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": 10,
+          "valorCentavos": 10219
+        },
+        {
+          "vencimentoDias": -11,
+          "valorCentavos": 10220
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-18",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-04",
+      "diasAtras": 28,
+      "numeroNota": "5017",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "MORANGO TESTE",
+          "codigo": "TMOR",
+          "insumoId": "morango",
+          "quantidade": 4,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 1590,
+          "totalCentavos": 6360
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 6360,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-19",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-05",
+      "diasAtras": 24,
+      "numeroNota": "5018",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "FORMINHA DE DOCINHO, 100 UN TESTE",
+          "codigo": "TFOR",
+          "insumoId": "forminha-docinho",
+          "quantidade": 10,
+          "unidade": "PCT",
+          "fatorConversao": 100,
+          "valorUnitarioCentavos": 800,
+          "totalCentavos": 8000
+        },
+        {
+          "descricaoNota": "CAIXA DE BOLO PEQUENA TESTE",
+          "codigo": "TCAI",
+          "insumoId": "caixa-bolo-p",
+          "quantidade": 20,
+          "unidade": "UN",
+          "fatorConversao": 1,
+          "valorUnitarioCentavos": 600,
+          "totalCentavos": 12000
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 20000,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": -6,
+          "valorCentavos": 10000
+        },
+        {
+          "vencimentoDias": -36,
+          "valorCentavos": 10000
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-20",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-06",
+      "diasAtras": 21,
+      "numeroNota": "5019",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "REFRIGERANTE 2L PARA REVENDA TESTE",
+          "codigo": "TREF",
+          "insumoId": "refrigerante-2l",
+          "quantidade": 12,
+          "unidade": "UN",
+          "fatorConversao": 1,
+          "valorUnitarioCentavos": 700,
+          "totalCentavos": 8400
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 8400,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-21",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-01",
+      "diasAtras": 17,
+      "numeroNota": "5020",
+      "origem": "xml",
+      "chaveNfe": "00000000000000000000550010000000050201000000",
+      "itens": [
+        {
+          "descricaoNota": "LEITE INTEGRAL TESTE",
+          "codigo": "TLEI",
+          "insumoId": "leite-integral",
+          "quantidade": 12,
+          "unidade": "L",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 550,
+          "totalCentavos": 6600
+        },
+        {
+          "descricaoNota": "OVOS, BANDEJA COM 30 TESTE",
+          "codigo": "TOVO",
+          "insumoId": "ovos",
+          "quantidade": 4,
+          "unidade": "CX",
+          "fatorConversao": 30,
+          "valorUnitarioCentavos": 2400,
+          "totalCentavos": 9600
+        },
+        {
+          "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+          "codigo": "TLEI",
+          "insumoId": "leite-condensado",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 10665,
+          "valorUnitarioCentavos": 17307,
+          "totalCentavos": 17307
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 33507,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": -11,
+          "valorCentavos": 16753
+        },
+        {
+          "vencimentoDias": -39,
+          "valorCentavos": 16754
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-22",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-01",
+      "diasAtras": 14,
+      "numeroNota": "5021",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+          "codigo": "TLEI",
+          "insumoId": "leite-condensado",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 10665,
+          "valorUnitarioCentavos": 17550,
+          "totalCentavos": 17550
+        },
+        {
+          "descricaoNota": "CREME DE LEITE 200 G TESTE CX24",
+          "codigo": "TCRE",
+          "insumoId": "creme-de-leite",
+          "quantidade": 1,
+          "unidade": "CX",
+          "fatorConversao": 4800,
+          "valorUnitarioCentavos": 8400,
+          "totalCentavos": 8400
+        },
+        {
+          "descricaoNota": "MANTEIGA SEM SAL TESTE",
+          "codigo": "TMAN",
+          "insumoId": "manteiga",
+          "quantidade": 5,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4800,
+          "totalCentavos": 24000
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 49950,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-23",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-02",
+      "diasAtras": 10,
+      "numeroNota": "5022",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "FARINHA DE TRIGO TESTE",
+          "codigo": "TFAR",
+          "insumoId": "farinha-trigo",
+          "quantidade": 25,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 600,
+          "totalCentavos": 15000
+        },
+        {
+          "descricaoNota": "AÇÚCAR REFINADO TESTE",
+          "codigo": "TACU",
+          "insumoId": "acucar-refinado",
+          "quantidade": 20,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 500,
+          "totalCentavos": 10000
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 25000,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": -20,
+          "valorCentavos": 12500
+        },
+        {
+          "vencimentoDias": -50,
+          "valorCentavos": 12500
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-24",
+      "lojaId": "filial",
+      "fornecedorId": "fornecedor-teste-03",
+      "diasAtras": 7,
+      "numeroNota": "5023",
+      "origem": "manual",
+      "itens": [
+        {
+          "descricaoNota": "CHOCOLATE MEIO AMARGO TESTE",
+          "codigo": "TCHO",
+          "insumoId": "chocolate-meio-amargo",
+          "quantidade": 3,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 5500,
+          "totalCentavos": 16500
+        },
+        {
+          "descricaoNota": "CACAU EM PÓ TESTE",
+          "codigo": "TCAC",
+          "insumoId": "cacau-po",
+          "quantidade": 1,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 4500,
+          "totalCentavos": 4500
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 21000,
+      "estoqueDestinoId": "almox-filial",
+      "condicao": "a_vista",
+      "parcelas": [],
+      "formaPagamentoId": "pix",
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    },
+    {
+      "id": "compra-teste-25",
+      "lojaId": "matriz",
+      "fornecedorId": "fornecedor-teste-04",
+      "diasAtras": 3,
+      "numeroNota": "5024",
+      "origem": "xml",
+      "chaveNfe": "00000000000000000000550010000000050241000000",
+      "itens": [
+        {
+          "descricaoNota": "MORANGO TESTE",
+          "codigo": "TMOR",
+          "insumoId": "morango",
+          "quantidade": 4,
+          "unidade": "KG",
+          "fatorConversao": 1000,
+          "valorUnitarioCentavos": 1800,
+          "totalCentavos": 7200
+        }
+      ],
+      "freteCentavos": 0,
+      "descontoCentavos": 0,
+      "totalCentavos": 7200,
+      "estoqueDestinoId": "almox-matriz",
+      "condicao": "a_prazo",
+      "parcelas": [
+        {
+          "vencimentoDias": -4,
+          "valorCentavos": 3600
+        },
+        {
+          "vencimentoDias": -11,
+          "valorCentavos": 3600
+        }
+      ],
+      "status": "lancada",
+      "usuarioId": "admin-teste"
+    }
+  ],
+  "vinculos": [
+    {
+      "fornecedorId": "fornecedor-teste-01",
+      "descricaoNota": "LEITE CONDENSADO 395 G TESTE CX27",
+      "insumoId": "leite-condensado",
+      "fatorConversao": 10665
+    },
+    {
+      "fornecedorId": "fornecedor-teste-01",
+      "descricaoNota": "CREME DE LEITE 200 G TESTE CX24",
+      "insumoId": "creme-de-leite",
+      "fatorConversao": 4800
+    },
+    {
+      "fornecedorId": "fornecedor-teste-01",
+      "descricaoNota": "MANTEIGA SEM SAL TESTE",
+      "insumoId": "manteiga",
+      "fatorConversao": 1000
+    },
+    {
+      "fornecedorId": "fornecedor-teste-02",
+      "descricaoNota": "FARINHA DE TRIGO TESTE",
+      "insumoId": "farinha-trigo",
+      "fatorConversao": 1000
+    },
+    {
+      "fornecedorId": "fornecedor-teste-02",
+      "descricaoNota": "AÇÚCAR REFINADO TESTE",
+      "insumoId": "acucar-refinado",
+      "fatorConversao": 1000
+    },
+    {
+      "fornecedorId": "fornecedor-teste-03",
+      "descricaoNota": "CHOCOLATE MEIO AMARGO TESTE",
+      "insumoId": "chocolate-meio-amargo",
+      "fatorConversao": 1000
+    },
+    {
+      "fornecedorId": "fornecedor-teste-03",
+      "descricaoNota": "CACAU EM PÓ TESTE",
+      "insumoId": "cacau-po",
+      "fatorConversao": 1000
+    },
+    {
+      "fornecedorId": "fornecedor-teste-04",
+      "descricaoNota": "MORANGO TESTE",
+      "insumoId": "morango",
+      "fatorConversao": 1000
+    },
+    {
+      "fornecedorId": "fornecedor-teste-05",
+      "descricaoNota": "FORMINHA DE DOCINHO, 100 UN TESTE",
+      "insumoId": "forminha-docinho",
+      "fatorConversao": 100
+    },
+    {
+      "fornecedorId": "fornecedor-teste-05",
+      "descricaoNota": "CAIXA DE BOLO PEQUENA TESTE",
+      "insumoId": "caixa-bolo-p",
+      "fatorConversao": 1
+    },
+    {
+      "fornecedorId": "fornecedor-teste-06",
+      "descricaoNota": "REFRIGERANTE 2L PARA REVENDA TESTE",
+      "insumoId": "refrigerante-2l",
+      "fatorConversao": 1
+    },
+    {
+      "fornecedorId": "fornecedor-teste-01",
+      "descricaoNota": "LEITE INTEGRAL TESTE",
+      "insumoId": "leite-integral",
+      "fatorConversao": 1000
+    },
+    {
+      "fornecedorId": "fornecedor-teste-01",
+      "descricaoNota": "OVOS, BANDEJA COM 30 TESTE",
+      "insumoId": "ovos",
+      "fatorConversao": 30
+    }
+  ],
+  "contasPagar": [
+    {
+      "id": "conta-compra-1-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5000 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 22411,
+      "vencimentoDias": 60,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 60,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-01",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-1-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5000 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 22411,
+      "vencimentoDias": 32,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 32,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-01",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-2-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5001 • Distribuidora Farinha Teste • Farinhas e açúcares",
+      "categoriaFinanceiraId": "farinhas",
+      "fornecedorId": "fornecedor-teste-02",
+      "valorCentavos": 22955,
+      "vencimentoDias": 84,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 84,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-02",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-3-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5002 • Chocolates Teste Comércio • Chocolates e cacau",
+      "categoriaFinanceiraId": "chocolates",
+      "fornecedorId": "fornecedor-teste-03",
+      "valorCentavos": 9637,
+      "vencimentoDias": 60,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 60,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-03",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-3-2",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5002 • Chocolates Teste Comércio • Chocolates e cacau",
+      "categoriaFinanceiraId": "chocolates",
+      "fornecedorId": "fornecedor-teste-03",
+      "valorCentavos": 9637,
+      "vencimentoDias": 39,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 39,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-03",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-4-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5003 • Hortifruti Teste • Frutas",
+      "categoriaFinanceiraId": "frutas",
+      "fornecedorId": "fornecedor-teste-04",
+      "valorCentavos": 6192,
+      "vencimentoDias": 77,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 77,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-04",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-5-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5004 • Embalagens Teste • Embalagens",
+      "categoriaFinanceiraId": "embalagens",
+      "fornecedorId": "fornecedor-teste-05",
+      "valorCentavos": 9450,
+      "vencimentoDias": 44,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 44,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-05",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-5-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5004 • Embalagens Teste • Embalagens",
+      "categoriaFinanceiraId": "embalagens",
+      "fornecedorId": "fornecedor-teste-05",
+      "valorCentavos": 9450,
+      "vencimentoDias": 14,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 14,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-05",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-6-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5005 • Bebidas Teste Atacado • Revenda",
+      "categoriaFinanceiraId": "revenda",
+      "fornecedorId": "fornecedor-teste-06",
+      "valorCentavos": 7944,
+      "vencimentoDias": 70,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 70,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-06",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-7-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5006 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 15194,
+      "vencimentoDias": 39,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 39,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-07",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-7-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5006 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 15195,
+      "vencimentoDias": 11,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 11,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-07",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-8-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5007 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 45732,
+      "vencimentoDias": 63,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 63,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-08",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-9-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5008 • Distribuidora Farinha Teste • Farinhas e açúcares",
+      "categoriaFinanceiraId": "farinhas",
+      "fornecedorId": "fornecedor-teste-02",
+      "valorCentavos": 11807,
+      "vencimentoDias": 30,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 30,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-09",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-9-2",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5008 • Distribuidora Farinha Teste • Farinhas e açúcares",
+      "categoriaFinanceiraId": "farinhas",
+      "fornecedorId": "fornecedor-teste-02",
+      "valorCentavos": 11808,
+      "vencimentoDias": 0,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-09",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-10-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5009 • Chocolates Teste Comércio • Chocolates e cacau",
+      "categoriaFinanceiraId": "chocolates",
+      "fornecedorId": "fornecedor-teste-03",
+      "valorCentavos": 19858,
+      "vencimentoDias": 56,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 56,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-10",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-11-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5010 • Hortifruti Teste • Frutas",
+      "categoriaFinanceiraId": "frutas",
+      "fornecedorId": "fornecedor-teste-04",
+      "valorCentavos": 3096,
+      "vencimentoDias": 46,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 46,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-11",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-11-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5010 • Hortifruti Teste • Frutas",
+      "categoriaFinanceiraId": "frutas",
+      "fornecedorId": "fornecedor-teste-04",
+      "valorCentavos": 3096,
+      "vencimentoDias": 39,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 39,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-11",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-12-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5011 • Embalagens Teste • Embalagens",
+      "categoriaFinanceiraId": "embalagens",
+      "fornecedorId": "fornecedor-teste-05",
+      "valorCentavos": 19440,
+      "vencimentoDias": 49,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 49,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-12",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-13-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5012 • Bebidas Teste Atacado • Revenda",
+      "categoriaFinanceiraId": "revenda",
+      "fornecedorId": "fornecedor-teste-06",
+      "valorCentavos": 4086,
+      "vencimentoDias": 31,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 31,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-13",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-13-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5012 • Bebidas Teste Atacado • Revenda",
+      "categoriaFinanceiraId": "revenda",
+      "fornecedorId": "fornecedor-teste-06",
+      "valorCentavos": 4086,
+      "vencimentoDias": 17,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 17,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-13",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-14-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5013 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 31007,
+      "vencimentoDias": 42,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 42,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-14",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-15-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5014 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 23561,
+      "vencimentoDias": 10,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 10,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-15",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-15-2",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5014 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 23562,
+      "vencimentoDias": -18,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-15",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-16-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5015 • Distribuidora Farinha Teste • Farinhas e açúcares",
+      "categoriaFinanceiraId": "farinhas",
+      "fornecedorId": "fornecedor-teste-02",
+      "valorCentavos": 24295,
+      "vencimentoDias": 35,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 35,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-16",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-17-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5016 • Chocolates Teste Comércio • Chocolates e cacau",
+      "categoriaFinanceiraId": "chocolates",
+      "fornecedorId": "fornecedor-teste-03",
+      "valorCentavos": 10219,
+      "vencimentoDias": 10,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 10,
+        "formaPagamentoId": "pix",
+        "origem": "Pagamento de teste"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-17",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-17-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5016 • Chocolates Teste Comércio • Chocolates e cacau",
+      "categoriaFinanceiraId": "chocolates",
+      "fornecedorId": "fornecedor-teste-03",
+      "valorCentavos": 10220,
+      "vencimentoDias": -11,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-17",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-18-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5017 • Hortifruti Teste • Frutas",
+      "categoriaFinanceiraId": "frutas",
+      "fornecedorId": "fornecedor-teste-04",
+      "valorCentavos": 6360,
+      "vencimentoDias": 28,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 28,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-18",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-19-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5018 • Embalagens Teste • Embalagens",
+      "categoriaFinanceiraId": "embalagens",
+      "fornecedorId": "fornecedor-teste-05",
+      "valorCentavos": 10000,
+      "vencimentoDias": -6,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-19",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-19-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5018 • Embalagens Teste • Embalagens",
+      "categoriaFinanceiraId": "embalagens",
+      "fornecedorId": "fornecedor-teste-05",
+      "valorCentavos": 10000,
+      "vencimentoDias": -36,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-19",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-20-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5019 • Bebidas Teste Atacado • Revenda",
+      "categoriaFinanceiraId": "revenda",
+      "fornecedorId": "fornecedor-teste-06",
+      "valorCentavos": 8400,
+      "vencimentoDias": 21,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 21,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-20",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-21-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5020 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 16753,
+      "vencimentoDias": -11,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-21",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-21-2",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5020 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 16754,
+      "vencimentoDias": -39,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-21",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-22-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5021 • Laticínios Teste Ltda • Laticínios",
+      "categoriaFinanceiraId": "laticinios",
+      "fornecedorId": "fornecedor-teste-01",
+      "valorCentavos": 49950,
+      "vencimentoDias": 14,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 14,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-22",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-23-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5022 • Distribuidora Farinha Teste • Farinhas e açúcares",
+      "categoriaFinanceiraId": "farinhas",
+      "fornecedorId": "fornecedor-teste-02",
+      "valorCentavos": 12500,
+      "vencimentoDias": -20,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-23",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-23-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5022 • Distribuidora Farinha Teste • Farinhas e açúcares",
+      "categoriaFinanceiraId": "farinhas",
+      "fornecedorId": "fornecedor-teste-02",
+      "valorCentavos": 12500,
+      "vencimentoDias": -50,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-23",
+      "parcela": "2/2"
+    },
+    {
+      "id": "conta-compra-24-1",
+      "lojaId": "filial",
+      "descricao": "Compra NF 5023 • Chocolates Teste Comércio • Chocolates e cacau",
+      "categoriaFinanceiraId": "chocolates",
+      "fornecedorId": "fornecedor-teste-03",
+      "valorCentavos": 21000,
+      "vencimentoDias": 7,
+      "status": "paga",
+      "pagamento": {
+        "diasAtras": 7,
+        "formaPagamentoId": "pix",
+        "origem": "Compra à vista"
+      },
+      "origem": "compra",
+      "compraId": "compra-teste-24",
+      "parcela": "1/1"
+    },
+    {
+      "id": "conta-compra-25-1",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5024 • Hortifruti Teste • Frutas",
+      "categoriaFinanceiraId": "frutas",
+      "fornecedorId": "fornecedor-teste-04",
+      "valorCentavos": 3600,
+      "vencimentoDias": -4,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-25",
+      "parcela": "1/2"
+    },
+    {
+      "id": "conta-compra-25-2",
+      "lojaId": "matriz",
+      "descricao": "Compra NF 5024 • Hortifruti Teste • Frutas",
+      "categoriaFinanceiraId": "frutas",
+      "fornecedorId": "fornecedor-teste-04",
+      "valorCentavos": 3600,
+      "vencimentoDias": -11,
+      "status": "aberta",
+      "origem": "compra",
+      "compraId": "compra-teste-25",
+      "parcela": "2/2"
+    }
+  ]
+}
