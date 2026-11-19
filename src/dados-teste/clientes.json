@@ -115,6 +115,7 @@
     },
     {
       "id": "cliente-historico-teste",
+      "tecnico": true,
       "lojaId": "matriz",
       "nome": "Clientes diversos (histórico de teste)",
       "telefone": "(00) 00000-0000",

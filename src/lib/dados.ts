@@ -26,7 +26,7 @@ import type { FichaTecnica, Insumo, MontagemTamanho, UnidadeCompra, UnidadeUso }
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v11';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v12';
 const formatadorDia = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' });
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
@@ -72,8 +72,10 @@ function daLoja<T extends { lojaId: string }>(registros: T[], lojaId: LojaSeleci
 }
 export function listarEncomendas(dados: DadosPrototipo, lojaId: LojaSelecionada) { return daLoja(dados.encomendas, lojaId); }
 export function obterEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string) { return listarEncomendas(dados, lojaId).find(e => e.id === id); }
-export function listarClientes(dados: DadosPrototipo, lojaId: LojaSelecionada) { void lojaId; return dados.clientes; }
-export function obterCliente(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string) { return listarClientes(dados, lojaId).find(c => c.id === id); }
+/** Cadastros técnicos preservam vínculos históricos, mas não participam das escolhas de clientes. */
+export function clienteTecnico(cliente: Cliente | undefined) { return cliente?.tecnico === true; }
+export function listarClientes(dados: DadosPrototipo, lojaId: LojaSelecionada) { void lojaId; return dados.clientes.filter(c => !clienteTecnico(c)); }
+export function obterCliente(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string) { void lojaId; return dados.clientes.find(c => c.id === id); }
 export function listarProdutos(dados: DadosPrototipo, lojaId: LojaSelecionada, canal: 'encomenda' | 'balcao' = 'encomenda') { return dados.produtos.filter(p => p.ativo && (lojaId === 'consolidado' || p.lojasDisponiveis.includes(lojaId)) && (canal === 'balcao' ? p.vendeBalcao : p.aceitaEncomenda)); }
 export function listarLojas(dados: DadosPrototipo) { return dados.lojas; }
 export function listarUsuarios(dados: DadosPrototipo, lojaId: LojaSelecionada) { return daLoja(dados.usuarios, lojaId); }
@@ -124,7 +126,7 @@ export function limitesPeriodo(periodo: string, inicial = '', final = '') {
 export function filtrarEncomendas(dados: DadosPrototipo, lojaId: LojaSelecionada, filtros: { inicio?: string; fim?: string; busca?: string; status?: string[]; pagamento?: string; modalidade?: string; inverter?: boolean }) {
   const busca = filtros.busca?.toLocaleLowerCase('pt-BR').trim() ?? '', digitos = busca.replace(/\D/g, '');
   return listarEncomendas(dados, lojaId).filter(e => {
-    const c = obterCliente(dados, lojaId, e.clienteId);
+    const cadastro = obterCliente(dados, lojaId, e.clienteId), c = clienteTecnico(cadastro) ? undefined : cadastro;
     return (!filtros.inicio || e.dataEntrega >= filtros.inicio) && (!filtros.fim || e.dataEntrega <= filtros.fim) && (!filtros.status?.length || filtros.status.includes(e.status)) && (!filtros.pagamento || situacaoPagamento(e) === filtros.pagamento) && (!filtros.modalidade || e.modalidade === filtros.modalidade) && (!busca || c?.nome.toLocaleLowerCase('pt-BR').includes(busca) || String(e.numero) === busca.replace('#', '') || (digitos.length >= 3 && c?.telefone.replace(/\D/g, '').includes(digitos)));
   }).sort((a, b) => `${a.dataEntrega} ${a.horaEntrega}`.localeCompare(`${b.dataEntrega} ${b.horaEntrega}`) * (filtros.inverter ? -1 : 1));
 }
@@ -252,7 +254,7 @@ export function salvarRascunho(dados: DadosPrototipo, r: Rascunho) {
   return { ...dados, rascunhos: dados.rascunhos.some(x => x.id === r.id) ? dados.rascunhos.map(x => x.id === r.id ? atualizado : x) : [...dados.rascunhos, atualizado] };
 }
 export function descartarRascunho(dados: DadosPrototipo, id: string) { return { ...dados, rascunhos: dados.rascunhos.filter(r => r.id !== id) }; }
-export function localizarClientePorTelefone(dados: DadosPrototipo, telefone: string, exceto?: string) { const digitos = telefone.replace(/\D/g, ''); return dados.clientes.find(c => c.id !== exceto && c.telefone.replace(/\D/g, '') === digitos); }
+export function localizarClientePorTelefone(dados: DadosPrototipo, telefone: string, exceto?: string) { const digitos = telefone.replace(/\D/g, ''); return listarClientes(dados, 'consolidado').find(c => c.id !== exceto && c.telefone.replace(/\D/g, '') === digitos); }
 export function validarCliente(c: Cliente) { return { ...(!c.nome.trim() ? { nome: 'Informe o nome.' } : {}), ...(!/^\d{10,11}$/.test(c.telefone.replace(/\D/g, '')) ? { telefone: 'Informe o telefone com DDD, com 10 ou 11 dígitos.' } : {}) }; }
 export function salvarCliente(dados: DadosPrototipo, c: Cliente) {
   if (Object.keys(validarCliente(c)).length) throw new Error('Preencha nome e telefone corretamente.');
@@ -264,11 +266,11 @@ export function encomendasDoCliente(dados: DadosPrototipo, clienteId: string) { 
 export function resumoCliente(dados: DadosPrototipo, clienteId: string) {
   const lista = encomendasDoCliente(dados, clienteId), finalizadas = lista.filter(e => e.status === 'entregue'), limite = new Date(`${dataRelativa(0)}T12:00:00Z`); limite.setUTCMonth(limite.getUTCMonth() - 6);
   const total = finalizadas.reduce((s, e) => s + totalEncomenda(e), 0), pendentes = lista.filter(e => !['orcamento', 'cancelado'].includes(e.status) && saldoEncomenda(e) > 0);
-  return { quantidade: lista.filter(e => !['orcamento', 'cancelado'].includes(e.status)).length, total, ticketMedio: finalizadas.length ? Math.round(total / finalizadas.length) : 0, ultima: [...lista].sort((a, b) => b.criadoEm.localeCompare(a.criadoEm))[0], saldo: pendentes.reduce((s, e) => s + saldoEncomenda(e), 0), pendentes, recorrente: finalizadas.filter(e => e.dataEntrega >= limite.toISOString().slice(0, 10) && e.dataEntrega <= dataRelativa(0)).length >= 2 };
+  return { quantidade: lista.filter(e => !['orcamento', 'cancelado'].includes(e.status)).length, total, ticketMedio: finalizadas.length ? Math.round(total / finalizadas.length) : 0, ultima: [...lista].sort((a, b) => b.criadoEm.localeCompare(a.criadoEm))[0], saldo: pendentes.reduce((s, e) => s + saldoEncomenda(e), 0), pendentes, recorrente: !clienteTecnico(obterCliente(dados, 'consolidado', clienteId)) && finalizadas.filter(e => e.dataEntrega >= limite.toISOString().slice(0, 10) && e.dataEntrega <= dataRelativa(0)).length >= 2 };
 }
 export function filtrarClientes(dados: DadosPrototipo, busca = '', filtro = 'todos') {
   const texto = busca.toLocaleLowerCase('pt-BR'), digitos = busca.replace(/\D/g, '');
-  return dados.clientes.filter(c => { const s = resumoCliente(dados, c.id); return (!texto || c.nome.toLocaleLowerCase('pt-BR').includes(texto) || (digitos.length >= 3 && c.telefone.replace(/\D/g, '').includes(digitos))) && (filtro === 'todos' || (filtro === 'recorrentes' && s.recorrente) || (filtro === 'pendencia' && s.saldo > 0) || (filtro === 'aniversario' && c.aniversario?.slice(5, 7) === dataRelativa(0).slice(5, 7))); });
+  return listarClientes(dados, 'consolidado').filter(c => { const s = resumoCliente(dados, c.id); return (!texto || c.nome.toLocaleLowerCase('pt-BR').includes(texto) || (digitos.length >= 3 && c.telefone.replace(/\D/g, '').includes(digitos))) && (filtro === 'todos' || (filtro === 'recorrentes' && s.recorrente) || (filtro === 'pendencia' && s.saldo > 0) || (filtro === 'aniversario' && c.aniversario?.slice(5, 7) === dataRelativa(0).slice(5, 7))); });
 }
 export function enderecoWhatsapp(c: Cliente) { return `https://wa.me/55${c.telefone.replace(/\D/g, '')}`; }
 export function proximoNumeroEncomenda(dados: DadosPrototipo, lojaId: string) { return Math.max(0, ...listarEncomendas(dados, lojaId).map(e => e.numero)) + 1; }

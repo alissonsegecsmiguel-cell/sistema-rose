@@ -68,6 +68,10 @@ Protótipo visual completo, aguardando apresentação e aprovação do cliente. 
 
 - 19/11/2026: revisão geral: textos padronizados em "Encomenda" (o termo "pedido" ficou só em "mais pedido", no sentido de mais solicitado); o fechamento do caixa respeita a configuração de observação obrigatória também na tela; /entrar ganhou o bloco "Como explorar este protótipo". Conferência dos números coberta por teste: pagamentos e vendas do dia batem com o caixa; o caixa bate com os recebimentos do fluxo (cartão entra na liquidação, sem a taxa); faturamento do relatório igual à receita bruta do DRE e conferência com os caixas zerada; baixas de estoque iguais às fichas dos itens marcados como prontos. **(decidido sem o Alisson, revisar)**
 
+- 19/11/2026: tarefa 17: clientes técnicos são identificados pelo campo opcional `tecnico` e pela função única `clienteTecnico` em dados.ts. Listas, buscas, aniversários, recorrência e ranking ignoram esses cadastros; a consulta direta mantém seus vínculos e mostra aviso. Busca de encomendas por número continua encontrando o histórico, inclusive no quadro, sem sugerir o cadastro pelo nome ou telefone. O seletor de cliente opcional do Financeiro segue a mesma lista filtrada. **(decidido sem o Alisson, revisar)**
+- 19/11/2026: um período sem encomendas de clientes identificados fica sem linhas em Vendas por cliente; o aviso e o estado vazio explicam o resultado, com indicadores zerados. As encomendas continuam nos cálculos financeiros e demais relatórios. Há 13 cadastros armazenados e 12 visíveis. O contêiner da tabela passa a conter também os textos exclusivos do leitor de tela, evitando rolagem horizontal da página em 1024px. Chave local v12 para carregar o campo técnico com segurança; os dados de demonstração voltam à base fictícia nesta versão. **(decidido sem o Alisson, revisar)**
+- 19/11/2026: AGENTS.md e CLAUDE.md determinam respostas, relatórios, mensagens de commit e HANDOFF em português do Brasil, sem travessões, conforme a tarefa 17.
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -133,15 +137,19 @@ Protótipo visual completo, aguardando apresentação e aprovação do cliente. 
 
 - 19/11/2026: tarefa 16 concluída. Revisão com os dois fluxos completos cobertos por testes (dia de Atendimento na Matriz e na Filial: abrir caixa, orçamento, conversão com adiantamento, produção, entrega com saldo, venda no balcão, cliente e fechamento; e percurso do Administrativo pelos 12 módulos nas duas lojas e no Consolidado, sem rolagem horizontal nem textos técnicos). Teste de conferência dos números (caixa, fluxo realizado, relatório, DRE e baixas de estoque). Textos padronizados em Encomenda, fechamento respeitando a configuração, alvos de 44px e barra fixa conferidos em 390px, bloco Como explorar este protótipo em /entrar, HANDOFF com a fase final. Roteiro de demonstração em relatorios/fila/roteiro-demonstracao.md. Validação: lint, dois builds sem alterações inesperadas e 174 testes aprovados. Commit identificado pela mensagem “Tarefa 16: Revisão geral e roteiro de demonstração”; hash literal no relatório local 16-relatorio.md.
 
+- 19/11/2026: tarefa 17 concluída. Campo técnico e filtro central em dados.ts; cadastro oculto em listas, filtros, nova encomenda, busca do quadro, aniversariantes, recorrência e ranking/gráfico/CSV de Vendas por cliente. Detalhe direto preservado com aviso; cálculos financeiros e os outros 14 relatórios preservados. Regras de português nos dois arquivos de instruções, chave local v12 e manual atualizado. Corrigida rolagem horizontal em 1024px causada por texto acessível fora do contêiner da tabela. Validação: lint, dois builds idênticos nos 196 arquivos comparados e 193 testes Playwright aprovados, incluindo 19 novos testes, quatro larguras, três perfis, teclado e conferência dos números da tarefa 16. Capturas de celular e computador revisadas. Evidências em relatorios/fila/evidencias-17; hash e push no relatório local 17-relatorio.md.
+
 ## 6. Em andamento
 
-- Fila 01 a 16 concluída em 19/11/2026 (tarefas 09 a 16 retomadas e concluídas pelo Claude após o Codex atingir o limite). Próximo passo: demonstração ao cliente e coleta das respostas da seção 8.
+- Fila 01 a 16 concluída em 19/11/2026 (tarefas 09 a 16 retomadas e concluídas pelo Claude após o Codex atingir o limite). Tarefa 17 também concluída em 19/11/2026. Próximo passo: demonstração ao cliente e coleta das respostas da seção 8.
 
 ## 7. Backlog
 
 - Sem tarefas no Backlog e sem bloqueios. Depois da aprovação do cliente: back-end (Supabase + Vercel, a confirmar), login real, impressora térmica, maquininha e migração de dados.
 
 ## 8. Perguntas em aberto para o cliente
+
+Conferência da tarefa 17: nenhuma pergunta nova; permanecem as perguntas de operação abaixo.
 
 - Adiantamento entra no caixa do dia em que foi pago? Recomendação: sim, no dia do recebimento.
 - Sangria e suprimento: existe mais de um caixa por loja ou a transferência é entre lojas?
@@ -166,7 +174,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v11`, protegida por try/catch; a versão 11 traz as configurações (lojas, usuários, formas de pagamento, caixa e encomendas).
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v12`, protegida por try/catch; a versão 12 acrescenta a identificação de clientes técnicos, mantendo as configurações (lojas, usuários, formas de pagamento, caixa e encomendas).
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 

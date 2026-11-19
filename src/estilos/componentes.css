@@ -30,7 +30,7 @@
 .tom-alerta { color: var(--cor-alerta); background: var(--cor-alerta-suave); }
 .tom-erro { color: var(--cor-erro); background: var(--cor-erro-suave); }
 .selo { display: inline-flex; align-items: center; padding: var(--espaco-1) var(--espaco-3); border-radius: var(--raio-3); font-size: var(--fonte-1); font-weight: var(--peso-medio); white-space: nowrap; }
-.tabela-container { border: 1px solid var(--cor-borda); border-radius: var(--raio-2); background: var(--cor-superficie); }
+.tabela-container { position: relative; border: 1px solid var(--cor-borda); border-radius: var(--raio-2); background: var(--cor-superficie); }
 .tabela { border-collapse: collapse; width: 100%; font-size: var(--fonte-2); }
 .tabela caption { padding: var(--espaco-4); text-align: left; font-weight: var(--peso-forte); }
 .tabela th, .tabela td { text-align: left; padding: var(--espaco-4); border-top: 1px solid var(--cor-borda); overflow-wrap: anywhere; }

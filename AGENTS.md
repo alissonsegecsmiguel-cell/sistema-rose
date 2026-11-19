@@ -1,5 +1,7 @@
 # Regras do Sistema Rose
 
+- Responda, escreva relatórios, mensagens de commit e o HANDOFF sempre em português do Brasil, sem travessões.
+
 - Leia o HANDOFF.md antes de qualquer tarefa. Projeto de gestão do Ateliê Delícias da Rose, matriz e filial. Fase atual: apenas protótipo visual navegável, dados fictícios, sem back-end.
 - Interface em português do Brasil, sem travessões nos textos da tela. Datas dd/mm/aaaa; fuso em configuracao.json, a confirmar; dinheiro inteiro em centavos, formatado na apresentação.
 - Use tokens de src/estilos/tokens.css e componentes de src/componentes/. Não adicione cores, espaçamentos ou controles isolados nas telas. Todo componente novo e seus estados entram no manual /design-system.

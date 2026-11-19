@@ -28,7 +28,7 @@ export function TelaNovaEncomenda() { const { estado, usuario } = usePrototipo()
 export function FormularioEncomenda({ pedido }: { pedido?: Encomenda }) {
   const { estado, usuario, atualizar } = usePrototipo(), router = useRouter(), params = useSearchParams(), notificar = useNotificacao();
   const { dados, lojaId } = estado;
-  const [inicial] = useState(() => { const r = pedido ? criarRascunhoEdicao(pedido, usuario!.id) : criarRascunho(lojaId, usuario!.id); const cliente = params.get('cliente'); if (cliente && obterCliente(dados, lojaId, cliente)) r.encomenda.clienteId = cliente; return r; });
+  const [inicial] = useState(() => { const r = pedido ? criarRascunhoEdicao(pedido, usuario!.id) : criarRascunho(lojaId, usuario!.id); const cliente = params.get('cliente'); if (cliente && listarClientes(dados, lojaId).some(c => c.id === cliente)) r.encomenda.clienteId = cliente; return r; });
   const [ativo, setAtivo] = useState(''), [busca, setBusca] = useState(''), [dialogo, setDialogo] = useState(''), [edicao, setEdicao] = useState<ItemEncomenda>(), [seq, setSeq] = useState(0), [remover, setRemover] = useState(''), [erros, setErros] = useState<Record<string, string>>({}), [forma, setForma] = useState(dados.formasPagamento[0]?.id || ''), [valor, setValor] = useState(0);
   const rascunhos = dados.rascunhos.filter(r => r.usuarioId === usuario?.id && (pedido ? r.origemId === pedido.id : !r.origemId) && (lojaId === 'consolidado' || r.encomenda.lojaId === lojaId));
   const r = rascunhos.find(r => r.id === ativo) ?? rascunhos[0] ?? inicial, e = r.encomenda, t = calcularTotais(r), cliente = obterCliente(dados, e.lojaId, e.clienteId);

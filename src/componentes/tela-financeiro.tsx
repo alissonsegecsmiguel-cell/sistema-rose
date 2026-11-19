@@ -1,4 +1,5 @@
 'use client';
+import { listarClientes } from '@/lib/dados';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -75,7 +76,7 @@ function AbaReceber() {
 }
 function FormularioContaReceber({ dados, inicial, aoSalvar, aoCancelar }: { dados: DadosPrototipo; inicial: ContaReceber; aoSalvar: (c: ContaReceber) => void; aoCancelar: () => void }) {
   const [c, setC] = useState(inicial), [erro, setErro] = useState('');
-  return <form className="pilha" onSubmit={e => { e.preventDefault(); try { salvarContaReceber(dados, c); aoSalvar(c); } catch (x) { setErro((x as Error).message); } }}>{erro && <Aviso tom="erro">{erro}</Aviso>}<CampoTexto rotulo="Descrição a receber" required value={c.descricao} onChange={e => setC({ ...c, descricao: e.target.value })} /><CampoValor rotulo="Valor a receber" valorCentavos={c.valorCentavos} onChange={v => setC({ ...c, valorCentavos: v })} /><CampoTexto rotulo="Vencimento do recebimento" type="date" value={c.vencimento} onChange={e => setC({ ...c, vencimento: e.target.value })} /><Selecao rotulo="Cliente (opcional)" value={c.clienteId ?? ''} onChange={e => setC({ ...c, clienteId: e.target.value || undefined })}><option value="">Nenhum</option>{dados.clientes.map(x => <option key={x.id} value={x.id}>{x.nome}</option>)}</Selecao><Selecao rotulo="Loja do recebimento" value={c.lojaId} onChange={e => setC({ ...c, lojaId: e.target.value })}>{dados.lojas.map(l => <option key={l.id} value={l.id}>{l.nome}</option>)}</Selecao><div className="linha"><Botao variante="secundario" onClick={aoCancelar}>Cancelar</Botao><Botao type="submit">Salvar conta</Botao></div></form>;
+  return <form className="pilha" onSubmit={e => { e.preventDefault(); try { salvarContaReceber(dados, c); aoSalvar(c); } catch (x) { setErro((x as Error).message); } }}>{erro && <Aviso tom="erro">{erro}</Aviso>}<CampoTexto rotulo="Descrição a receber" required value={c.descricao} onChange={e => setC({ ...c, descricao: e.target.value })} /><CampoValor rotulo="Valor a receber" valorCentavos={c.valorCentavos} onChange={v => setC({ ...c, valorCentavos: v })} /><CampoTexto rotulo="Vencimento do recebimento" type="date" value={c.vencimento} onChange={e => setC({ ...c, vencimento: e.target.value })} /><Selecao rotulo="Cliente (opcional)" value={c.clienteId ?? ''} onChange={e => setC({ ...c, clienteId: e.target.value || undefined })}><option value="">Nenhum</option>{listarClientes(dados, 'consolidado').map(x => <option key={x.id} value={x.id}>{x.nome}</option>)}</Selecao><Selecao rotulo="Loja do recebimento" value={c.lojaId} onChange={e => setC({ ...c, lojaId: e.target.value })}>{dados.lojas.map(l => <option key={l.id} value={l.id}>{l.nome}</option>)}</Selecao><div className="linha"><Botao variante="secundario" onClick={aoCancelar}>Cancelar</Botao><Botao type="submit">Salvar conta</Botao></div></form>;
 }
 
 function AbaFluxo() {
