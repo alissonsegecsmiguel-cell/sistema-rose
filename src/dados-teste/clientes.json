@@ -112,6 +112,14 @@
       "endereco": "[Endereço fictício do Cliente Teste 12]",
       "aniversarioMesAtual": false,
       "criadoDiasAtras": 90
+    },
+    {
+      "id": "cliente-historico-teste",
+      "lojaId": "matriz",
+      "nome": "Clientes diversos (histórico de teste)",
+      "telefone": "(00) 00000-0000",
+      "observacoes": "Cadastro técnico que agrupa as encomendas geradas para o histórico de 90 dias.",
+      "criadoDiasAtras": 120
     }
   ]
 }

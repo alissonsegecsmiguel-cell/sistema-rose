@@ -58,6 +58,10 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: compra atualiza o custo do insumo pelo valor unitário da nota, sem ratear frete e desconto; frete e desconto entram só nas contas a pagar, rateados por categoria. Contas a pagar usam a categoria do insumo como referência provisória até a tarefa 13; itens sem estoque escolhem categoria (criada Limpeza e higiene). À vista gera conta já paga. Vínculos são memorizados por fornecedor e descrição exata da nota; sem vínculo, sugere pelo nome parecido. XML lido no navegador com DOMParser; os testes de unidade usam um leitor mínimo equivalente. Histórico de compras de teste termina exatamente no custo atual de cada insumo, para não mudar os custos das tarefas anteriores. Chave local v9. **(decidido sem o Alisson, revisar)**
 
+- 19/11/2026: histórico de teste gerado de forma determinística (semente fixa) de 7 a 96 dias atrás: vendas de balcão, encomendas entregues pagas na entrega, caixas fechados e despesas fixas mensais. Encomendas do histórico usam o cadastro técnico "Clientes diversos (histórico de teste)" para não alterar a recorrência dos clientes de teste; por isso há 13 clientes e o histórico de caixas mostra 30 por vez. Testes das tarefas 06 e 07 ajustados apenas nessas contagens. **(decidido sem o Alisson, revisar)**
+
+- 19/11/2026: DRE gerencial por competência: receita bruta é o valor dos itens das vendas e encomendas entregues no mês (antes de descontos); taxas de cartão pela taxa de teste da forma; CMV pela ficha técnica atual; despesas pelas contas com vencimento no mês; contas de grupo custo (compras de insumos e embalagens) ficam fora do DRE porque o CMV já as representa. Como a receita é por competência e o caixa por recebimento, a tela mostra a conferência com os caixas fechados (adiantamentos, saldos em aberto e descontos explicam a diferença, que fica zerada). Fluxo de caixa: cartão entra na data de liquidação, já sem a taxa; atrasados aparecem no previsto de hoje. Pagamento em dinheiro pelo caixa da loja lança saída no caixa aberto do dia. Prazos e taxas de teste: débito D+1 1,5%, crédito D+30 3,5%, Pix D+0. Chave local v10. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -116,6 +120,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: tarefa 12 concluída. Tela /compras com abas Compras, Nova compra, Fornecedores e Preços; leitura de NF-e no navegador (src/lib/nfe.ts) com dois XMLs fictícios em public/exemplos e botão de exemplo; notinha avulsa no mesmo formulário de conferência, com vínculo a insumo, conversão por extenso, novo custo e itens fora do estoque; lançamento gera entradas no almoxarifado, custo e histórico de compra, vínculos memorizados e contas a pagar por categoria com as mesmas parcelas. Detalhes de compra e fornecedor, preços com variação e alerta acima de 10%. 6 fornecedores e 25 compras de teste. Chave v9. Validação: lint, dois builds sem alterações inesperadas e 144 testes aprovados. Commit identificado pela mensagem “Tarefa 12: Compras e fornecedores”; hash literal no relatório local 12-relatorio.md.
 
+- 19/11/2026: tarefa 13 concluída. Tela /financeiro com abas Resumo, Contas a pagar, Contas a receber, Fluxo de caixa, DRE, Conciliação e Categorias. Histórico determinístico de 90 dias (src/lib/historico-teste.ts) com vendas, encomendas, caixas fechados e despesas fixas; 14 categorias financeiras ligadas às categorias de insumo; contas manuais com recorrência mensal; pagar e receber, com saída no caixa aberto quando em dinheiro; saldos de encomendas como contas a receber calculadas; fluxo realizado e previsto diário e mensal com barras SVG; DRE gerencial com mês anterior, variação, impressão A4 e conferência com os caixas fechados; conciliação por forma com prazo, taxa e diferença. Cálculos em src/lib/financeiro.ts. Histórico de caixas paginado. Chave v10. Validação: lint, dois builds sem alterações inesperadas e 152 testes aprovados. Commit identificado pela mensagem “Tarefa 13: Financeiro”; hash literal no relatório local 13-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -136,6 +142,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Qual margem mínima o dono considera aceitável (hoje 50% no protótipo)?
 - Quais estoques existem em cada loja (nomes) e qual o estoque mínimo de cada insumo?
 - Quais fornecedores e prazos usam hoje? As notas chegam em XML para todos os fornecedores?
+- Quais são as taxas e prazos reais da maquininha (débito, crédito, parcelado) e do Pix?
+- Quais despesas fixas mensais existem (aluguel, folha, pró-labore) e em que dia vencem?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
@@ -145,7 +153,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v9`, protegida por try/catch; a versão 9 traz fornecedores, compras, vínculos e contas a pagar.
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v10`, protegida por try/catch; a versão 10 traz categorias financeiras, contas a receber, conciliações e o histórico de 90 dias.
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 

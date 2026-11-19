@@ -217,6 +217,7 @@
 .grafico-barras { margin: 0; }
 .grafico-barras svg { width: 100%; max-width: var(--largura-dialogo); height: auto; }
 .grafico-barra { fill: var(--cor-primaria); }
+.grafico-barra-negativa { fill: var(--cor-erro); }
 .grafico-texto { fill: var(--cor-texto); font-size: var(--fonte-grafico); }
 .folha-contagem { width: 100%; border-collapse: collapse; }
 .folha-contagem th, .folha-contagem td { border: 1px solid var(--cor-borda-forte); padding: var(--espaco-2); text-align: left; }

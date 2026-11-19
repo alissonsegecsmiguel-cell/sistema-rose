@@ -32,7 +32,7 @@ test('compra a prazo: estoque, custo, vínculos e contas por categoria', () => {
   expect(d.insumos.find(i => i.id === 'leite-condensado')!.custoAtualCentavos).toBe(700); expect(leite.custoAtualCentavos).not.toBe(700);
   expect(d.insumos.find(i => i.id === 'leite-condensado')!.historicoPrecos.at(-1)).toMatchObject({ origem: 'compra', referencia: c.id });
   expect(custoFicha(d, 'recheio-ninho').final).toBeGreaterThan(antesFicha);
-  const contas = d.contasPagar.filter(x => x.compraId === c.id); expect(new Set(contas.map(x => x.categoriaFinanceiraId))).toEqual(new Set(['laticinios', 'embalagens', 'limpeza'])); expect(contas).toHaveLength(6);
+  const contas = d.contasPagar.filter(x => x.compraId === c.id); expect(new Set(contas.map(x => x.categoriaFinanceiraId))).toEqual(new Set(['insumos', 'embalagens', 'manutencao'])); expect(contas).toHaveLength(6);
   expect(contas.reduce((s, x) => s + x.valorCentavos, 0)).toBe(73500); expect(contas.every(x => x.status === 'aberta' && ['1/2', '2/2'].includes(x.parcela!))).toBe(true);
   const segunda = compraDaNota(d, lerNfe(xml(2)), 'matriz', u); expect(segunda.fornecedorNovo).toBeUndefined();
   expect(segunda.compra.itens[0]).toMatchObject({ insumoId: 'leite-condensado', fatorConversao: 27 * 395, sugestao: 'vinculo' });

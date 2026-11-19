@@ -3,24 +3,39 @@
   "itens": [
     {
       "id": "dinheiro",
-      "nome": "Dinheiro"
+      "nome": "Dinheiro",
+      "prazoRecebimentoDias": 0,
+      "taxaPercentual": 0,
+      "observacaoTaxa": "Prazo e taxa de teste, configuráveis na tarefa 15."
     },
     {
       "id": "pix",
-      "nome": "Pix"
+      "nome": "Pix",
+      "prazoRecebimentoDias": 0,
+      "taxaPercentual": 0,
+      "observacaoTaxa": "Prazo e taxa de teste, configuráveis na tarefa 15."
     },
     {
       "id": "debito",
-      "nome": "Cartão de débito"
+      "nome": "Cartão de débito",
+      "prazoRecebimentoDias": 1,
+      "taxaPercentual": 1.5,
+      "observacaoTaxa": "Prazo e taxa de teste, configuráveis na tarefa 15."
     },
     {
       "id": "credito",
-      "nome": "Cartão de crédito"
+      "nome": "Cartão de crédito",
+      "prazoRecebimentoDias": 30,
+      "taxaPercentual": 3.5,
+      "observacaoTaxa": "Prazo e taxa de teste, configuráveis na tarefa 15."
     },
     {
       "id": "vale",
       "nome": "Vale",
-      "observacao": "a confirmar com o cliente"
+      "observacao": "a confirmar com o cliente",
+      "prazoRecebimentoDias": 0,
+      "taxaPercentual": 0,
+      "observacaoTaxa": "Prazo e taxa de teste, configuráveis na tarefa 15."
     }
   ]
 }

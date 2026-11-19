@@ -15,6 +15,9 @@ import fichasTeste from '@/dados-teste/fichas-tecnicas.json';
 import { validarFicha } from './custos';
 import estoquesTeste from '@/dados-teste/estoques.json';
 import comprasTeste from '@/dados-teste/compras.json';
+import financeiroTeste from '@/dados-teste/categorias-financeiras.json';
+import { gerarHistorico } from './historico-teste';
+import type { CategoriaFinanceira, Conciliacao, ContaReceber } from './tipos';
 import type { Compra, ContaPagar } from './tipos';
 import { baixarEncomenda, baixarVenda, estornar } from './estoque';
 import type { Caixa, ConferenciaCaixa, MovimentoCaixa, PagamentoVenda, Venda } from './tipos';
@@ -23,7 +26,7 @@ import type { FichaTecnica, Insumo, MontagemTamanho, UnidadeCompra, UnidadeUso }
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v9';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v10';
 const formatadorDia = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' });
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
@@ -44,7 +47,9 @@ export function carregarDadosDeTeste(): DadosPrototipo {
     vendas: caixasTeste.vendas.map(v => ({ ...v, data: `${dataRelativa(-v.diasAtras)}T14:00:00-03:00` })),
     fornecedores: comprasTeste.fornecedores, vinculosFornecedor: comprasTeste.vinculos,
     compras: comprasTeste.compras.map(({ diasAtras, parcelas, ...c }) => ({ ...c, data: dataRelativa(-diasAtras), lancadaEm: `${dataRelativa(-diasAtras)}T12:00:00-03:00`, parcelas: parcelas.map(({ vencimentoDias, ...p }) => ({ ...p, vencimento: dataRelativa(-vencimentoDias) })) }) as Compra),
-    contasPagar: comprasTeste.contasPagar.map(({ vencimentoDias, pagamento, ...c }) => ({ ...c, vencimento: dataRelativa(-vencimentoDias), ...(pagamento ? { pagamento: { formaPagamentoId: pagamento.formaPagamentoId, origem: pagamento.origem, data: `${dataRelativa(-pagamento.diasAtras)}T12:00:00-03:00` } } : {}) }) as ContaPagar),
+    categoriasFinanceiras: financeiroTeste.itens as CategoriaFinanceira[], conciliacoes: [] as Conciliacao[],
+    contasReceber: financeiroTeste.contasReceber.map(({ vencimentoDias, recebimento, ...c }) => ({ ...c, vencimento: dataRelativa(-vencimentoDias), ...(recebimento ? { recebimento: { formaPagamentoId: recebimento.formaPagamentoId, data: `${dataRelativa(-recebimento.diasAtras)}T12:00:00-03:00` } } : {}) }) as ContaReceber),
+    contasPagar: comprasTeste.contasPagar.map(({ vencimentoDias, pagamento, ...c }) => ({ ...c, categoriaFinanceiraId: insumosTeste.categorias.find(x => x.id === c.categoriaFinanceiraId)?.categoriaFinanceiraId || c.categoriaFinanceiraId, vencimento: dataRelativa(-vencimentoDias), ...(pagamento ? { pagamento: { formaPagamentoId: pagamento.formaPagamentoId, origem: pagamento.origem, data: `${dataRelativa(-pagamento.diasAtras)}T12:00:00-03:00` } } : {}) }) as ContaPagar),
     estoques: estoquesTeste.estoques, movimentosEstoque: estoquesTeste.movimentos.map(({ diasAtras, ...m }) => ({ ...m, data: `${dataRelativa(-diasAtras)}T${m.id.startsWith('mov-compra-') ? '12' : diasAtras === 60 ? '08' : '11'}:00:00-03:00` })), contagens: estoquesTeste.contagens.map(({ diasAtras, ...c }) => ({ ...c, data: `${dataRelativa(-diasAtras)}T09:00:00-03:00`, concluidaEm: `${dataRelativa(-diasAtras)}T11:00:00-03:00` })),
     categoriasInsumo: insumosTeste.categorias, fichas: fichasTeste.itens, montagemBolo: fichasTeste.montagemBolo,
     insumos: insumosTeste.itens.map(({ atualizadoDiasAtras, historicoPrecos, ...i }) => ({ ...i, atualizadoEm: `${dataRelativa(-atualizadoDiasAtras)}T10:00:00-03:00`, historicoPrecos: historicoPrecos.map(({ diasAtras, ...h }) => ({ ...h, data: `${dataRelativa(-diasAtras)}T10:00:00-03:00` })) })),
@@ -56,6 +61,8 @@ export function carregarDadosDeTeste(): DadosPrototipo {
       historico: e.historico.map(h => ({ ...h, data: `${dataRelativa(Math.min(0, e.diasAPartirDeHoje - 7))}T12:00:00-03:00` })),
     })),
   }) as DadosPrototipo;
+  const historico = gerarHistorico(dados, d => dataRelativa(-d));
+  dados.caixas.push(...historico.caixas); dados.vendas.push(...historico.vendas); dados.encomendas.push(...historico.encomendas); dados.contasPagar.push(...historico.contas);
   dados.caixas.forEach(c => { const diferenca = caixasTeste.caixas.find(x => x.id === c.id)?.diferencaTesteCentavos || 0; c.conferencia = resumoCaixa(dados, c).formas.map(f => ({ formaPagamentoId: f.id, esperadoCentavos: f.valorCentavos, informadoCentavos: f.valorCentavos + (f.id === 'dinheiro' ? diferenca : 0), diferencaCentavos: f.id === 'dinheiro' ? diferenca : 0 })); });
   return dados;
 }
@@ -348,6 +355,32 @@ export function alterarCustoInsumo(dados: DadosPrototipo, insumoId: string, valo
 export function salvarFicha(dados: DadosPrototipo, ficha: FichaTecnica) { const erros = validarFicha(dados, ficha); if (erros.length) throw new Error(erros.join(' ')); return { ...dados, fichas: dados.fichas.some(f => f.id === ficha.id) ? dados.fichas.map(f => f.id === ficha.id ? ficha : f) : [...dados.fichas, ficha] }; }
 export function salvarMontagemTamanho(dados: DadosPrototipo, t: MontagemTamanho) { if (!(t.gramasMassa > 0) || !(t.gramasRecheio > 0)) throw new Error('Informe gramas de massa e de recheio.'); const m = dados.montagemBolo; return { ...dados, montagemBolo: { ...m, tamanhos: m.tamanhos.some(x => x.tamanhoId === t.tamanhoId) ? m.tamanhos.map(x => x.tamanhoId === t.tamanhoId ? t : x) : [...m.tamanhos, t] } }; }
 export function salvarLimiteMargem(dados: DadosPrototipo, limite: number) { if (!Number.isFinite(limite) || limite < 0 || limite > 100) throw new Error('Informe um percentual entre 0 e 100.'); return { ...dados, montagemBolo: { ...dados.montagemBolo, limiteMargemPercentual: limite } }; }
+// Financeiro: escritas. Cálculos em financeiro.ts.
+export function novaContaPagar(dados: DadosPrototipo, lojaId: string): ContaPagar { return { id: novoId(), lojaId, descricao: '', categoriaFinanceiraId: dados.categoriasFinanceiras.find(c => c.grupo === 'despesa_operacional')?.id ?? 'outras-despesas', valorCentavos: 0, vencimento: dataRelativa(7), status: 'aberta', origem: 'manual' }; }
+export function novaContaReceber(lojaId: string): ContaReceber { return { id: novoId(), lojaId, descricao: '', valorCentavos: 0, vencimento: dataRelativa(7), status: 'aberta' }; }
+function proximoMes(data: string, n: number, dia: number) { const [a, m] = data.split('-').map(Number), ultimo = new Date(Date.UTC(a, m - 1 + n + 1, 0)).getUTCDate(); return new Date(Date.UTC(a, m - 1 + n, Math.min(dia, ultimo))).toISOString().slice(0, 10); }
+/** Conta manual; com recorrência mensal, gera também as próximas 3. */
+export function salvarContaPagar(dados: DadosPrototipo, c: ContaPagar) {
+  if (!c.descricao.trim() || !(c.valorCentavos > 0) || !Number.isSafeInteger(c.valorCentavos) || !c.vencimento || !dados.categoriasFinanceiras.some(x => x.id === c.categoriaFinanceiraId)) throw new Error('Informe descrição, valor, vencimento e categoria.');
+  const anterior = dados.contasPagar.find(x => x.id === c.id); if (anterior && (anterior.origem !== 'manual' || anterior.status !== 'aberta')) throw new Error('Só contas manuais em aberto podem ser editadas.');
+  if (anterior) return { ...dados, contasPagar: dados.contasPagar.map(x => x.id === c.id ? { ...c, descricao: c.descricao.trim() } : x) };
+  const base = { ...c, descricao: c.descricao.trim(), origem: 'manual' as const, status: 'aberta' as const }, recorrenciaId = c.recorrencia ? novoId() : undefined;
+  const novas = c.recorrencia ? [0, 1, 2, 3].map(n => ({ ...base, id: n ? novoId() : c.id, vencimento: n ? proximoMes(c.vencimento, n, c.recorrencia!.dia) : c.vencimento, recorrenciaId })) : [base];
+  return { ...dados, contasPagar: [...dados.contasPagar, ...novas] };
+}
+export function excluirContaPagar(dados: DadosPrototipo, id: string) { const c = dados.contasPagar.find(x => x.id === id); if (!c || c.origem !== 'manual' || c.status !== 'aberta') throw new Error('Só contas manuais em aberto podem ser excluídas.'); return { ...dados, contasPagar: dados.contasPagar.filter(x => x.id !== id) }; }
+/** Paga a conta. Dinheiro pelo caixa da loja gera saída no caixa aberto do dia, se houver. */
+export function pagarConta(dados: DadosPrototipo, id: string, p: { data: string; formaPagamentoId: string; origem: string }, usuarioId: string) {
+  const c = dados.contasPagar.find(x => x.id === id); if (!c || c.status !== 'aberta') throw new Error('Conta indisponível para pagamento.'); if (!p.data || !dados.formasPagamento.some(f => f.id === p.formaPagamentoId)) throw new Error('Informe data e forma.');
+  let novo: DadosPrototipo = { ...dados, contasPagar: dados.contasPagar.map(x => x.id === id ? { ...x, status: 'paga' as const, pagamento: { data: `${p.data}T12:00:00-03:00`, formaPagamentoId: p.formaPagamentoId, origem: p.origem } } : x) }, lancouNoCaixa = false;
+  const caixa = p.origem === 'Caixa da loja' && p.formaPagamentoId === 'dinheiro' && p.data === dataRelativa(0) ? dados.caixas.find(x => x.lojaId === c.lojaId && x.data === p.data && x.status === 'aberto') : undefined;
+  if (caixa) { novo = { ...novo, movimentosCaixa: [...novo.movimentosCaixa, { id: novoId(), caixaId: caixa.id, data: new Date().toISOString(), tipo: 'lancamento_saida', formaPagamentoId: 'dinheiro', valorCentavos: c.valorCentavos, categoria: 'Pagamento a fornecedor', descricao: c.descricao, usuarioId, contaPagarId: c.id }] }; lancouNoCaixa = true; }
+  return { dados: novo, lancouNoCaixa };
+}
+export function salvarContaReceber(dados: DadosPrototipo, c: ContaReceber) { if (!c.descricao.trim() || !(c.valorCentavos > 0) || !c.vencimento) throw new Error('Informe descrição, valor e vencimento.'); return { ...dados, contasReceber: dados.contasReceber.some(x => x.id === c.id) ? dados.contasReceber.map(x => x.id === c.id ? c : x) : [...dados.contasReceber, { ...c, descricao: c.descricao.trim() }] }; }
+export function receberConta(dados: DadosPrototipo, id: string, data: string, formaPagamentoId: string, usuarioId: string) { void usuarioId; const c = dados.contasReceber.find(x => x.id === id); if (!c || c.status !== 'aberta') throw new Error('Conta indisponível.'); return { ...dados, contasReceber: dados.contasReceber.map(x => x.id === id ? { ...x, status: 'recebida' as const, recebimento: { data: `${data}T12:00:00-03:00`, formaPagamentoId } } : x) }; }
+export function conferirConciliacao(dados: DadosPrototipo, c: Omit<Conciliacao, 'id' | 'conferidoEm' | 'usuarioId'>, usuarioId: string) { if (!Number.isSafeInteger(c.recebidoCentavos) || c.recebidoCentavos < 0) throw new Error('Valor inválido.'); const resto = dados.conciliacoes.filter(x => !(x.lojaId === c.lojaId && x.data === c.data && x.formaPagamentoId === c.formaPagamentoId)); return { ...dados, conciliacoes: [...resto, { ...c, id: novoId(), conferidoEm: new Date().toISOString(), usuarioId }] }; }
+export function salvarCategoriaFinanceira(dados: DadosPrototipo, c: CategoriaFinanceira) { if (!c.nome.trim()) throw new Error('Informe o nome da categoria.'); if (dados.categoriasFinanceiras.some(x => x.id !== c.id && x.nome.trim().toLocaleLowerCase('pt-BR') === c.nome.trim().toLocaleLowerCase('pt-BR'))) throw new Error('Já existe uma categoria com este nome.'); const salva = { ...c, nome: c.nome.trim() }; return { ...dados, categoriasFinanceiras: dados.categoriasFinanceiras.some(x => x.id === c.id) ? dados.categoriasFinanceiras.map(x => x.id === c.id ? salva : x) : [...dados.categoriasFinanceiras, salva] }; }
 export function somarDiasData(data: string, dias: number) { const d = new Date(`${data}T12:00:00Z`); if (Number.isNaN(d.getTime())) return dataRelativa(0); d.setUTCDate(d.getUTCDate() + dias); return d.toISOString().slice(0, 10); }
 export function producaoDoPeriodo(dados: DadosPrototipo, lojaId: string, inicio: string, fim = inicio) { return listarEncomendas(dados, lojaId).filter(e => ['confirmado', 'em_producao', 'pronto'].includes(e.status) && e.dataEntrega >= inicio && e.dataEntrega <= fim).sort((a, b) => `${a.dataEntrega} ${a.horaEntrega}`.localeCompare(`${b.dataEntrega} ${b.horaEntrega}`)); }
 export function resumoProducao(dados: DadosPrototipo, lojaId: string, inicio = dataRelativa(0), fim = inicio) {

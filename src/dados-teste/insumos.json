@@ -4,42 +4,42 @@
     {
       "id": "laticinios",
       "nome": "Laticínios",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "insumos"
     },
     {
       "id": "farinhas",
       "nome": "Farinhas e açúcares",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "insumos"
     },
     {
       "id": "chocolates",
       "nome": "Chocolates e cacau",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "insumos"
     },
     {
       "id": "frutas",
       "nome": "Frutas",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "insumos"
     },
     {
       "id": "embalagens",
       "nome": "Embalagens",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "embalagens"
     },
     {
       "id": "decoracao",
       "nome": "Decoração",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "insumos"
     },
     {
       "id": "revenda",
       "nome": "Revenda",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "insumos"
     },
     {
       "id": "limpeza",
       "nome": "Limpeza e higiene",
-      "categoriaFinanceiraId": ""
+      "categoriaFinanceiraId": "manutencao"
     }
   ],
   "itens": [

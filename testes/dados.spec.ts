@@ -2,12 +2,12 @@ import { test, expect } from '@playwright/test';
 import { carregarDadosDeTeste, dataRelativa, listarClientes, listarEncomendas, listarProdutos, salvarEncomenda, situacaoPagamento } from '../src/lib/dados';
 import { formatarData, formatarHora, formatarMoeda, formatarTelefone } from '../src/lib/formatar';
 test('massa de dados cobre cenários, loja e valores inteiros', () => {
-  const dados = carregarDadosDeTeste(); expect(dados.clientes).toHaveLength(12); expect(dados.encomendas.length).toBeGreaterThanOrEqual(20);
+  const dados = carregarDadosDeTeste(); expect(dados.clientes).toHaveLength(13); // 12 clientes de teste e o cadastro técnico do histórico (tarefa 13). expect(dados.encomendas.length).toBeGreaterThanOrEqual(20);
   expect(new Set(dados.encomendas.map(e => e.status)).size).toBe(6); expect(new Set(dados.encomendas.map(situacaoPagamento)).size).toBe(3);
   expect(new Set(dados.encomendas.map(e => e.modalidade)).size).toBe(2); expect(dados.encomendas.filter(e => e.itens.some(i => i.tipo === 'bolo') && e.itens.some(i => i.tipo === 'produto')).length).toBeGreaterThanOrEqual(3);
   for (const loja of dados.lojas) {
     expect(listarEncomendas(dados,loja.id).every(e=>e.lojaId===loja.id)).toBe(true);
-    expect(listarClientes(dados,loja.id)).toHaveLength(12);
+    expect(listarClientes(dados,loja.id)).toHaveLength(13);
     expect(listarProdutos(dados,loja.id).every(p=>p.ativo && p.lojasDisponiveis.includes(loja.id))).toBe(true);
   }
   expect(listarEncomendas(dados,'consolidado')).toHaveLength(dados.encomendas.length);

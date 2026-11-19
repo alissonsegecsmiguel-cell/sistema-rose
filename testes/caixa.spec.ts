@@ -4,7 +4,7 @@ import type { SessaoPrototipo } from '../src/lib/tipos';
 import { podeAcessar } from '../src/lib/permissoes';
 test('caixa soma fonte única, troco e movimentos; bloqueia correção após fechar', () => {
   let d = carregarDadosDeTeste(); const u = d.usuarios[0].id; d = abrirCaixa(d, 'matriz', u, 10000); const c = obterCaixa(d, 'matriz')!, antes = resumoCaixa(d, c);
-  expect(d.caixas.filter(c => c.status === 'fechado')).toHaveLength(6); expect(d.caixas.filter(c => c.conferencia.some(f => f.diferencaCentavos === -500))).toHaveLength(1);
+  expect(d.caixas.filter(c => c.status === 'fechado' && !c.id.startsWith('hist-'))).toHaveLength(6); expect(d.caixas.filter(c => c.id.startsWith('hist-')).every(c => c.status === 'fechado')).toBe(true); expect(d.caixas.filter(c => c.conferencia.some(f => f.diferencaCentavos === -500))).toHaveLength(1);
   const venda = finalizarVenda(d, c.id, u, { itens: [{ id: 'teste', tipo: 'produto', produtoId: 'brigadeiro', quantidade: 4, valorUnitarioCentavos: 250, observacao: '' }], descontoCentavos: 0, taxaCartaoCentavos: 0, pagamentos: [{ formaPagamentoId: 'dinheiro', valorCentavos: 500, recebidoCentavos: 1000 }, { formaPagamentoId: 'pix', valorCentavos: 500 }] }); d = venda.dados;
   expect(venda.venda.trocoCentavos).toBe(500); expect(resumoCaixa(d, c).dinheiro).toBe(antes.dinheiro + 500);
   d = registrarMovimentoCaixa(d, c.id, u, { tipo: 'sangria', formaPagamentoId: 'dinheiro', valorCentavos: 1000, categoria: 'Outros', descricao: 'Cofre de teste' });
@@ -44,8 +44,8 @@ for (const largura of [1440, 1024, 760, 390]) for (const perfil of ['Administrat
 test('consolidado somente leitura, histórico administrativo e impressão', async ({ page }) => {
   await page.goto('/entrar'); await page.getByRole('button', { name: /^Administrativo/ }).click(); await page.getByLabel('Loja selecionada').selectOption('consolidado'); await page.goto('/caixa');
   await expect(page.getByText('Escolha uma loja para operar o caixa.', { exact: true })).toBeVisible(); await expect(page.getByRole('button', { name: 'Abrir caixa', exact: true })).toHaveCount(0);
-  await page.getByRole('link', { name: 'Histórico dos caixas', exact: true }).click(); await expect(page.locator('tbody tr')).toHaveCount(6); await page.getByRole('link', { name: 'Ver fechamento', exact: true }).first().click();
-  await expect(page.getByText('Caixa antigo em modo leitura', { exact: true })).toBeVisible(); await page.getByRole('link', { name: 'Imprimir relatório de fechamento', exact: true }).click();
+  await page.getByRole('link', { name: 'Histórico dos caixas', exact: true }).click(); await expect(page.locator('tbody tr')).toHaveCount(30); await expect(page.getByText('Mostrando 30 de 186 caixas.')).toBeVisible(); /* 6 manuais e 180 do histórico (tarefa 13). */ await page.getByRole('link', { name: 'Ver fechamento', exact: true }).first().click();
+  await expect(page).toHaveURL(/caixa\?id=/); await expect(page.getByText('Caixa antigo em modo leitura', { exact: true })).toBeVisible({ timeout: 15000 }); await page.getByRole('link', { name: 'Imprimir relatório de fechamento', exact: true }).click();
   for (const formato of ['cupom', 'a4']) { await page.getByLabel('Tamanho de impressão').selectOption(formato); await page.pdf({ path: `relatorios/fila/evidencias-07/fechamento-${formato}.pdf`, preferCSSPageSize: true }); }
   await expect(page.locator('.papel')).toContainText('Fechamento de caixa');
   await page.goto('/caixa/venda/venda-teste-matriz-1/cupom'); await expect(page.locator('.papel')).toContainText('Não é documento fiscal');

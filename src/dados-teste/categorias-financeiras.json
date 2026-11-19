@@ -1,0 +1,120 @@
+{
+  "_aviso": "Categorias de teste do financeiro. Ajustar com o cliente.",
+  "itens": [
+    {
+      "id": "vendas-balcao",
+      "nome": "Vendas balcão",
+      "grupo": "receita",
+      "ativo": true
+    },
+    {
+      "id": "encomendas",
+      "nome": "Encomendas",
+      "grupo": "receita",
+      "ativo": true
+    },
+    {
+      "id": "taxas-cartao",
+      "nome": "Taxas de cartão",
+      "grupo": "deducao",
+      "ativo": true
+    },
+    {
+      "id": "descontos",
+      "nome": "Descontos concedidos",
+      "grupo": "deducao",
+      "ativo": true
+    },
+    {
+      "id": "insumos",
+      "nome": "Insumos (CMV)",
+      "grupo": "custo",
+      "ativo": true
+    },
+    {
+      "id": "embalagens",
+      "nome": "Embalagens",
+      "grupo": "custo",
+      "ativo": true
+    },
+    {
+      "id": "aluguel",
+      "nome": "Aluguel",
+      "grupo": "despesa_operacional",
+      "ativo": true
+    },
+    {
+      "id": "energia-agua",
+      "nome": "Energia e água",
+      "grupo": "despesa_operacional",
+      "ativo": true
+    },
+    {
+      "id": "salarios",
+      "nome": "Salários",
+      "grupo": "despesa_operacional",
+      "ativo": true
+    },
+    {
+      "id": "pro-labore",
+      "nome": "Pró-labore",
+      "grupo": "despesa_operacional",
+      "ativo": true
+    },
+    {
+      "id": "marketing",
+      "nome": "Marketing",
+      "grupo": "despesa_operacional",
+      "ativo": true
+    },
+    {
+      "id": "manutencao",
+      "nome": "Manutenção",
+      "grupo": "despesa_operacional",
+      "ativo": true
+    },
+    {
+      "id": "tarifas-bancarias",
+      "nome": "Tarifas bancárias",
+      "grupo": "despesa_financeira",
+      "ativo": true
+    },
+    {
+      "id": "outras-despesas",
+      "nome": "Outras despesas",
+      "grupo": "outras",
+      "ativo": true
+    }
+  ],
+  "contasReceber": [
+    {
+      "id": "receber-teste-1",
+      "lojaId": "matriz",
+      "descricao": "Evento corporativo de teste, segunda parcela",
+      "clienteId": "cliente-teste-04",
+      "valorCentavos": 45000,
+      "vencimentoDias": 5,
+      "status": "aberta"
+    },
+    {
+      "id": "receber-teste-2",
+      "lojaId": "filial",
+      "descricao": "Revenda de bolos para café fictício",
+      "valorCentavos": 28000,
+      "vencimentoDias": -3,
+      "status": "aberta"
+    },
+    {
+      "id": "receber-teste-3",
+      "lojaId": "matriz",
+      "descricao": "Reembolso de teste do fornecedor",
+      "valorCentavos": 12000,
+      "vencimentoDias": 20,
+      "status": "recebida",
+      "recebimento": {
+        "diasAtras": 18,
+        "formaPagamentoId": "pix"
+      }
+    }
+  ]
+}
