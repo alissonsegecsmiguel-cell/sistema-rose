@@ -31,6 +31,7 @@ import { ManualAcoes } from '@/componentes/manual-acoes';
 import { ManualCaixa } from '@/componentes/manual-caixa';
 import { ManualProducao } from '@/componentes/manual-producao';
 import { ManualProdutos } from '@/componentes/manual-produtos';
+import { ManualQuadro } from '@/componentes/manual-quadro';
 import { usePrototipo } from '@/lib/prototipo-store';
 import { listarEncomendas, obterCliente, listarPerfisDeTeste, situacaoPagamento, totalEncomenda } from '@/lib/dados';
 import { formatarMoeda, formatarData } from '@/lib/formatar';
@@ -64,6 +65,7 @@ export default function DesignSystem() {
     <ManualAcoes />
     <ManualCaixa />
     <ManualProducao />
+    <ManualQuadro />
     <ManualProdutos />
     <Secao id="navegacao" titulo="16. Menu lateral e barra superior">
       <p className="suave">Administrativo acessa todos os módulos; Atendimento acessa cinco. Em até 760px, a faixa usa texto curto e restauração por ícone; a barra fica em uma linha, com menu, logo de 32px, loja e iniciais. O rótulo da seleção permanece acessível. A loja do Atendimento aparece como texto curto.</p>

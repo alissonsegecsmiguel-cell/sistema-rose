@@ -48,6 +48,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: produtos e opções do bolo são inativados, nunca excluídos; inativos somem da nova encomenda e do PDV, mas pedidos antigos mantêm nome e valor. Opção inativa já escolhida continua visível ao alterar o pedido, com selo. Mudar a unidade de venda de produto já usado é bloqueado (crie outro produto). Quantidade continua inteira também para cento e kg. Ajuda da observação: texto do produto ou, em branco, o da categoria. Categoria com produtos, inclusive inativos, não pode ser excluída. Pré-visualização da montagem fica abaixo das regras gerais, em coluna única, para as tabelas caberem. **(decidido sem o Alisson, revisar)**
 
+- 18/11/2026: Quadro de encomendas usa as mesmas regras de status: avançar várias etapas grava o histórico de cada etapa e um evento com as etapas puladas; voltar qualquer número de etapas pede motivo. Em 760px ou menos as colunas viram abas (mesmo limite da gaveta). Orçamentos com data passada também aparecem como atrasados. Encomenda movida para Entregues com data fora do período sai do quadro, como pede a regra da coluna. O arraste começa fora do link e dos botões do cartão e rola o quadro ao chegar perto da borda. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -97,6 +99,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - 18/11/2026: tarefa 08 concluída. Produção por data e período, cartões por bolo, agrupamento exato de doces e separação de bebidas/festa. Status e histórico compartilhados com encomendas, comandas do dia em 80mm/A4 e cartão na Visão geral. Dois casos fictícios de produção múltipla adicionados; manual e tokens atualizados. Validação: lint, dois builds sem alterações inesperadas e 96 testes aprovados. Commit identificado pela mensagem “Tarefa 08: Produção do dia”; hash literal no relatório local 08-relatorio.md.
 
 - 18/11/2026: tarefa 09 concluída. Tela /produtos com abas Produtos, Categorias e Montagem do bolo; catálogo único com Disponível em, canais balcão/encomenda, unidade de venda e observação por produto; categorias ordenáveis; opções do bolo com ativo, ordem, a confirmar, rendimento dos tamanhos e limite de recheios; pré-visualização com as mesmas pílulas. Nova encomenda e PDV leem o catálogo; pedidos antigos preservados. Chave v6. Validação: lint, dois builds sem alterações inesperadas e 104 testes aprovados. Commit identificado pela mensagem “Tarefa 09: Produtos e opções do bolo”; hash literal no relatório local 09-relatorio.md.
+
+- 18/11/2026: tarefa 08B concluída. Aba Quadro em /encomendas com cinco colunas por status, quantidade e valor; cartões com prazo Hoje/Atrasada, alertas, modalidade, pagamento e saldo. Arraste por eventos de ponteiro acima de 760px e botão Mover para em todas as larguras, com confirmação de conversão, etapas puladas, motivo para voltar e diálogo de saldo. Abas por coluna no celular; filtros de período, modalidade e busca. QuadroKanban no manual. Validação: lint, dois builds sem alterações inesperadas e 118 testes aprovados. Commit identificado pela mensagem “Tarefa 08B: Quadro de encomendas (kanban)”; hash literal no relatório local 08B-relatorio.md.
 
 ## 6. Em andamento
 

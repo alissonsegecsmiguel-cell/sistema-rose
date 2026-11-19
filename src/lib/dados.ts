@@ -143,6 +143,32 @@ export function alterarStatusEncomenda(dados: DadosPrototipo, lojaId: string, id
   const base = salvarEncomenda(dados, lojaId, { ...e, status }, eventoEncomenda(usuarioId, 'Status alterado', `${nomeStatus(e.status)} → ${nomeStatus(status)}${motivo ? `. Motivo: ${motivo}` : ''}`));
   return status === 'pronto' ? aoMarcarPronto(base, e.id, usuarioId) : base;
 }
+export const COLUNAS_QUADRO: { status: StatusEncomenda; titulo: string }[] = [{ status: 'orcamento', titulo: 'Orçamentos' }, { status: 'confirmado', titulo: 'Confirmadas' }, { status: 'em_producao', titulo: 'Em produção' }, { status: 'pronto', titulo: 'Prontas' }, { status: 'entregue', titulo: 'Entregues' }];
+const formatadorHoraFuso = new Intl.DateTimeFormat('en-GB', { timeZone: configuracao.fuso, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+/** Data e hora atuais no fuso configurado. */
+export function agoraNoFuso(agora = new Date()) { return { data: dataRelativa(0, agora), hora: formatadorHoraFuso.format(agora) }; }
+export function situacaoPrazo(e: Encomenda, agora = new Date()): 'atrasada' | 'hoje' | '' {
+  if (e.status === 'entregue' || e.status === 'cancelado') return ''; const a = agoraNoFuso(agora);
+  if (e.dataEntrega < a.data || (e.dataEntrega === a.data && !!e.horaEntrega && e.horaEntrega < a.hora)) return 'atrasada';
+  return e.dataEntrega === a.data ? 'hoje' : '';
+}
+export function alertasCartaoQuadro(e: Encomenda, agora = new Date()) { const r: string[] = []; if (e.status === 'pronto' && situacaoPrazo(e, agora) === 'atrasada') r.push('Cliente ainda não retirou'); if (e.status === 'confirmado' && e.dataEntrega === agoraNoFuso(agora).data) r.push('Começar hoje'); return r; }
+export function limitesPeriodoQuadro(periodo: string) { if (periodo === 'hoje' || periodo === 'amanha' || periodo === 'mes') return limitesPeriodo(periodo); return [dataRelativa(0), dataRelativa(6)]; }
+/** Colunas do quadro. Entregues mostra só o período; as demais incluem as atrasadas ainda não entregues. */
+export function quadroEncomendas(dados: DadosPrototipo, lojaId: LojaSelecionada, filtros: { periodo?: string; modalidade?: string; busca?: string } = {}) {
+  const [inicio, fim] = limitesPeriodoQuadro(filtros.periodo || '7dias'), hoje = dataRelativa(0), lista = filtrarEncomendas(dados, lojaId, { busca: filtros.busca, modalidade: filtros.modalidade }).filter(e => e.status !== 'cancelado');
+  return COLUNAS_QUADRO.map(c => { const itens = lista.filter(e => e.status === c.status && ((e.dataEntrega >= inicio && e.dataEntrega <= fim) || (c.status !== 'entregue' && e.dataEntrega < hoje))); return { ...c, itens, totalCentavos: itens.reduce((s, e) => s + totalEncomenda(e), 0) }; });
+}
+/** Move pelo quadro reutilizando alterarStatusEncomenda: avança etapa por etapa (histórico de cada uma) ou volta com motivo. */
+export function moverEncomendaQuadro(dados: DadosPrototipo, lojaId: LojaSelecionada, id: string, destino: StatusEncomenda, usuarioId: string, motivo = '') {
+  const e = obterEncomenda(dados, lojaId, id); if (!e) throw new Error('Encomenda indisponível para esta ação.');
+  const de = sequenciaStatus.indexOf(e.status), para = sequenciaStatus.indexOf(destino);
+  if (de < 0 || para < 0 || de === para) throw new Error('Escolha outra coluna.');
+  if (para < de) return alterarStatusEncomenda(dados, lojaId, id, destino, usuarioId, motivo);
+  let r = dados; for (let i = de + 1; i <= para; i++) r = alterarStatusEncomenda(r, lojaId, id, sequenciaStatus[i], usuarioId);
+  if (para - de > 1) r = salvarEncomenda(r, lojaId, obterEncomenda(r, lojaId, id)!, eventoEncomenda(usuarioId, 'Etapas puladas no quadro', `${nomeStatus(e.status)} → ${nomeStatus(destino)}. Etapas puladas: ${sequenciaStatus.slice(de + 1, para).map(nomeStatus).join(', ')}.`));
+  return r;
+}
 export function registrarPagamentoEncomenda(dados: DadosPrototipo, lojaId: string, id: string, formaPagamentoId: string, valorCentavos: number, usuarioId: string) {
   const e = obterEncomenda(dados, lojaId, id); if (!e || e.status === 'cancelado') throw new Error('Encomenda indisponível.');
   if (!Number.isSafeInteger(valorCentavos) || valorCentavos <= 0 || valorCentavos > saldoEncomenda(e)) throw new Error('Informe um valor positivo que não supere o saldo.');
