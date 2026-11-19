@@ -50,6 +50,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: Quadro de encomendas usa as mesmas regras de status: avançar várias etapas grava o histórico de cada etapa e um evento com as etapas puladas; voltar qualquer número de etapas pede motivo. Em 760px ou menos as colunas viram abas (mesmo limite da gaveta). Orçamentos com data passada também aparecem como atrasados. Encomenda movida para Entregues com data fora do período sai do quadro, como pede a regra da coluna. O arraste começa fora do link e dos botões do cartão e rola o quadro ao chegar perto da borda. **(decidido sem o Alisson, revisar)**
 
+- 19/11/2026: ficha técnica calcula custos na hora pelo custo atual (sem custo guardado). Perda soma ao custo final (total × (1 + perda)). Recheios dividem igualmente as gramas do tamanho. Red velvet e Cenoura usam a ficha da massa branca até haver ficha própria. Tabela de combinações usa cada tamanho com cada massa e o primeiro recheio ativo. Custo da encomenda compara itens após desconto, sem taxa de cartão e sem mão de obra. Insumos, fichas, gramas e fixos são de teste. Chave local v7. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -102,6 +104,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: tarefa 08B concluída. Aba Quadro em /encomendas com cinco colunas por status, quantidade e valor; cartões com prazo Hoje/Atrasada, alertas, modalidade, pagamento e saldo. Arraste por eventos de ponteiro acima de 760px e botão Mover para em todas as larguras, com confirmação de conversão, etapas puladas, motivo para voltar e diálogo de saldo. Abas por coluna no celular; filtros de período, modalidade e busca. QuadroKanban no manual. Validação: lint, dois builds sem alterações inesperadas e 118 testes aprovados. Commit identificado pela mensagem “Tarefa 08B: Quadro de encomendas (kanban)”; hash literal no relatório local 08B-relatorio.md.
 
+- 18/11/2026: tarefa 10 concluída. Tela /ficha-tecnica com abas Fichas, Insumos e Custo do bolo; 34 insumos e 9 fichas de teste (6 base, 3 de produto), ficha dentro de ficha, bloqueio de ciclo, perda e custo por unidade; histórico de preços com confirmação e mini gráfico SVG; detalhe com árvore expansível e onde a ficha é usada; simulador de custo e margem do bolo, tabela por tamanho e massa com destaque de margem baixa e montagem por tamanho editável; custo estimado no detalhe da encomenda para o Administrativo. Funções puras em src/lib/custos.ts. Chave v7. Validação: lint, dois builds sem alterações inesperadas e 126 testes aprovados. Commit identificado pela mensagem “Tarefa 10: Insumos e ficha técnica”; hash literal no relatório local 10-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -118,6 +122,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - “Vale” é forma de pagamento usada?
 - Os preços dos produtos variam entre Matriz e Filial?
 - Quantos recheios cabem por bolo, e o rendimento (pessoas e peso) de cada tamanho?
+- Quais são as fichas técnicas reais (ingredientes e rendimentos) e quantos gramas de massa e de recheio vão em cada tamanho?
+- Qual margem mínima o dono considera aceitável (hoje 50% no protótipo)?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
@@ -127,7 +133,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v6`, protegida por try/catch; a versão 6 traz o catálogo único de produtos e as opções do bolo editáveis.
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v7`, protegida por try/catch; a versão 7 traz insumos, fichas técnicas e montagem de custo do bolo.
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 

@@ -1,0 +1,469 @@
+{
+  "_aviso": "Fichas fictícias para o protótipo. Quantidades de teste, a confirmar com o cliente.",
+  "itens": [
+    {
+      "id": "massa-branca",
+      "nome": "Massa branca (teste)",
+      "tipo": "base",
+      "rendimentoQuantidade": 1200,
+      "rendimentoUnidade": "g",
+      "perdaPercentual": 0,
+      "componentes": [
+        {
+          "tipo": "insumo",
+          "insumoId": "farinha-trigo",
+          "quantidade": 400
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "acucar-refinado",
+          "quantidade": 300
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "ovos",
+          "quantidade": 6
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "leite-integral",
+          "quantidade": 240
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "manteiga",
+          "quantidade": 150
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "fermento",
+          "quantidade": 15
+        }
+      ],
+      "modoPreparo": "Bater manteiga e açúcar, juntar ovos, alternar farinha e leite, fermento por último. Assar a 180 graus. Texto de teste."
+    },
+    {
+      "id": "massa-chocolate",
+      "nome": "Massa de chocolate (teste)",
+      "tipo": "base",
+      "rendimentoQuantidade": 1200,
+      "rendimentoUnidade": "g",
+      "perdaPercentual": 0,
+      "componentes": [
+        {
+          "tipo": "insumo",
+          "insumoId": "farinha-trigo",
+          "quantidade": 350
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "acucar-refinado",
+          "quantidade": 300
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "cacau-po",
+          "quantidade": 80
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "ovos",
+          "quantidade": 6
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "leite-integral",
+          "quantidade": 240
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "oleo",
+          "quantidade": 120
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "fermento",
+          "quantidade": 15
+        }
+      ],
+      "modoPreparo": "Misturar secos, juntar líquidos e assar a 180 graus. Texto de teste."
+    },
+    {
+      "id": "brigadeiro-panela",
+      "nome": "Brigadeiro de panela (teste)",
+      "tipo": "base",
+      "rendimentoQuantidade": 850,
+      "rendimentoUnidade": "g",
+      "perdaPercentual": 0,
+      "componentes": [
+        {
+          "tipo": "insumo",
+          "insumoId": "leite-condensado",
+          "quantidade": 790
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "manteiga",
+          "quantidade": 20
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "chocolate-meio-amargo",
+          "quantidade": 50
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "creme-de-leite",
+          "quantidade": 100
+        }
+      ],
+      "modoPreparo": "Cozinhar em fogo baixo até desgrudar da panela. Texto de teste."
+    },
+    {
+      "id": "recheio-ninho",
+      "nome": "Recheio de ninho (teste)",
+      "tipo": "base",
+      "rendimentoQuantidade": 1000,
+      "rendimentoUnidade": "g",
+      "perdaPercentual": 0,
+      "componentes": [
+        {
+          "tipo": "insumo",
+          "insumoId": "leite-condensado",
+          "quantidade": 790
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "leite-em-po",
+          "quantidade": 100
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "creme-de-leite",
+          "quantidade": 200
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "manteiga",
+          "quantidade": 20
+        }
+      ],
+      "modoPreparo": "Cozinhar até ponto cremoso e esfriar. Texto de teste."
+    },
+    {
+      "id": "recheio-chocolate",
+      "nome": "Recheio de chocolate (teste)",
+      "tipo": "base",
+      "rendimentoQuantidade": 1000,
+      "rendimentoUnidade": "g",
+      "perdaPercentual": 0,
+      "componentes": [
+        {
+          "tipo": "ficha",
+          "fichaId": "brigadeiro-panela",
+          "quantidade": 600
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "creme-fresco",
+          "quantidade": 200
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "chocolate-meio-amargo",
+          "quantidade": 200
+        }
+      ],
+      "modoPreparo": "Aquecer o brigadeiro com o creme e o chocolate. Texto de teste."
+    },
+    {
+      "id": "ganache",
+      "nome": "Ganache (teste)",
+      "tipo": "base",
+      "rendimentoQuantidade": 600,
+      "rendimentoUnidade": "g",
+      "perdaPercentual": 0,
+      "componentes": [
+        {
+          "tipo": "insumo",
+          "insumoId": "chocolate-meio-amargo",
+          "quantidade": 400
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "creme-de-leite",
+          "quantidade": 200
+        }
+      ],
+      "modoPreparo": "Derreter o chocolate com o creme. Texto de teste."
+    },
+    {
+      "id": "ficha-brigadeiro",
+      "nome": "Brigadeiro (teste)",
+      "tipo": "produto",
+      "rendimentoQuantidade": 50,
+      "rendimentoUnidade": "un",
+      "perdaPercentual": 5,
+      "componentes": [
+        {
+          "tipo": "ficha",
+          "fichaId": "brigadeiro-panela",
+          "quantidade": 850
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "granulado",
+          "quantidade": 150
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "forminha-docinho",
+          "quantidade": 50
+        }
+      ],
+      "modoPreparo": "Enrolar 17 g, passar no granulado e colocar na forminha. Texto de teste.",
+      "produtoId": "brigadeiro"
+    },
+    {
+      "id": "ficha-beijinho",
+      "nome": "Beijinho (teste)",
+      "tipo": "produto",
+      "rendimentoQuantidade": 50,
+      "rendimentoUnidade": "un",
+      "perdaPercentual": 5,
+      "componentes": [
+        {
+          "tipo": "insumo",
+          "insumoId": "leite-condensado",
+          "quantidade": 790
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "coco-ralado",
+          "quantidade": 150
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "manteiga",
+          "quantidade": 20
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "forminha-docinho",
+          "quantidade": 50
+        }
+      ],
+      "modoPreparo": "Cozinhar, esfriar, enrolar e passar no coco. Texto de teste.",
+      "produtoId": "beijinho"
+    },
+    {
+      "id": "ficha-cupcake",
+      "nome": "Cupcake de chocolate (teste)",
+      "tipo": "produto",
+      "rendimentoQuantidade": 12,
+      "rendimentoUnidade": "un",
+      "perdaPercentual": 0,
+      "componentes": [
+        {
+          "tipo": "ficha",
+          "fichaId": "massa-chocolate",
+          "quantidade": 600
+        },
+        {
+          "tipo": "ficha",
+          "fichaId": "ganache",
+          "quantidade": 300
+        },
+        {
+          "tipo": "insumo",
+          "insumoId": "forminha-cupcake",
+          "quantidade": 12
+        }
+      ],
+      "modoPreparo": "Assar em forminhas e cobrir com ganache. Texto de teste.",
+      "produtoId": "cupcake"
+    }
+  ],
+  "montagemBolo": {
+    "limiteMargemPercentual": 50,
+    "tamanhos": [
+      {
+        "tamanhoId": "tamanhos-1",
+        "gramasMassa": 300,
+        "gramasRecheio": 200,
+        "fixos": [
+          {
+            "tipo": "insumo",
+            "insumoId": "base-bolo",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "caixa-bolo-p",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "creme-fresco",
+            "quantidade": 100
+          }
+        ]
+      },
+      {
+        "tamanhoId": "tamanhos-2",
+        "gramasMassa": 500,
+        "gramasRecheio": 350,
+        "fixos": [
+          {
+            "tipo": "insumo",
+            "insumoId": "base-bolo",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "caixa-bolo-p",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "creme-fresco",
+            "quantidade": 150
+          }
+        ]
+      },
+      {
+        "tamanhoId": "tamanhos-3",
+        "gramasMassa": 800,
+        "gramasRecheio": 500,
+        "fixos": [
+          {
+            "tipo": "insumo",
+            "insumoId": "base-bolo",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "caixa-bolo-p",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "creme-fresco",
+            "quantidade": 250
+          }
+        ]
+      },
+      {
+        "tamanhoId": "tamanhos-4",
+        "gramasMassa": 1200,
+        "gramasRecheio": 800,
+        "fixos": [
+          {
+            "tipo": "insumo",
+            "insumoId": "base-bolo",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "caixa-bolo-m",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "creme-fresco",
+            "quantidade": 350
+          }
+        ]
+      },
+      {
+        "tamanhoId": "tamanhos-5",
+        "gramasMassa": 1800,
+        "gramasRecheio": 1200,
+        "fixos": [
+          {
+            "tipo": "insumo",
+            "insumoId": "base-bolo",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "caixa-bolo-g",
+            "quantidade": 1
+          },
+          {
+            "tipo": "insumo",
+            "insumoId": "creme-fresco",
+            "quantidade": 500
+          }
+        ]
+      }
+    ],
+    "vinculos": {
+      "massas-1": {
+        "tipo": "ficha",
+        "fichaId": "massa-branca",
+        "quantidade": 0
+      },
+      "massas-2": {
+        "tipo": "ficha",
+        "fichaId": "massa-chocolate",
+        "quantidade": 0
+      },
+      "massas-3": {
+        "tipo": "ficha",
+        "fichaId": "massa-branca",
+        "quantidade": 0
+      },
+      "massas-4": {
+        "tipo": "ficha",
+        "fichaId": "massa-branca",
+        "quantidade": 0
+      },
+      "recheios-1": {
+        "tipo": "ficha",
+        "fichaId": "recheio-ninho",
+        "quantidade": 0
+      },
+      "recheios-2": {
+        "tipo": "ficha",
+        "fichaId": "recheio-chocolate",
+        "quantidade": 0
+      },
+      "adicionais-1": {
+        "tipo": "insumo",
+        "insumoId": "castanha",
+        "quantidade": 80
+      },
+      "adicionais-2": {
+        "tipo": "insumo",
+        "insumoId": "achocolatado",
+        "quantidade": 100
+      },
+      "decoracoes-1": {
+        "tipo": "insumo",
+        "insumoId": "placa-decorativa",
+        "quantidade": 1
+      },
+      "decoracoes-2": {
+        "tipo": "insumo",
+        "insumoId": "papel-arroz",
+        "quantidade": 1
+      },
+      "decoracoes-3": {
+        "tipo": "insumo",
+        "insumoId": "glitter",
+        "quantidade": 5
+      },
+      "decoracoes-4": {
+        "tipo": "insumo",
+        "insumoId": "fita",
+        "quantidade": 2
+      },
+      "decoracoes-5": {
+        "tipo": "insumo",
+        "insumoId": "caixa-bolo-p",
+        "quantidade": 1
+      }
+    }
+  }
+}

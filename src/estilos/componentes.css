@@ -203,3 +203,15 @@
 @media (min-width: 761px) { .cartao-quadro { touch-action: none; cursor: grab; user-select: none; } }
 .quadro-coluna[data-destino="bloqueado"], .quadro-coluna[data-destino="bloqueado"] * { cursor: not-allowed; }
 .quadro-coluna[data-destino="permitido"], .quadro-coluna[data-destino="permitido"] * { cursor: grabbing; }
+.linha-componente { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto auto; gap: var(--espaco-3); align-items: end; padding-bottom: var(--espaco-3); border-bottom: 1px solid var(--cor-borda); }
+.linha-componente > p { min-height: var(--alvo-toque); display: flex; align-items: center; }
+@media (max-width: 760px) { .linha-componente { grid-template-columns: 1fr; align-items: stretch; } }
+.arvore { list-style: none; margin: 0; padding-left: var(--espaco-5); display: flex; flex-direction: column; gap: var(--espaco-2); border-left: 1px solid var(--cor-borda); }
+.pilha > .arvore { padding-left: 0; border-left: 0; }
+.arvore-no > summary { min-height: var(--alvo-toque); display: flex; flex-wrap: wrap; gap: var(--espaco-2); align-items: center; cursor: pointer; }
+.arvore-folha { min-height: var(--alvo-toque); display: flex; flex-wrap: wrap; gap: var(--espaco-2); align-items: center; }
+.grafico-precos { margin: 0; display: flex; flex-direction: column; gap: var(--espaco-2); }
+.grafico-precos svg { width: 100%; max-width: var(--largura-resumo); height: auto; }
+.grafico-eixo { stroke: var(--cor-borda-forte); stroke-width: 1; }
+.grafico-linha { fill: none; stroke: var(--cor-primaria); stroke-width: 2; }
+.grafico-ponto { fill: var(--cor-superficie); stroke: var(--cor-primaria); stroke-width: 2; }

@@ -10,12 +10,16 @@ import encomendas from '@/dados-teste/encomendas.json';
 import encomendasClientes from '@/dados-teste/encomendas-clientes.json';
 import encomendasProducao from '@/dados-teste/encomendas-producao.json';
 import caixasTeste from '@/dados-teste/caixas.json';
+import insumosTeste from '@/dados-teste/insumos.json';
+import fichasTeste from '@/dados-teste/fichas-tecnicas.json';
+import { validarFicha } from './custos';
 import type { Caixa, ConferenciaCaixa, MovimentoCaixa, PagamentoVenda, Venda } from './tipos';
 import type { CategoriaProduto, GrupoBolo, OpcaoBolo, Produto, UnidadeVenda } from './tipos';
+import type { FichaTecnica, Insumo, MontagemTamanho, UnidadeCompra, UnidadeUso } from './tipos';
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v6';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v7';
 const formatadorDia = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' });
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
@@ -34,6 +38,8 @@ export function carregarDadosDeTeste(): DadosPrototipo {
     opcoesBolo: opcoes, produtos: produtos.itens, categoriasProduto: categorias.itens, clientes: clientes.itens.map(c => ({ ...c, criadoEm: `${dataRelativa(-c.criadoDiasAtras)}T12:00:00-03:00`, aniversario: c.aniversarioMesAtual ? `${c.aniversario!.slice(0, 4)}-${dataRelativa(0).slice(5, 7)}-${c.aniversario!.slice(8)}` : c.aniversario })),
     caixas: caixasTeste.caixas.map(c => ({ ...c, data: dataRelativa(-c.diasAtras), abertoEm: `${dataRelativa(-c.diasAtras)}T08:00:00-03:00`, fechadoEm: `${dataRelativa(-c.diasAtras)}T19:00:00-03:00`, fechadoPor: c.abertoPor })),
     vendas: caixasTeste.vendas.map(v => ({ ...v, data: `${dataRelativa(-v.diasAtras)}T14:00:00-03:00` })),
+    categoriasInsumo: insumosTeste.categorias, fichas: fichasTeste.itens, montagemBolo: fichasTeste.montagemBolo,
+    insumos: insumosTeste.itens.map(({ atualizadoDiasAtras, historicoPrecos, ...i }) => ({ ...i, atualizadoEm: `${dataRelativa(-atualizadoDiasAtras)}T10:00:00-03:00`, historicoPrecos: historicoPrecos.map(({ diasAtras, ...h }) => ({ ...h, data: `${dataRelativa(-diasAtras)}T10:00:00-03:00` })) })),
     movimentosCaixa: caixasTeste.movimentos.map(m => ({ ...m, data: `${dataRelativa(-m.diasAtras)}T09:00:00-03:00` })),
     encomendas: [...encomendas.itens, ...encomendasClientes.itens, ...encomendasProducao.itens].map(e => ({ ...e,
       dataEntrega: dataRelativa(e.diasAPartirDeHoje),
@@ -315,6 +321,23 @@ export function ajudaObservacaoProduto(dados: DadosPrototipo, produto?: Produto)
 export function contarProdutosCategoria(dados: DadosPrototipo, id: string) { return dados.produtos.filter(p => p.categoriaId === id).length; }
 /** Opções exibidas na montagem: ativas em ordem e, ao editar, as já escolhidas mesmo que inativas. */
 export function opcoesMontagem(dados: DadosPrototipo, grupo: GrupoBolo, selecionadas: string[] = []) { return dados.opcoesBolo[grupo].filter(o => o.ativo || selecionadas.includes(o.id)).sort((a, b) => a.ordem - b.ordem); }
+export const UNIDADES_COMPRA: UnidadeCompra[] = ['kg', 'L', 'un', 'cx', 'pct'];
+export const UNIDADES_USO: UnidadeUso[] = ['g', 'ml', 'un'];
+export function novoInsumo(dados: DadosPrototipo): Insumo { return { id: novoId(), nome: '', categoriaId: dados.categoriasInsumo[0]?.id ?? '', unidadeCompra: 'kg', unidadeUso: 'g', fatorConversao: 1000, custoAtualCentavos: 0, atualizadoEm: new Date().toISOString(), estoqueMinimo: 0, ativo: true, historicoPrecos: [] }; }
+export function novaFicha(): FichaTecnica { return { id: novoId(), nome: '', tipo: 'base', rendimentoQuantidade: 0, rendimentoUnidade: 'g', perdaPercentual: 0, componentes: [], modoPreparo: '' }; }
+export function salvarInsumo(dados: DadosPrototipo, insumo: Insumo) {
+  if (!insumo.nome.trim() || !dados.categoriasInsumo.some(c => c.id === insumo.categoriaId) || !(insumo.fatorConversao > 0) || !Number.isSafeInteger(insumo.custoAtualCentavos) || insumo.custoAtualCentavos < 0 || insumo.estoqueMinimo < 0) throw new Error('Informe nome, categoria, conversão maior que zero, custo em centavos e estoque mínimo válido.');
+  const anterior = dados.insumos.find(i => i.id === insumo.id), salvo = anterior ? { ...insumo, custoAtualCentavos: anterior.custoAtualCentavos, historicoPrecos: anterior.historicoPrecos, atualizadoEm: anterior.atualizadoEm } : { ...insumo, nome: insumo.nome.trim(), historicoPrecos: [{ data: insumo.atualizadoEm, valorCentavos: insumo.custoAtualCentavos, origem: 'manual' as const }] };
+  return { ...dados, insumos: anterior ? dados.insumos.map(i => i.id === insumo.id ? salvo : i) : [...dados.insumos, salvo] };
+}
+/** Muda o custo atual e grava no histórico. Origem manual aqui; compra na tarefa 12. */
+export function alterarCustoInsumo(dados: DadosPrototipo, insumoId: string, valorCentavos: number, usuarioId: string, origem: 'manual' | 'compra', referencia?: string, data = new Date().toISOString()) {
+  if (!Number.isSafeInteger(valorCentavos) || valorCentavos < 0) throw new Error('Custo deve ser em centavos inteiros.');
+  return { ...dados, insumos: dados.insumos.map(i => i.id === insumoId ? { ...i, custoAtualCentavos: valorCentavos, atualizadoEm: data, historicoPrecos: [...i.historicoPrecos, { data, valorCentavos, origem, usuarioId, ...(referencia ? { referencia } : {}) }] } : i) };
+}
+export function salvarFicha(dados: DadosPrototipo, ficha: FichaTecnica) { const erros = validarFicha(dados, ficha); if (erros.length) throw new Error(erros.join(' ')); return { ...dados, fichas: dados.fichas.some(f => f.id === ficha.id) ? dados.fichas.map(f => f.id === ficha.id ? ficha : f) : [...dados.fichas, ficha] }; }
+export function salvarMontagemTamanho(dados: DadosPrototipo, t: MontagemTamanho) { if (!(t.gramasMassa > 0) || !(t.gramasRecheio > 0)) throw new Error('Informe gramas de massa e de recheio.'); const m = dados.montagemBolo; return { ...dados, montagemBolo: { ...m, tamanhos: m.tamanhos.some(x => x.tamanhoId === t.tamanhoId) ? m.tamanhos.map(x => x.tamanhoId === t.tamanhoId ? t : x) : [...m.tamanhos, t] } }; }
+export function salvarLimiteMargem(dados: DadosPrototipo, limite: number) { if (!Number.isFinite(limite) || limite < 0 || limite > 100) throw new Error('Informe um percentual entre 0 e 100.'); return { ...dados, montagemBolo: { ...dados.montagemBolo, limiteMargemPercentual: limite } }; }
 export function somarDiasData(data: string, dias: number) { const d = new Date(`${data}T12:00:00Z`); if (Number.isNaN(d.getTime())) return dataRelativa(0); d.setUTCDate(d.getUTCDate() + dias); return d.toISOString().slice(0, 10); }
 export function producaoDoPeriodo(dados: DadosPrototipo, lojaId: string, inicio: string, fim = inicio) { return listarEncomendas(dados, lojaId).filter(e => ['confirmado', 'em_producao', 'pronto'].includes(e.status) && e.dataEntrega >= inicio && e.dataEntrega <= fim).sort((a, b) => `${a.dataEntrega} ${a.horaEntrega}`.localeCompare(`${b.dataEntrega} ${b.horaEntrega}`)); }
 export function resumoProducao(dados: DadosPrototipo, lojaId: string, inicio = dataRelativa(0), fim = inicio) {

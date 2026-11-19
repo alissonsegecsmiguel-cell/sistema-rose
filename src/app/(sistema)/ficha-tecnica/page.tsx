@@ -1,2 +1,3 @@
-import { PaginaModulo } from '@/componentes/pagina-modulo';
-export default function Pagina() { return <PaginaModulo rota="/ficha-tecnica" />; }
+import { Suspense } from 'react';
+import { TelaFichaTecnica } from '@/componentes/tela-ficha-tecnica';
+export default function Pagina() { return <Suspense><TelaFichaTecnica /></Suspense>; }

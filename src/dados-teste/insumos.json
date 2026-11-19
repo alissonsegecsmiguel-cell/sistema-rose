@@ -1,0 +1,710 @@
+{
+  "_aviso": "Dados fictícios para o protótipo. Preços de teste.",
+  "categorias": [
+    {
+      "id": "laticinios",
+      "nome": "Laticínios",
+      "categoriaFinanceiraId": ""
+    },
+    {
+      "id": "farinhas",
+      "nome": "Farinhas e açúcares",
+      "categoriaFinanceiraId": ""
+    },
+    {
+      "id": "chocolates",
+      "nome": "Chocolates e cacau",
+      "categoriaFinanceiraId": ""
+    },
+    {
+      "id": "frutas",
+      "nome": "Frutas",
+      "categoriaFinanceiraId": ""
+    },
+    {
+      "id": "embalagens",
+      "nome": "Embalagens",
+      "categoriaFinanceiraId": ""
+    },
+    {
+      "id": "decoracao",
+      "nome": "Decoração",
+      "categoriaFinanceiraId": ""
+    },
+    {
+      "id": "revenda",
+      "nome": "Revenda",
+      "categoriaFinanceiraId": ""
+    }
+  ],
+  "itens": [
+    {
+      "id": "leite-condensado",
+      "nome": "Leite condensado 395 g (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "cx",
+      "unidadeUso": "g",
+      "fatorConversao": 395,
+      "custoAtualCentavos": 650,
+      "atualizadoDiasAtras": 12,
+      "estoqueMinimo": 7900,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 45,
+          "valorCentavos": 590,
+          "origem": "manual"
+        },
+        {
+          "diasAtras": 12,
+          "valorCentavos": 650,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "creme-de-leite",
+      "nome": "Creme de leite 200 g (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "cx",
+      "unidadeUso": "g",
+      "fatorConversao": 200,
+      "custoAtualCentavos": 350,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 4000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 350,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "leite-integral",
+      "nome": "Leite integral (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "L",
+      "unidadeUso": "ml",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 550,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 10000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 550,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "manteiga",
+      "nome": "Manteiga sem sal (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 4800,
+      "atualizadoDiasAtras": 5,
+      "estoqueMinimo": 2000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 20,
+          "valorCentavos": 4500,
+          "origem": "manual"
+        },
+        {
+          "diasAtras": 5,
+          "valorCentavos": 4800,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "leite-em-po",
+      "nome": "Leite em pó (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 4200,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 1000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 4200,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "creme-fresco",
+      "nome": "Creme de leite fresco (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "L",
+      "unidadeUso": "ml",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 2800,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 3000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 2800,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "cream-cheese",
+      "nome": "Cream cheese (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 3800,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 1000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 3800,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "ovos",
+      "nome": "Ovos, bandeja com 30 (teste)",
+      "categoriaId": "laticinios",
+      "unidadeCompra": "cx",
+      "unidadeUso": "un",
+      "fatorConversao": 30,
+      "custoAtualCentavos": 2400,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 60,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 2400,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "farinha-trigo",
+      "nome": "Farinha de trigo (teste)",
+      "categoriaId": "farinhas",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 600,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 10000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 600,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "acucar-refinado",
+      "nome": "Açúcar refinado (teste)",
+      "categoriaId": "farinhas",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 500,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 10000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 500,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "acucar-confeiteiro",
+      "nome": "Açúcar de confeiteiro (teste)",
+      "categoriaId": "farinhas",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 900,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 2000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 900,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "fermento",
+      "nome": "Fermento químico 100 g (teste)",
+      "categoriaId": "farinhas",
+      "unidadeCompra": "pct",
+      "unidadeUso": "g",
+      "fatorConversao": 100,
+      "custoAtualCentavos": 400,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 300,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 400,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "amido-milho",
+      "nome": "Amido de milho (teste)",
+      "categoriaId": "farinhas",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 1200,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 1000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 1200,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "oleo",
+      "nome": "Óleo de soja (teste)",
+      "categoriaId": "farinhas",
+      "unidadeCompra": "L",
+      "unidadeUso": "ml",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 900,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 2000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 900,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "chocolate-meio-amargo",
+      "nome": "Chocolate meio amargo (teste)",
+      "categoriaId": "chocolates",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 5500,
+      "atualizadoDiasAtras": 3,
+      "estoqueMinimo": 3000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 50,
+          "valorCentavos": 5000,
+          "origem": "manual"
+        },
+        {
+          "diasAtras": 25,
+          "valorCentavos": 5200,
+          "origem": "manual"
+        },
+        {
+          "diasAtras": 3,
+          "valorCentavos": 5500,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "chocolate-branco",
+      "nome": "Chocolate branco (teste)",
+      "categoriaId": "chocolates",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 6000,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 2000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 6000,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "cacau-po",
+      "nome": "Cacau em pó (teste)",
+      "categoriaId": "chocolates",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 4500,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 1000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 4500,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "granulado",
+      "nome": "Granulado de chocolate (teste)",
+      "categoriaId": "chocolates",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 3500,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 1000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 3500,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "achocolatado",
+      "nome": "Achocolatado maltado (teste)",
+      "categoriaId": "chocolates",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 2000,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 1000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 2000,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "morango",
+      "nome": "Morango (teste)",
+      "categoriaId": "frutas",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 1800,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 1000,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 1800,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "coco-ralado",
+      "nome": "Coco ralado 100 g (teste)",
+      "categoriaId": "frutas",
+      "unidadeCompra": "pct",
+      "unidadeUso": "g",
+      "fatorConversao": 100,
+      "custoAtualCentavos": 450,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 500,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 450,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "castanha",
+      "nome": "Castanha triturada (teste)",
+      "categoriaId": "frutas",
+      "unidadeCompra": "kg",
+      "unidadeUso": "g",
+      "fatorConversao": 1000,
+      "custoAtualCentavos": 6500,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 500,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 6500,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "forminha-docinho",
+      "nome": "Forminha de docinho, 100 un (teste)",
+      "categoriaId": "embalagens",
+      "unidadeCompra": "pct",
+      "unidadeUso": "un",
+      "fatorConversao": 100,
+      "custoAtualCentavos": 800,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 300,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 800,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "forminha-cupcake",
+      "nome": "Forminha de cupcake, 50 un (teste)",
+      "categoriaId": "embalagens",
+      "unidadeCompra": "pct",
+      "unidadeUso": "un",
+      "fatorConversao": 50,
+      "custoAtualCentavos": 1200,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 100,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 1200,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "caixa-bolo-p",
+      "nome": "Caixa de bolo pequena (teste)",
+      "categoriaId": "embalagens",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 600,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 20,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 600,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "caixa-bolo-m",
+      "nome": "Caixa de bolo média (teste)",
+      "categoriaId": "embalagens",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 800,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 20,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 800,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "caixa-bolo-g",
+      "nome": "Caixa de bolo grande (teste)",
+      "categoriaId": "embalagens",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 1000,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 10,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 1000,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "base-bolo",
+      "nome": "Base de papelão para bolo (teste)",
+      "categoriaId": "embalagens",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 250,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 30,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 250,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "placa-decorativa",
+      "nome": "Placa decorativa (teste)",
+      "categoriaId": "decoracao",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 800,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 10,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 800,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "glitter",
+      "nome": "Glitter comestível 10 g (teste)",
+      "categoriaId": "decoracao",
+      "unidadeCompra": "pct",
+      "unidadeUso": "g",
+      "fatorConversao": 10,
+      "custoAtualCentavos": 1500,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 20,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 1500,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "fita",
+      "nome": "Fita de cetim, metro (teste)",
+      "categoriaId": "decoracao",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 150,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 20,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 150,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "papel-arroz",
+      "nome": "Papel de arroz impresso (teste)",
+      "categoriaId": "decoracao",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 1200,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 5,
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 1200,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "refrigerante-2l",
+      "nome": "Refrigerante 2L para revenda (teste)",
+      "categoriaId": "revenda",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 700,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 12,
+      "produtoRevendaId": "refrigerante",
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 700,
+          "origem": "manual"
+        }
+      ]
+    },
+    {
+      "id": "vela",
+      "nome": "Vela de aniversário (teste)",
+      "categoriaId": "revenda",
+      "unidadeCompra": "un",
+      "unidadeUso": "un",
+      "fatorConversao": 1,
+      "custoAtualCentavos": 250,
+      "atualizadoDiasAtras": 90,
+      "estoqueMinimo": 20,
+      "produtoRevendaId": "vela",
+      "ativo": true,
+      "historicoPrecos": [
+        {
+          "diasAtras": 90,
+          "valorCentavos": 250,
+          "origem": "manual"
+        }
+      ]
+    }
+  ]
+}

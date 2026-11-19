@@ -20,7 +20,16 @@ export interface Encomenda { id: string; numero: number; lojaId: string; cliente
 export interface Configuracao { id: string; nomeSistema: string; nomeMarca: string; slogan: string; logo: string; fuso: string; observacaoFuso: string; observacaoMarca: string; prototipo: boolean; noindex: boolean; limiteRecheios: number; trocoPadraoCentavos: number; categoriasLancamentoCaixa: string[] }
 export interface AjusteTotal { tipo: 'valor' | 'percentual'; valor: number; motivo?: string }
 export interface Rascunho { id: string; usuarioId: string; encomenda: Encomenda; desconto: AjusteTotal; taxa: AjusteTotal; origemId?: string }
-export interface DadosPrototipo { configuracao: Configuracao; lojas: Loja[]; usuarios: Usuario[]; formasPagamento: FormaPagamento[]; opcoesBolo: OpcoesBolo; produtos: Produto[]; categoriasProduto: CategoriaProduto[]; clientes: Cliente[]; encomendas: Encomenda[]; rascunhos: Rascunho[]; caixas: Caixa[]; movimentosCaixa: MovimentoCaixa[]; vendas: Venda[] }
+export type UnidadeCompra = 'kg' | 'L' | 'un' | 'cx' | 'pct';
+export type UnidadeUso = 'g' | 'ml' | 'un';
+export interface CategoriaInsumo { id: string; nome: string; categoriaFinanceiraId?: string }
+export interface PrecoInsumo { data: string; valorCentavos: number; origem: 'manual' | 'compra'; usuarioId?: string; referencia?: string }
+export interface Insumo { id: string; nome: string; categoriaId: string; unidadeCompra: UnidadeCompra; unidadeUso: UnidadeUso; fatorConversao: number; custoAtualCentavos: number; atualizadoEm: string; estoqueMinimo: number; produtoRevendaId?: string; ativo: boolean; historicoPrecos: PrecoInsumo[] }
+export type ComponenteFicha = { tipo: 'insumo'; insumoId: string; quantidade: number } | { tipo: 'ficha'; fichaId: string; quantidade: number };
+export interface FichaTecnica { id: string; nome: string; tipo: 'base' | 'produto'; rendimentoQuantidade: number; rendimentoUnidade: UnidadeUso; perdaPercentual?: number; componentes: ComponenteFicha[]; modoPreparo?: string; produtoId?: string }
+export interface MontagemTamanho { tamanhoId: string; gramasMassa: number; gramasRecheio: number; fixos: ComponenteFicha[] }
+export interface MontagemBolo { limiteMargemPercentual: number; tamanhos: MontagemTamanho[]; vinculos: Record<string, ComponenteFicha> }
+export interface DadosPrototipo { configuracao: Configuracao; lojas: Loja[]; usuarios: Usuario[]; formasPagamento: FormaPagamento[]; opcoesBolo: OpcoesBolo; produtos: Produto[]; categoriasProduto: CategoriaProduto[]; clientes: Cliente[]; encomendas: Encomenda[]; rascunhos: Rascunho[]; caixas: Caixa[]; movimentosCaixa: MovimentoCaixa[]; vendas: Venda[]; categoriasInsumo: CategoriaInsumo[]; insumos: Insumo[]; fichas: FichaTecnica[]; montagemBolo: MontagemBolo }
 export interface SessaoPrototipo { usuarioId: string | null; lojaId: LojaSelecionada; dados: DadosPrototipo }
 export interface ConferenciaCaixa { formaPagamentoId: string; esperadoCentavos: number; informadoCentavos: number; diferencaCentavos: number }
 export interface Caixa { id: string; lojaId: string; data: string; abertoEm: string; abertoPor: string; trocoInicialCentavos: number; status: 'aberto' | 'fechado'; fechadoEm?: string; fechadoPor?: string; conferencia: ConferenciaCaixa[]; observacaoFechamento: string; reaberturas: { data: string; usuarioId: string; motivo: string }[] }
