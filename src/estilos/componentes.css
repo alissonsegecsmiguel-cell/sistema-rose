@@ -214,4 +214,11 @@
 .grafico-precos svg { width: 100%; max-width: var(--largura-resumo); height: auto; }
 .grafico-eixo { stroke: var(--cor-borda-forte); stroke-width: 1; }
 .grafico-linha { fill: none; stroke: var(--cor-primaria); stroke-width: 2; }
+.grafico-barras { margin: 0; }
+.grafico-barras svg { width: 100%; max-width: var(--largura-dialogo); height: auto; }
+.grafico-barra { fill: var(--cor-primaria); }
+.grafico-texto { fill: var(--cor-texto); font-size: var(--fonte-grafico); }
+.folha-contagem { width: 100%; border-collapse: collapse; }
+.folha-contagem th, .folha-contagem td { border: 1px solid var(--cor-borda-forte); padding: var(--espaco-2); text-align: left; }
+.folha-contagem td:last-child { width: 30%; }
 .grafico-ponto { fill: var(--cor-superficie); stroke: var(--cor-primaria); stroke-width: 2; }

@@ -11,6 +11,7 @@ import { EstadoVazio } from './estado-vazio';
 import { Tabela } from './tabela';
 import { GraficoPrecos } from './grafico-precos';
 import { moedaUnidade } from './tela-ficha-tecnica';
+import { EstoqueDoInsumo } from './tela-estoque';
 
 const numero = (v: number) => new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(v);
 /** Árvore expansível da ficha: subfichas abrem com details/summary nativos, acessíveis por teclado. */
@@ -37,5 +38,5 @@ export function DetalheInsumo({ id, extra }: { id: string; extra?: React.ReactNo
   const historico = [...i.historicoPrecos].sort((a, b) => a.data.localeCompare(b.data)), fichas = fichasQueUsamInsumo(dados, id);
   return <div className="pilha"><CabecalhoPagina titulo={i.nome} subtitulo={`${dados.categoriasInsumo.find(c => c.id === i.categoriaId)?.nome} • ${formatarMoeda(i.custoAtualCentavos)} por ${i.unidadeCompra} • ${moedaUnidade(custoPorUnidadeUso(i), i.unidadeUso)}`} acoes={<LinkBotao href="/ficha-tecnica?aba=insumos">Voltar aos insumos</LinkBotao>} />
     <div className="grade"><Cartao className="pilha"><h2>Histórico de preços</h2><GraficoPrecos pontos={historico.map(h => ({ data: h.data, valor: h.valorCentavos }))} rotulo={`Evolução do preço de ${i.nome}`} /><Tabela legenda="Preços registrados" colunas={[{ chave: 'data', titulo: 'Data' }, { chave: 'valor', titulo: `Valor por ${i.unidadeCompra}` }, { chave: 'origem', titulo: 'Origem' }]} linhas={[...historico].reverse().map((h, n) => ({ id: `${h.data}-${n}`, celulas: { data: formatarData(h.data), valor: <span className="numerico">{formatarMoeda(h.valorCentavos)}</span>, origem: h.origem === 'compra' ? 'Compra' : 'Manual' } }))} /></Cartao>
-      <Cartao className="pilha-curta"><h2>Fichas que usam este insumo</h2>{fichas.length ? <ul className="pilha-curta">{fichas.map(f => <li key={f.id}><Link href={`/ficha-tecnica/${f.id}`}>{f.nome}</Link></li>)}</ul> : <p className="suave">Nenhuma ficha usa este insumo.</p>}</Cartao></div>{extra}</div>;
+      <Cartao className="pilha-curta"><h2>Fichas que usam este insumo</h2>{fichas.length ? <ul className="pilha-curta">{fichas.map(f => <li key={f.id}><Link href={`/ficha-tecnica/${f.id}`}>{f.nome}</Link></li>)}</ul> : <p className="suave">Nenhuma ficha usa este insumo.</p>}</Cartao></div>{extra}<EstoqueDoInsumo insumoId={id} /></div>;
 }

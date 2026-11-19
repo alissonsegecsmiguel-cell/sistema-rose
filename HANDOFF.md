@@ -42,7 +42,7 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: um caixa por loja e dia; sangria retira dinheiro e suprimento repõe troco. Pagamentos podem ser registrados antes da abertura, entram quando o caixa é aberto e ficam bloqueados após o fechamento; reabertura exige Administrativo e motivo. Transferência entre caixas aguarda confirmação do cliente. Datas dos pagamentos fictícios foram limitadas a hoje para não simular recebimentos futuros já realizados. **(decidido sem o Alisson, revisar)**
 
-- 18/11/2026: Produção agrupa o período Próximos 3 dias como hoje e os dois dias seguintes; observações de doces são agrupadas exatamente como cadastradas. Status é da encomenda inteira, mesmo quando há vários bolos. Função aoMarcarPronto registra histórico e será ligada ao estoque na tarefa 11. **(decidido sem o Alisson, revisar)**
+- 18/11/2026: Produção agrupa o período Próximos 3 dias como hoje e os dois dias seguintes; observações de doces são agrupadas exatamente como cadastradas. Status é da encomenda inteira, mesmo quando há vários bolos. Função aoMarcarPronto registra histórico e baixa o estoque desde a tarefa 11. **(decidido sem o Alisson, revisar)**
 
 - 18/11/2026: catálogo único de produtos, com preço igual nas duas lojas e campo Disponível em; ids sem sufixo de loja nas encomendas e vendas de teste. **(decidido sem o Alisson, revisar: preços diferentes por loja?)**
 
@@ -51,6 +51,10 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - 18/11/2026: Quadro de encomendas usa as mesmas regras de status: avançar várias etapas grava o histórico de cada etapa e um evento com as etapas puladas; voltar qualquer número de etapas pede motivo. Em 760px ou menos as colunas viram abas (mesmo limite da gaveta). Orçamentos com data passada também aparecem como atrasados. Encomenda movida para Entregues com data fora do período sai do quadro, como pede a regra da coluna. O arraste começa fora do link e dos botões do cartão e rola o quadro ao chegar perto da borda. **(decidido sem o Alisson, revisar)**
 
 - 19/11/2026: ficha técnica calcula custos na hora pelo custo atual (sem custo guardado). Perda soma ao custo final (total × (1 + perda)). Recheios dividem igualmente as gramas do tamanho. Red velvet e Cenoura usam a ficha da massa branca até haver ficha própria. Tabela de combinações usa cada tamanho com cada massa e o primeiro recheio ativo. Custo da encomenda compara itens após desconto, sem taxa de cartão e sem mão de obra. Insumos, fichas, gramas e fixos são de teste. Chave local v7. **(decidido sem o Alisson, revisar)**
+
+- 19/11/2026: baixa de insumos ao marcar Pronto, do estoque padrão de baixas da loja, pela ficha técnica; voltar de Pronto ou Entregue para antes de Pronto estorna com movimentos negativos. **(decidido sem o Alisson, revisar: baixar ao marcar Pronto ou ao Iniciar produção?)**
+
+- 19/11/2026: saldo sempre calculado pelos movimentos; transferência é um único movimento com origem e destino. Abaixo do mínimo compara o total da loja (todos os estoques) com o mínimo do insumo; no Consolidado vale se alguma loja estiver abaixo. Perdas contam Desperdício, Vencimento e Quebra ou dano pelo custo do dia do registro. Contagem ajusta só os itens contados, com diferença pelo saldo no momento da conclusão. Venda no PDV baixa do estoque de produção da loja; cancelamento estorna. Estoque padrão não pode ser inativado. Chave local v8. **(decidido sem o Alisson, revisar)**
 
 ## 4. Mapa de módulos
 
@@ -106,6 +110,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 18/11/2026: tarefa 10 concluída. Tela /ficha-tecnica com abas Fichas, Insumos e Custo do bolo; 34 insumos e 9 fichas de teste (6 base, 3 de produto), ficha dentro de ficha, bloqueio de ciclo, perda e custo por unidade; histórico de preços com confirmação e mini gráfico SVG; detalhe com árvore expansível e onde a ficha é usada; simulador de custo e margem do bolo, tabela por tamanho e massa com destaque de margem baixa e montagem por tamanho editável; custo estimado no detalhe da encomenda para o Administrativo. Funções puras em src/lib/custos.ts. Chave v7. Validação: lint, dois builds sem alterações inesperadas e 126 testes aprovados. Commit identificado pela mensagem “Tarefa 10: Insumos e ficha técnica”; hash literal no relatório local 10-relatorio.md.
 
+- 19/11/2026: tarefa 11 concluída. Tela /estoque com abas Saldos, Movimentações, Transferir, Entrada ou retirada, Contagem, Perdas e Estoques; 4 estoques e 60 dias de movimentos de teste com contagem concluída e desperdícios. Transferência entre estoques e lojas com aviso e confirmação de saldo negativo; retirada com motivo e descrição obrigatória no desperdício; contagem com saldo escondido, rascunho, diferenças, ajustes e folha A4; painel de perdas com barras SVG. Baixa automática ao marcar Pronto e na venda do PDV, com estorno ao voltar etapa ou cancelar venda e aviso de item sem ficha. Saldos e movimentos no detalhe do insumo e cartão de mínimo na Visão geral. Funções em src/lib/estoque.ts. Chave v8. Validação: lint, dois builds sem alterações inesperadas e 135 testes aprovados. Commit identificado pela mensagem “Tarefa 11: Estoque”; hash literal no relatório local 11-relatorio.md.
+
 ## 6. Em andamento
 
 - Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
@@ -124,6 +130,7 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Quantos recheios cabem por bolo, e o rendimento (pessoas e peso) de cada tamanho?
 - Quais são as fichas técnicas reais (ingredientes e rendimentos) e quantos gramas de massa e de recheio vão em cada tamanho?
 - Qual margem mínima o dono considera aceitável (hoje 50% no protótipo)?
+- Quais estoques existem em cada loja (nomes) e qual o estoque mínimo de cada insumo?
 - Grafia oficial: “Delícias” com acento ou “delicias” como no logo?
 - Existe logo em alta resolução ou vetor (SVG, PDF, AI)?
 
@@ -133,7 +140,7 @@ Cardápio com preços, lista de insumos, fichas técnicas existentes, taxas da m
 
 ## 10. Como rodar o projeto
 
-Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v7`, protegida por try/catch; a versão 7 traz insumos, fichas técnicas e montagem de custo do bolo.
+Node.js >=20.9 e npm. Execute `npm install`, `npm run dev` e abra http://localhost:3000. Escolha um dos perfis de teste. Manual em /design-system. A faixa superior restaura os dados mediante confirmação. A chave local é `sistema-rose-prototipo-v8`, protegida por try/catch; a versão 8 traz estoques, movimentos e contagens.
 
 No Windows, também é possível dar dois cliques em `abrir-prototipo.bat`, na raiz do projeto. O atalho entra na própria pasta, verifica Node/npm, instala somente quando não há node_modules, inicia o servidor e abre o navegador no endereço escolhido pelo Next.js. Aguarde a mensagem “Protótipo rodando. Para parar, feche esta janela.” Para encerrar, feche essa janela. Se 3000 estiver ocupada, use o endereço mostrado; o atalho já abre esse endereço automaticamente. O acompanhamento da saída usa o PowerShell integrado ao Windows, sem dependências adicionais.
 
