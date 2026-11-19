@@ -6,7 +6,7 @@ Sistema de gestão online do Ateliê Delícias da Rose, com matriz e filial: enc
 
 ## 2. Fase atual
 
-Protótipo visual com dados fictícios. Não há banco, autenticação real, API, servidor próprio ou integrações. A fila 01B a 16 foi autorizada em 18/11/2026; as telas de negócio estão sendo implementadas na ordem da fila.
+Protótipo visual completo, aguardando apresentação e aprovação do cliente. Todos os módulos da fila 01 a 16 estão navegáveis com dados fictícios, sem banco, autenticação real, API ou integrações. Roteiro de demonstração em relatorios/fila/roteiro-demonstracao.md (fora do Git).
 
 ## 3. Decisões registradas
 
@@ -66,6 +66,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: configurações gravadas no navegador como o resto do protótipo. Usuários criados aparecem em /entrar como perfis de teste; inativos somem de /entrar e continuam no histórico; não é possível inativar o próprio usuário nem o último Administrativo. Dinheiro é sempre ativo e o único que entra na gaveta. Formas inativas somem das escolhas de pagamento. Taxa padrão é só sugestão (texto de ajuda) na taxa avulsa da encomenda e do PDV. Antecedência mínima (2 dias) e horário de funcionamento (8h às 18h) geram avisos, nunca bloqueio. O limite de margem baixa fica num único lugar (montagem do bolo) e é editável em Configurações e na Ficha técnica. Troco padrão por loja. Chave local v11. **(decidido sem o Alisson, revisar)**
 
+- 19/11/2026: revisão geral: textos padronizados em "Encomenda" (o termo "pedido" ficou só em "mais pedido", no sentido de mais solicitado); o fechamento do caixa respeita a configuração de observação obrigatória também na tela; /entrar ganhou o bloco "Como explorar este protótipo". Conferência dos números coberta por teste: pagamentos e vendas do dia batem com o caixa; o caixa bate com os recebimentos do fluxo (cartão entra na liquidação, sem a taxa); faturamento do relatório igual à receita bruta do DRE e conferência com os caixas zerada; baixas de estoque iguais às fichas dos itens marcados como prontos. **(decidido sem o Alisson, revisar)**
+
 ## 4. Mapa de módulos
 
 | Módulo | O que terá |
@@ -94,9 +96,8 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 - Testes da 01-B: execução pela associação do Windows, equivalente ao duplo clique, partindo de C:\Windows; /entrar confirmada em Chromium na porta 3000 e também em 3001 com 3000 propositalmente ocupada. Seis testes com comandos simulados aprovados: Node ausente, npm ausente, instalação inicial, dependências existentes, erro de instalação e erro do servidor; erros aguardam tecla. npm run lint, dois builds sem alteração dos 75 arquivos comparados e os 22 testes Playwright aprovados, incluindo quatro larguras e teclado. Referências/relatórios locais fora do Git. Servidores de teste encerrados.
 - Durante o teste de next dev, o Next.js acrescentou um bloco gerenciado ao AGENTS.md por detectar o agente; somente essa alteração automática foi restaurada, sem alterar as regras originais. next-env.d.ts foi regenerado pelo dev e voltou ao conteúdo original com o build. O commit da 01-B contém somente o atalho, README.md e este HANDOFF.md.
 - 18/11/2026: tarefa 01-C concluída: topo compacto móvel, menu de usuário por iniciais, dica acessível de restauração, rótulo compacto da seleção e manual atualizado para os três perfis. next-env.d.ts removido apenas do índice e ignorado; bloco nextjs-agent-rules mantido no AGENTS.md. Sem novas dependências ou mudanças de negócio.
-- Testes da 01-C: npm run lint e npm run build aprovados; 23 testes Playwright aprovados, incluindo as quatro larguras, três perfis, ausência de rolagem horizontal, controles de ao menos 44px, restauração, troca de perfil, toque, foco e Esc. Título começa em 129px nos três perfis em 390px e 760px, antes começava em cerca de 296px no Administrativo em 390px. Capturas de desktop em 1440px e 1024px idênticas pixel a pixel às anteriores nos três perfis. Evidências em relatorios/fila/evidencias-01C/. Relatório local 01C-relatorio.md registra hash, push e conferência final do ciclo dev → build após o commit.
+- Testes da 01-C: npm run lint e npm run build aprovados; 23 testes Playwright aprovados, incluindo as quatro larguras, três perfis, ausência de rolagem horizontal, controles de ao menos 44px, restauração, troca de perfil, toque, foco e Esc. Título começa em 129px nos três perfis em 390px e 760px, antes começava em cerca de 296px no Administrativo em 390px. Capturas de desktop em 1440px e 1024px idênticas pixel a pixel às anteriores nos três perfis. Evidências em relatorios/fila/evidencias-01C/. Relatório local 01C-relatorio.md registra hash, push e conferência final do ciclo dev → build após o commit. Complemento da fila atualizada (commit da mensagem “Tarefa 01C: Ajustes da conferência da tarefa 01”): Atendimento acessa Produção; menus, perfis de teste e manual atualizados; restauração com title acessível.
 
-- 18/11/2026: tarefa 01C concluída. Complemento da fila atualizada: Atendimento acessa Produção; menus, perfis de teste e manual atualizados. Topo compacto e arquivos gerados já estavam concluídos e foram preservados. Restauração inclui title acessível. Validação: lint, dois builds sem alterações inesperadas e 23 testes aprovados. Commit identificado pela mensagem “Tarefa 01C: Ajustes da conferência da tarefa 01”; hash literal no relatório local 01C-relatorio.md.
 
 - 18/11/2026: tarefa 02 concluída. Painel por loja e consolidado, indicadores, filtro de modalidade, próximos sete dias, alertas e aniversariantes. Faixa de dias documentada no manual. Validação: lint, dois builds sem alterações inesperadas e 25 testes aprovados. Commit identificado pela mensagem “Tarefa 02: Visão geral (painel do dia)”; hash literal no relatório local 02-relatorio.md.
 
@@ -130,13 +131,15 @@ Protótipo visual com dados fictícios. Não há banco, autenticação real, API
 
 - 19/11/2026: tarefa 15 concluída. Tela /configuracoes com abas Lojas, Usuários, Formas de pagamento, Caixa, Encomendas, Marca e Dados de teste. Usuários novos entram por /entrar e inativos saem; formas com taxa padrão, prazo e situação, usadas pela conciliação e sugeridas na taxa avulsa da encomenda e do PDV; troco padrão por loja na abertura do caixa; observação obrigatória na diferença configurável; antecedência mínima e horário de funcionamento como avisos na nova encomenda; limite de margem baixa; marca em leitura e restauração dos dados. Chave v11. Validação: lint, dois builds sem alterações inesperadas e 166 testes aprovados. Commit identificado pela mensagem “Tarefa 15: Configurações”; hash literal no relatório local 15-relatorio.md.
 
+- 19/11/2026: tarefa 16 concluída. Revisão com os dois fluxos completos cobertos por testes (dia de Atendimento na Matriz e na Filial: abrir caixa, orçamento, conversão com adiantamento, produção, entrega com saldo, venda no balcão, cliente e fechamento; e percurso do Administrativo pelos 12 módulos nas duas lojas e no Consolidado, sem rolagem horizontal nem textos técnicos). Teste de conferência dos números (caixa, fluxo realizado, relatório, DRE e baixas de estoque). Textos padronizados em Encomenda, fechamento respeitando a configuração, alvos de 44px e barra fixa conferidos em 390px, bloco Como explorar este protótipo em /entrar, HANDOFF com a fase final. Roteiro de demonstração em relatorios/fila/roteiro-demonstracao.md. Validação: lint, dois builds sem alterações inesperadas e 174 testes aprovados. Commit identificado pela mensagem “Tarefa 16: Revisão geral e roteiro de demonstração”; hash literal no relatório local 16-relatorio.md.
+
 ## 6. Em andamento
 
-- Execução da fila 01B a 16 autorizada pelo Alisson em 18/11/2026. Retomar pela primeira tarefa pronta sem conclusão no RESUMO.md.
+- Fila 01 a 16 concluída em 19/11/2026 (tarefas 09 a 16 retomadas e concluídas pelo Claude após o Codex atingir o limite). Próximo passo: demonstração ao cliente e coleta das respostas da seção 8.
 
 ## 7. Backlog
 
-- Sem bloqueios conhecidos. A fila 01B a 16 está autorizada; seguir a ordem e as dependências de 00-LEIA-PRIMEIRO.md.
+- Sem tarefas no Backlog e sem bloqueios. Depois da aprovação do cliente: back-end (Supabase + Vercel, a confirmar), login real, impressora térmica, maquininha e migração de dados.
 
 ## 8. Perguntas em aberto para o cliente
 

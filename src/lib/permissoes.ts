@@ -5,7 +5,7 @@ export const modulos = [
   { rota: '/encomendas', titulo: 'Encomendas', icone: 'encomenda', atendimento: true, texto: 'Aqui vão ficar a lista e a agenda de encomendas, com status e situação de pagamento.' },
   { rota: '/producao', titulo: 'Produção', icone: 'producao', atendimento: true, texto: 'Aqui vai aparecer o que precisa ser produzido em cada dia, separado por bolos e doces.' },
   { rota: '/caixa', titulo: 'Caixa', icone: 'caixa', atendimento: true, texto: 'Aqui vão ficar a abertura e o fechamento do caixa, vendas de pronta-entrega, sangria e suprimento.' },
-  { rota: '/clientes', titulo: 'Clientes', icone: 'clientes', atendimento: true, texto: 'Aqui vão ficar o cadastro dos clientes, o histórico de pedidos e as pendências de pagamento.' },
+  { rota: '/clientes', titulo: 'Clientes', icone: 'clientes', atendimento: true, texto: 'Aqui vão ficar o cadastro dos clientes, o histórico de encomendas e as pendências de pagamento.' },
   { rota: '/produtos', titulo: 'Produtos', icone: 'produto', atendimento: false, texto: 'Aqui vão ficar os produtos, as categorias e as opções de montagem do bolo.' },
   { rota: '/ficha-tecnica', titulo: 'Ficha técnica', icone: 'ficha', atendimento: false, texto: 'Aqui vão ficar as fichas técnicas, com custo calculado a partir dos insumos.' },
   { rota: '/estoque', titulo: 'Estoque', icone: 'estoque', atendimento: false, texto: 'Aqui vão ficar os estoques, as transferências, a contagem mensal e o controle de perdas.' },
