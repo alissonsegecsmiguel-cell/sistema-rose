@@ -8,32 +8,40 @@ import categorias from '@/dados-teste/categorias-produto.json';
 import clientes from '@/dados-teste/clientes.json';
 import encomendas from '@/dados-teste/encomendas.json';
 import encomendasClientes from '@/dados-teste/encomendas-clientes.json';
+import caixasTeste from '@/dados-teste/caixas.json';
+import type { Caixa, ConferenciaCaixa, MovimentoCaixa, PagamentoVenda, Venda } from './tipos';
 import type { Cliente, DadosPrototipo, Encomenda, EventoHistorico, ItemEncomenda, LojaSelecionada, Pagamento, Rascunho, SessaoPrototipo, SituacaoPagamento, StatusEncomenda } from './tipos';
 import { formatarData, formatarMoeda } from './formatar';
 
-export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v4';
+export const CHAVE_ARMAZENAMENTO = 'sistema-rose-prototipo-v5';
+const formatadorDia = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' });
 export function obterConfiguracao() { return configuracao; }
 export function listarPerfisDeTeste() { return carregarDadosDeTeste().usuarios; }
 
 // Calcula a data civil no fuso configurado, sem depender do fuso do navegador.
 export function dataRelativa(dias: number, agora = new Date()) {
-  const partes = new Intl.DateTimeFormat('en-CA', { timeZone: configuracao.fuso, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(agora);
+  const partes = formatadorDia.formatToParts(agora);
   const parte = (tipo: string) => Number(partes.find(p => p.type === tipo)?.value);
   const data = new Date(Date.UTC(parte('year'), parte('month') - 1, parte('day') + dias, 12));
   return data.toISOString().slice(0, 10);
 }
 
 export function carregarDadosDeTeste(): DadosPrototipo {
-  return structuredClone({
+  const dados = structuredClone({
     configuracao, lojas: lojas.itens, usuarios: usuarios.itens, formasPagamento: formas.itens, rascunhos: [],
-    opcoesBolo: opcoes, produtos: produtos.itens, categoriasProduto: categorias.itens, clientes: clientes.itens.map(c => ({ ...c, criadoEm: `${dataRelativa(-90)}T12:00:00-03:00`, aniversario: c.aniversarioMesAtual ? `2000-${dataRelativa(0).slice(5, 7)}-${c.aniversario!.slice(8)}` : c.aniversario })),
+    opcoesBolo: opcoes, produtos: produtos.itens, categoriasProduto: categorias.itens, clientes: clientes.itens.map(c => ({ ...c, criadoEm: `${dataRelativa(-c.criadoDiasAtras)}T12:00:00-03:00`, aniversario: c.aniversarioMesAtual ? `${c.aniversario!.slice(0, 4)}-${dataRelativa(0).slice(5, 7)}-${c.aniversario!.slice(8)}` : c.aniversario })),
+    caixas: caixasTeste.caixas.map(c => ({ ...c, data: dataRelativa(-c.diasAtras), abertoEm: `${dataRelativa(-c.diasAtras)}T08:00:00-03:00`, fechadoEm: `${dataRelativa(-c.diasAtras)}T19:00:00-03:00`, fechadoPor: c.abertoPor })),
+    vendas: caixasTeste.vendas.map(v => ({ ...v, data: `${dataRelativa(-v.diasAtras)}T14:00:00-03:00` })),
+    movimentosCaixa: caixasTeste.movimentos.map(m => ({ ...m, data: `${dataRelativa(-m.diasAtras)}T09:00:00-03:00` })),
     encomendas: [...encomendas.itens, ...encomendasClientes.itens].map(e => ({ ...e,
       dataEntrega: dataRelativa(e.diasAPartirDeHoje),
-      criadoEm: `${dataRelativa(e.diasAPartirDeHoje - 7)}T12:00:00-03:00`,
-      pagamentos: e.pagamentos.map(p => ({ ...p, data: `${dataRelativa(e.diasAPartirDeHoje - 3)}T10:00:00-03:00` })),
-      historico: e.historico.map(h => ({ ...h, data: `${dataRelativa(e.diasAPartirDeHoje - 7)}T12:00:00-03:00` })),
+      criadoEm: `${dataRelativa(Math.min(0, e.diasAPartirDeHoje - 7))}T12:00:00-03:00`,
+      pagamentos: e.pagamentos.map(p => ({ ...p, data: `${dataRelativa(Math.min(0, e.diasAPartirDeHoje - 3))}T10:00:00-03:00` })),
+      historico: e.historico.map(h => ({ ...h, data: `${dataRelativa(Math.min(0, e.diasAPartirDeHoje - 7))}T12:00:00-03:00` })),
     })),
   }) as DadosPrototipo;
+  dados.caixas.forEach(c => { const diferenca = caixasTeste.caixas.find(x => x.id === c.id)?.diferencaTesteCentavos || 0; c.conferencia = resumoCaixa(dados, c).formas.map(f => ({ formaPagamentoId: f.id, esperadoCentavos: f.valorCentavos, informadoCentavos: f.valorCentavos + (f.id === 'dinheiro' ? diferenca : 0), diferencaCentavos: f.id === 'dinheiro' ? diferenca : 0 })); });
+  return dados;
 }
 
 function daLoja<T extends { lojaId: string }>(registros: T[], lojaId: LojaSelecionada) {
@@ -114,6 +122,7 @@ export function salvarEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, 
   encomenda.itens.forEach(validarItem);
   if (![encomenda.descontoCentavos, encomenda.taxaCartaoCentavos].every(v => Number.isSafeInteger(v) && v >= 0) || !encomenda.pagamentos.every(p => Number.isSafeInteger(p.valorCentavos) && (p.tipo === 'devolucao' ? p.valorCentavos <= 0 : p.valorCentavos >= 0))) throw new Error('Dinheiro deve ser inteiro em centavos.');
   const anterior = obterEncomenda(dados, lojaId, encomenda.id);
+  for (const p of encomenda.pagamentos) if (JSON.stringify(anterior?.pagamentos.find(x => x.id === p.id)) !== JSON.stringify(p) && !pagamentoPodeSerCorrigido(dados, p)) throw new Error('Caixa fechado: reabra o caixa para registrar ou corrigir pagamentos deste dia.');
   if (dados.encomendas.some(e => e.id === encomenda.id) && !anterior) throw new Error('Encomenda de outra loja.');
   const salva = structuredClone({ ...encomenda, historico: [...(anterior?.historico ?? []), evento] });
   return { ...dados, encomendas: anterior ? dados.encomendas.map(e => e.id === salva.id ? salva : e) : [...dados.encomendas, salva] };
@@ -122,7 +131,7 @@ export function salvarEncomenda(dados: DadosPrototipo, lojaId: LojaSelecionada, 
 export function novoId() { return crypto.randomUUID(); }
 export const sequenciaStatus: StatusEncomenda[] = ['orcamento', 'confirmado', 'em_producao', 'pronto', 'entregue'];
 export function nomeStatus(status: StatusEncomenda) { return { orcamento: 'Orçamento', confirmado: 'Confirmado', em_producao: 'Em produção', pronto: 'Pronto', entregue: 'Entregue/Retirado', cancelado: 'Cancelado' }[status]; }
-export function pagamentoPodeSerCorrigido(dados: DadosPrototipo, pagamento: Pagamento) { void dados; void pagamento; return true; }
+export function pagamentoPodeSerCorrigido(dados: DadosPrototipo, pagamento: Pagamento) { return !dados.caixas.some(c => c.lojaId === pagamento.lojaId && c.data === diaDoRegistro(pagamento.data) && c.status === 'fechado'); }
 function eventoEncomenda(usuarioId: string, acao: string, detalhe: string): EventoHistorico { return { id: novoId(), data: new Date().toISOString(), usuarioId, acao, detalhe }; }
 export function alterarStatusEncomenda(dados: DadosPrototipo, lojaId: string, id: string, status: StatusEncomenda, usuarioId: string, motivo = '') {
   const e = obterEncomenda(dados, lojaId, id); if (!e || e.status === 'cancelado' || status === 'cancelado') throw new Error('Encomenda indisponível para esta ação.');
@@ -251,4 +260,66 @@ export function gravarSessaoLocal(sessao: SessaoPrototipo) {
 export function restaurarDadosDeTeste() {
   try { localStorage.removeItem(CHAVE_ARMAZENAMENTO); } catch { /* Continua em memória. */ }
   return carregarDadosDeTeste();
+}
+export function diaDoRegistro(iso: string) { return dataRelativa(0, new Date(iso)); }
+export function listarCaixas(dados: DadosPrototipo, lojaId: string) { return daLoja(dados.caixas, lojaId).sort((a, b) => b.data.localeCompare(a.data)); }
+export function obterCaixa(dados: DadosPrototipo, lojaId: string, data = dataRelativa(0)) { return listarCaixas(dados, lojaId).find(c => c.data === data); }
+export function obterCaixaPorId(dados: DadosPrototipo, lojaId: string, id: string) { return listarCaixas(dados, lojaId).find(c => c.id === id); }
+export function totalVenda(v: Pick<Venda, 'itens' | 'descontoCentavos' | 'taxaCartaoCentavos'>) { return v.itens.reduce((s, i) => s + i.quantidade * i.valorUnitarioCentavos, 0) - v.descontoCentavos + v.taxaCartaoCentavos; }
+export function movimentosDoCaixa(dados: DadosPrototipo, caixa: Caixa) {
+  const vendas = dados.vendas.filter(v => v.caixaId === caixa.id && v.status === 'concluida').flatMap(v => v.pagamentos.map((p, n) => ({ id: `${v.id}-${n}`, data: v.data, tipo: 'venda', descricao: `Venda nº ${v.numero}`, formaPagamentoId: p.formaPagamentoId, valorCentavos: p.valorCentavos, usuarioId: v.usuarioId, encomendaId: '', vendaId: v.id })));
+  const encomendas = listarEncomendas(dados, caixa.lojaId).flatMap(e => e.pagamentos.filter(p => diaDoRegistro(p.data) === caixa.data).map(p => ({ id: p.id, data: p.data, tipo: p.tipo, descricao: `Encomenda nº ${e.numero}${e.dataEntrega > caixa.data ? ' • entrega futura' : ''}`, formaPagamentoId: p.formaPagamentoId, valorCentavos: p.valorCentavos, usuarioId: p.usuarioId, encomendaId: e.id, vendaId: '' })));
+  const manuais = dados.movimentosCaixa.filter(m => m.caixaId === caixa.id).map(m => ({ ...m, descricao: `${m.categoria}: ${m.descricao}`, valorCentavos: (m.tipo === 'sangria' || m.tipo === 'lancamento_saida' ? -1 : 1) * m.valorCentavos, encomendaId: '', vendaId: '' }));
+  return [...vendas, ...encomendas, ...manuais].sort((a, b) => b.data.localeCompare(a.data));
+}
+export function resumoCaixa(dados: DadosPrototipo, caixa: Caixa) {
+  const movimentos = movimentosDoCaixa(dados, caixa), formas = dados.formasPagamento.map(f => ({ ...f, valorCentavos: movimentos.filter(m => m.formaPagamentoId === f.id).reduce((s, m) => s + m.valorCentavos, f.id === 'dinheiro' ? caixa.trocoInicialCentavos : 0) }));
+  const vendas = dados.vendas.filter(v => v.caixaId === caixa.id && v.status === 'concluida'), recebimentos = movimentos.filter(m => !!m.encomendaId);
+  return { formas, dinheiro: formas.find(f => f.id === 'dinheiro')?.valorCentavos || 0, total: formas.reduce((s, f) => s + f.valorCentavos, 0), vendas: vendas.reduce((s, v) => s + totalVenda(v), 0), recebimentos: recebimentos.reduce((s, m) => s + m.valorCentavos, 0), adiantamentosFuturos: recebimentos.filter(m => dados.encomendas.find(e => e.id === m.encomendaId)!.dataEntrega > caixa.data).reduce((s, m) => s + m.valorCentavos, 0), sangrias: movimentos.filter(m => m.tipo === 'sangria').reduce((s, m) => s - m.valorCentavos, 0), suprimentos: movimentos.filter(m => m.tipo === 'suprimento').reduce((s, m) => s + m.valorCentavos, 0), lancamentos: movimentos.filter(m => m.tipo.startsWith('lancamento')).reduce((s, m) => s + m.valorCentavos, 0), descontos: vendas.reduce((s, v) => s + v.descontoCentavos, 0), taxas: vendas.reduce((s, v) => s + v.taxaCartaoCentavos, 0) };
+}
+export function resumoCaixasDoDia(dados: DadosPrototipo) { const caixas = dados.caixas.filter(c => c.data === dataRelativa(0)); return { abertos: caixas.filter(c => c.status === 'aberto').length, fechados: caixas.filter(c => c.status === 'fechado').length, total: caixas.reduce((s, c) => s + resumoCaixa(dados, c).total, 0), dinheiro: caixas.reduce((s, c) => s + resumoCaixa(dados, c).dinheiro, 0) }; }
+function validarOperadorCaixa(dados: DadosPrototipo, lojaId: string, usuarioId: string) { const u = obterUsuario(dados, usuarioId); if (!u || lojaId === 'consolidado' || !dados.lojas.some(l => l.id === lojaId) || (u.perfil === 'atendimento' && u.lojaId !== lojaId)) throw new Error('Escolha uma loja permitida para operar o caixa.'); }
+function caixaAberto(dados: DadosPrototipo, caixaId: string, usuarioId: string) { const c = dados.caixas.find(c => c.id === caixaId); if (!c || c.status !== 'aberto') throw new Error('Caixa fechado: operação bloqueada.'); validarOperadorCaixa(dados, c.lojaId, usuarioId); return c; }
+export function abrirCaixa(dados: DadosPrototipo, lojaId: string, usuarioId: string, trocoInicialCentavos: number) {
+  validarOperadorCaixa(dados, lojaId, usuarioId); if (obterCaixa(dados, lojaId)) throw new Error('Já existe caixa para esta loja hoje.');
+  if (!Number.isSafeInteger(trocoInicialCentavos) || trocoInicialCentavos < 0) throw new Error('Troco inicial inválido.');
+  const c: Caixa = { id: novoId(), lojaId, data: dataRelativa(0), abertoEm: new Date().toISOString(), abertoPor: usuarioId, trocoInicialCentavos, status: 'aberto', conferencia: [], observacaoFechamento: '', reaberturas: [] };
+  return { ...dados, caixas: [...dados.caixas, c] };
+}
+export function registrarMovimentoCaixa(dados: DadosPrototipo, caixaId: string, usuarioId: string, campos: Omit<MovimentoCaixa, 'id' | 'data' | 'caixaId' | 'usuarioId'>) {
+  caixaAberto(dados, caixaId, usuarioId);
+  if (!campos.descricao.trim() || !campos.categoria || !Number.isSafeInteger(campos.valorCentavos) || campos.valorCentavos <= 0 || !dados.formasPagamento.some(f => f.id === campos.formaPagamentoId)) throw new Error('Informe valor positivo, forma, categoria e descrição.');
+  const m = { ...campos, id: novoId(), data: new Date().toISOString(), caixaId, usuarioId };
+  return { ...dados, movimentosCaixa: [...dados.movimentosCaixa, m] };
+}
+export function conferirCaixa(dados: DadosPrototipo, caixa: Caixa, informados: Record<string, number>): ConferenciaCaixa[] { return resumoCaixa(dados, caixa).formas.map(f => ({ formaPagamentoId: f.id, esperadoCentavos: f.valorCentavos, informadoCentavos: informados[f.id] ?? 0, diferencaCentavos: (informados[f.id] ?? 0) - f.valorCentavos })); }
+export function fecharCaixa(dados: DadosPrototipo, caixaId: string, usuarioId: string, informados: Record<string, number>, observacao: string) {
+  const c = caixaAberto(dados, caixaId, usuarioId), conferencia = conferirCaixa(dados, c, informados);
+  if (conferencia.some(f => !Number.isSafeInteger(f.informadoCentavos) || f.informadoCentavos < 0)) throw new Error('Valores informados devem ser positivos em centavos.');
+  if (conferencia.some(f => f.diferencaCentavos !== 0) && !observacao.trim()) throw new Error('Explique a diferença antes de fechar.');
+  return { ...dados, caixas: dados.caixas.map(x => x.id === c.id ? { ...c, status: 'fechado' as const, fechadoEm: new Date().toISOString(), fechadoPor: usuarioId, conferencia, observacaoFechamento: observacao } : x) };
+}
+export function reabrirCaixa(dados: DadosPrototipo, caixaId: string, usuarioId: string, motivo: string) {
+  const c = dados.caixas.find(c => c.id === caixaId); if (!c || c.status !== 'fechado' || obterUsuario(dados, usuarioId)?.perfil !== 'administrativo') throw new Error('Somente Administrativo pode reabrir um caixa fechado.');
+  if (!motivo.trim()) throw new Error('Informe o motivo da reabertura.');
+  return { ...dados, caixas: dados.caixas.map(x => x.id === c.id ? { ...c, status: 'aberto' as const, reaberturas: [...c.reaberturas, { data: new Date().toISOString(), usuarioId, motivo }] } : x) };
+}
+export function finalizarVenda(dados: DadosPrototipo, caixaId: string, usuarioId: string, campos: Pick<Venda, 'itens' | 'descontoCentavos' | 'taxaCartaoCentavos' | 'pagamentos'>) {
+  const c = caixaAberto(dados, caixaId, usuarioId), total = totalVenda(campos);
+  if (!campos.itens.length || total <= 0 || ![total, campos.descontoCentavos, campos.taxaCartaoCentavos].every(v => Number.isSafeInteger(v) && v >= 0)) throw new Error('Confira os itens, desconto e taxa.');
+  campos.itens.forEach(i => { validarItem(i); if (!listarProdutos(dados, c.lojaId).some(p => p.id === i.produtoId)) throw new Error('Produto indisponível nesta loja.'); });
+  validarPagamentosVenda(dados, campos.pagamentos, total);
+  const v: Venda = { ...structuredClone(campos), id: novoId(), numero: Math.max(0, ...dados.vendas.filter(v => v.lojaId === c.lojaId).map(v => v.numero)) + 1, lojaId: c.lojaId, caixaId, data: new Date().toISOString(), usuarioId, status: 'concluida', trocoCentavos: campos.pagamentos.filter(p => p.formaPagamentoId === 'dinheiro').reduce((s, p) => s + Math.max(0, (p.recebidoCentavos ?? p.valorCentavos) - p.valorCentavos), 0), historico: [eventoEncomenda(usuarioId, 'Venda concluída', 'Venda de teste no PDV.')] };
+  return { dados: { ...dados, vendas: [...dados.vendas, v] }, venda: v };
+}
+function validarPagamentosVenda(dados: DadosPrototipo, pagamentos: PagamentoVenda[], total: number) {
+  if (pagamentos.reduce((s, p) => s + p.valorCentavos, 0) !== total || pagamentos.some(p => !Number.isSafeInteger(p.valorCentavos) || p.valorCentavos <= 0 || (p.recebidoCentavos !== undefined && (!Number.isSafeInteger(p.recebidoCentavos) || p.recebidoCentavos < 0)) || !dados.formasPagamento.some(f => f.id === p.formaPagamentoId) || (p.formaPagamentoId === 'dinheiro' && (p.recebidoCentavos ?? p.valorCentavos) < p.valorCentavos))) throw new Error('Divida o valor exato da venda entre as formas. Dinheiro recebido deve cobrir a parte em dinheiro.');
+}
+export function cancelarVenda(dados: DadosPrototipo, vendaId: string, usuarioId: string, motivo: string) {
+  const v = dados.vendas.find(v => v.id === vendaId); if (!v || v.status === 'cancelada') throw new Error('Venda indisponível.'); caixaAberto(dados, v.caixaId, usuarioId); if (!motivo.trim()) throw new Error('Informe o motivo do cancelamento.');
+  return { ...dados, vendas: dados.vendas.map(x => x.id === v.id ? { ...v, status: 'cancelada' as const, motivoCancelamento: motivo, historico: [...v.historico, eventoEncomenda(usuarioId, 'Venda cancelada', motivo)] } : x) };
+}
+export function corrigirPagamentosVenda(dados: DadosPrototipo, vendaId: string, usuarioId: string, pagamentos: PagamentoVenda[], motivo: string) {
+  const v = dados.vendas.find(v => v.id === vendaId); if (!v || v.status === 'cancelada') throw new Error('Venda indisponível.'); caixaAberto(dados, v.caixaId, usuarioId); if (!motivo.trim()) throw new Error('Informe o motivo da correção.'); validarPagamentosVenda(dados, pagamentos, totalVenda(v));
+  return { ...dados, vendas: dados.vendas.map(x => x.id === v.id ? { ...v, pagamentos, trocoCentavos: pagamentos.filter(p => p.formaPagamentoId === 'dinheiro').reduce((s, p) => s + Math.max(0, (p.recebidoCentavos ?? p.valorCentavos) - p.valorCentavos), 0), historico: [...v.historico, eventoEncomenda(usuarioId, 'Pagamento da venda corrigido', `Antes: ${v.pagamentos.map(p => dados.formasPagamento.find(f => f.id === p.formaPagamentoId)?.nome).join(', ')}. Depois: ${pagamentos.map(p => dados.formasPagamento.find(f => f.id === p.formaPagamentoId)?.nome).join(', ')}. Motivo: ${motivo}`)] } : x) };
 }

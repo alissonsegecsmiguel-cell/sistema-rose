@@ -1,0 +1,351 @@
+{
+  "_aviso": "Dados ficticios de caixa, vendas e movimentos para o prototipo.",
+  "caixas": [
+    {
+      "id": "caixa-teste-matriz-1",
+      "lojaId": "matriz",
+      "diasAtras": 1,
+      "abertoPor": "atendente-teste-01",
+      "trocoInicialCentavos": 10000,
+      "status": "fechado",
+      "conferencia": [],
+      "observacaoFechamento": "Conferido no teste.",
+      "diferencaTesteCentavos": 0,
+      "reaberturas": []
+    },
+    {
+      "id": "caixa-teste-matriz-2",
+      "lojaId": "matriz",
+      "diasAtras": 2,
+      "abertoPor": "atendente-teste-01",
+      "trocoInicialCentavos": 10000,
+      "status": "fechado",
+      "conferencia": [],
+      "observacaoFechamento": "Teste: faltaram R$ 5,00 na contagem.",
+      "diferencaTesteCentavos": -500,
+      "reaberturas": []
+    },
+    {
+      "id": "caixa-teste-matriz-3",
+      "lojaId": "matriz",
+      "diasAtras": 3,
+      "abertoPor": "atendente-teste-01",
+      "trocoInicialCentavos": 10000,
+      "status": "fechado",
+      "conferencia": [],
+      "observacaoFechamento": "Conferido no teste.",
+      "diferencaTesteCentavos": 0,
+      "reaberturas": []
+    },
+    {
+      "id": "caixa-teste-filial-1",
+      "lojaId": "filial",
+      "diasAtras": 1,
+      "abertoPor": "atendente-teste-02",
+      "trocoInicialCentavos": 10000,
+      "status": "fechado",
+      "conferencia": [],
+      "observacaoFechamento": "Conferido no teste.",
+      "diferencaTesteCentavos": 0,
+      "reaberturas": []
+    },
+    {
+      "id": "caixa-teste-filial-2",
+      "lojaId": "filial",
+      "diasAtras": 2,
+      "abertoPor": "atendente-teste-02",
+      "trocoInicialCentavos": 10000,
+      "status": "fechado",
+      "conferencia": [],
+      "observacaoFechamento": "Conferido no teste.",
+      "diferencaTesteCentavos": 0,
+      "reaberturas": []
+    },
+    {
+      "id": "caixa-teste-filial-3",
+      "lojaId": "filial",
+      "diasAtras": 3,
+      "abertoPor": "atendente-teste-02",
+      "trocoInicialCentavos": 10000,
+      "status": "fechado",
+      "conferencia": [],
+      "observacaoFechamento": "Conferido no teste.",
+      "diferencaTesteCentavos": 0,
+      "reaberturas": []
+    }
+  ],
+  "vendas": [
+    {
+      "id": "venda-teste-matriz-1",
+      "numero": 1,
+      "lojaId": "matriz",
+      "caixaId": "caixa-teste-matriz-1",
+      "diasAtras": 1,
+      "itens": [
+        {
+          "id": "item-venda-caixa-teste-matriz-1",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 4,
+          "valorUnitarioCentavos": 250,
+          "observacao": "Venda de teste"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "pagamentos": [
+        {
+          "formaPagamentoId": "dinheiro",
+          "valorCentavos": 500,
+          "recebidoCentavos": 1000
+        },
+        {
+          "formaPagamentoId": "pix",
+          "valorCentavos": 500
+        }
+      ],
+      "trocoCentavos": 500,
+      "usuarioId": "atendente-teste-01",
+      "status": "concluida",
+      "historico": []
+    },
+    {
+      "id": "venda-teste-matriz-2",
+      "numero": 2,
+      "lojaId": "matriz",
+      "caixaId": "caixa-teste-matriz-2",
+      "diasAtras": 2,
+      "itens": [
+        {
+          "id": "item-venda-caixa-teste-matriz-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 4,
+          "valorUnitarioCentavos": 250,
+          "observacao": "Venda de teste"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "pagamentos": [
+        {
+          "formaPagamentoId": "dinheiro",
+          "valorCentavos": 500,
+          "recebidoCentavos": 1000
+        },
+        {
+          "formaPagamentoId": "pix",
+          "valorCentavos": 500
+        }
+      ],
+      "trocoCentavos": 500,
+      "usuarioId": "atendente-teste-01",
+      "status": "concluida",
+      "historico": []
+    },
+    {
+      "id": "venda-teste-matriz-3",
+      "numero": 3,
+      "lojaId": "matriz",
+      "caixaId": "caixa-teste-matriz-3",
+      "diasAtras": 3,
+      "itens": [
+        {
+          "id": "item-venda-caixa-teste-matriz-3",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-matriz",
+          "quantidade": 4,
+          "valorUnitarioCentavos": 250,
+          "observacao": "Venda de teste"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "pagamentos": [
+        {
+          "formaPagamentoId": "dinheiro",
+          "valorCentavos": 500,
+          "recebidoCentavos": 1000
+        },
+        {
+          "formaPagamentoId": "pix",
+          "valorCentavos": 500
+        }
+      ],
+      "trocoCentavos": 500,
+      "usuarioId": "atendente-teste-01",
+      "status": "concluida",
+      "historico": []
+    },
+    {
+      "id": "venda-teste-filial-1",
+      "numero": 1,
+      "lojaId": "filial",
+      "caixaId": "caixa-teste-filial-1",
+      "diasAtras": 1,
+      "itens": [
+        {
+          "id": "item-venda-caixa-teste-filial-1",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 4,
+          "valorUnitarioCentavos": 250,
+          "observacao": "Venda de teste"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "pagamentos": [
+        {
+          "formaPagamentoId": "dinheiro",
+          "valorCentavos": 500,
+          "recebidoCentavos": 1000
+        },
+        {
+          "formaPagamentoId": "pix",
+          "valorCentavos": 500
+        }
+      ],
+      "trocoCentavos": 500,
+      "usuarioId": "atendente-teste-02",
+      "status": "concluida",
+      "historico": []
+    },
+    {
+      "id": "venda-teste-filial-2",
+      "numero": 2,
+      "lojaId": "filial",
+      "caixaId": "caixa-teste-filial-2",
+      "diasAtras": 2,
+      "itens": [
+        {
+          "id": "item-venda-caixa-teste-filial-2",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 4,
+          "valorUnitarioCentavos": 250,
+          "observacao": "Venda de teste"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "pagamentos": [
+        {
+          "formaPagamentoId": "dinheiro",
+          "valorCentavos": 500,
+          "recebidoCentavos": 1000
+        },
+        {
+          "formaPagamentoId": "pix",
+          "valorCentavos": 500
+        }
+      ],
+      "trocoCentavos": 500,
+      "usuarioId": "atendente-teste-02",
+      "status": "concluida",
+      "historico": []
+    },
+    {
+      "id": "venda-teste-filial-3",
+      "numero": 3,
+      "lojaId": "filial",
+      "caixaId": "caixa-teste-filial-3",
+      "diasAtras": 3,
+      "itens": [
+        {
+          "id": "item-venda-caixa-teste-filial-3",
+          "tipo": "produto",
+          "produtoId": "brigadeiro-filial",
+          "quantidade": 4,
+          "valorUnitarioCentavos": 250,
+          "observacao": "Venda de teste"
+        }
+      ],
+      "descontoCentavos": 0,
+      "taxaCartaoCentavos": 0,
+      "pagamentos": [
+        {
+          "formaPagamentoId": "dinheiro",
+          "valorCentavos": 500,
+          "recebidoCentavos": 1000
+        },
+        {
+          "formaPagamentoId": "pix",
+          "valorCentavos": 500
+        }
+      ],
+      "trocoCentavos": 500,
+      "usuarioId": "atendente-teste-02",
+      "status": "concluida",
+      "historico": []
+    }
+  ],
+  "movimentos": [
+    {
+      "id": "movimento-teste-caixa-teste-matriz-1",
+      "caixaId": "caixa-teste-matriz-1",
+      "diasAtras": 1,
+      "tipo": "suprimento",
+      "formaPagamentoId": "dinheiro",
+      "valorCentavos": 2000,
+      "categoria": "Outros",
+      "descricao": "Suprimento ficticio para troco",
+      "usuarioId": "atendente-teste-01"
+    },
+    {
+      "id": "movimento-teste-caixa-teste-matriz-2",
+      "caixaId": "caixa-teste-matriz-2",
+      "diasAtras": 2,
+      "tipo": "suprimento",
+      "formaPagamentoId": "dinheiro",
+      "valorCentavos": 2000,
+      "categoria": "Outros",
+      "descricao": "Suprimento ficticio para troco",
+      "usuarioId": "atendente-teste-01"
+    },
+    {
+      "id": "movimento-teste-caixa-teste-matriz-3",
+      "caixaId": "caixa-teste-matriz-3",
+      "diasAtras": 3,
+      "tipo": "suprimento",
+      "formaPagamentoId": "dinheiro",
+      "valorCentavos": 2000,
+      "categoria": "Outros",
+      "descricao": "Suprimento ficticio para troco",
+      "usuarioId": "atendente-teste-01"
+    },
+    {
+      "id": "movimento-teste-caixa-teste-filial-1",
+      "caixaId": "caixa-teste-filial-1",
+      "diasAtras": 1,
+      "tipo": "suprimento",
+      "formaPagamentoId": "dinheiro",
+      "valorCentavos": 2000,
+      "categoria": "Outros",
+      "descricao": "Suprimento ficticio para troco",
+      "usuarioId": "atendente-teste-02"
+    },
+    {
+      "id": "movimento-teste-caixa-teste-filial-2",
+      "caixaId": "caixa-teste-filial-2",
+      "diasAtras": 2,
+      "tipo": "suprimento",
+      "formaPagamentoId": "dinheiro",
+      "valorCentavos": 2000,
+      "categoria": "Outros",
+      "descricao": "Suprimento ficticio para troco",
+      "usuarioId": "atendente-teste-02"
+    },
+    {
+      "id": "movimento-teste-caixa-teste-filial-3",
+      "caixaId": "caixa-teste-filial-3",
+      "diasAtras": 3,
+      "tipo": "suprimento",
+      "formaPagamentoId": "dinheiro",
+      "valorCentavos": 2000,
+      "categoria": "Outros",
+      "descricao": "Suprimento ficticio para troco",
+      "usuarioId": "atendente-teste-02"
+    }
+  ]
+}

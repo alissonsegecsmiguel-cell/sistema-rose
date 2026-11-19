@@ -17,6 +17,7 @@ export const modulos = [
 export const novaEncomenda = { rota: '/encomendas/nova', titulo: 'Nova encomenda', icone: 'encomenda', atendimento: true, texto: 'Aqui vai ficar o cadastro de encomendas e orçamentos, com a montagem do bolo e os outros itens.' };
 export function menuDoPerfil(perfil: Perfil) { return modulos.filter(m => perfil === 'administrativo' || m.atendimento); }
 export function podeAcessar(perfil: Perfil, rota: string) {
+  if ((rota === '/caixa/historico' || rota.startsWith('/caixa/historico/')) && perfil !== 'administrativo') return false;
   if (rota === '/design-system') return true; // Manual público por rota direta, conforme a tarefa.
   const modulo = modulos.find(m => rota === m.rota || rota.startsWith(`${m.rota}/`));
   return !!modulo && (perfil === 'administrativo' || modulo.atendimento);

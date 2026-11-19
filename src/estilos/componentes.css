@@ -186,3 +186,8 @@
 .comanda-entrega { font-size: var(--fonte-5); }
 .comanda-item { border-top: 1px dashed var(--cor-borda-forte); padding-top: var(--espaco-4); break-inside: avoid; }
 @media print { .nao-imprimir, .menu-lateral, .barra-superior, .faixa-prototipo, .pular-conteudo, .notificacao-area { display: none !important; } .casca, .area-sistema { display: block !important; } .conteudo-sistema { padding: 0 !important; } body { background: var(--cor-superficie); } .papel { padding: 0; max-width: 100%; box-shadow: none; } .pagina-impressao { display: block; } }
+.caixa-resumo { background: var(--cor-superficie); padding: var(--espaco-3); border: 1px solid var(--cor-borda); border-radius: var(--raio-2); position: sticky; top: 0; z-index: 1; }
+.totais-formas { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: var(--espaco-2); }
+.totais-formas > div { display: flex; flex-direction: column; padding: var(--espaco-2); background: var(--cor-superficie-alt); border-radius: var(--raio-1); }
+.grade-produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: var(--espaco-3); }
+@media print { .caixa-resumo { position: static; } }

@@ -16,16 +16,16 @@ test('status, histórico legível, devolução negativa e crédito sem duplicaç
   expect(() => registrarPagamentoEncomenda(base, 'matriz', e.id, 'pix', 1, u)).toThrow('indisponível');
 });
 test('corrigir forma, cancelar com devolução e imprimir doces e comprovante', async ({ page }) => {
-  await page.goto('/entrar'); await page.getByRole('button', { name: /^Administrativo/ }).click(); await page.goto('/encomendas/encomenda-teste-07');
-  await page.getByRole('button', { name: 'Corrigir pagamento', exact: true }).click();
+  await page.goto('/entrar'); await page.getByRole('button', { name: /^Administrativo/ }).click(); await page.goto('/encomendas/encomenda-teste-09');
+  await page.getByRole('button', { name: 'Mais ações', exact: true }).click(); await page.getByRole('menuitem', { name: 'Registrar pagamento', exact: true }).click(); await page.getByRole('button', { name: 'Confirmar pagamento', exact: true }).click(); await page.getByRole('button', { name: 'Corrigir pagamento', exact: true }).click();
   await page.getByLabel('Forma corrigida').selectOption('pix'); await page.getByLabel('Motivo da correção').fill('Forma registrada incorretamente no teste'); await page.getByRole('button', { name: 'Salvar correção', exact: true }).click();
   await expect(page.getByText(/Forma registrada incorretamente no teste/)).toBeVisible();
   await page.getByRole('button', { name: 'Mais ações', exact: true }).click(); await page.getByRole('menuitem', { name: 'Cancelar encomenda', exact: true }).click();
   await page.getByLabel('Motivo do cancelamento').fill('Cliente de teste desistiu'); await page.getByLabel('Valor da devolução').fill('5000'); await page.getByRole('button', { name: 'Confirmar cancelamento', exact: true }).click();
   await expect(page.locator('main .selo').first()).toHaveText('Cancelado');
-  const pagamento = await page.evaluate(k => JSON.parse(localStorage.getItem(k)!).dados.encomendas.find((e: { id: string }) => e.id === 'encomenda-teste-07').pagamentos.at(-1), CHAVE_ARMAZENAMENTO);
+  const pagamento = await page.evaluate(k => JSON.parse(localStorage.getItem(k)!).dados.encomendas.find((e: { id: string }) => e.id === 'encomenda-teste-09').pagamentos.at(-1), CHAVE_ARMAZENAMENTO);
   expect(pagamento.tipo).toBe('devolucao'); expect(pagamento.valorCentavos).toBe(-5000);
-  for (const rota of ['comanda?tipo=doces', 'comprovante']) { await page.goto(`/encomendas/encomenda-teste-07/${rota}`); await expect(page.locator('.papel')).toContainText('Brigadeiro'); if (rota === 'comprovante') await expect(page.locator('.papel')).toContainText('Feito com amor'); else await expect(page.locator('.papel')).not.toContainText('R$'); await page.emulateMedia({ media: 'print' }); await page.screenshot({ path: `relatorios/fila/evidencias-05/${rota.startsWith('comanda') ? 'doces' : 'comprovante'}.png`, fullPage: true }); await page.emulateMedia({ media: 'screen' }); }
+  for (const rota of ['comanda?tipo=doces', 'comprovante']) { await page.goto(`/encomendas/encomenda-teste-09/${rota}`); await expect(page.locator('.papel')).toContainText('Brigadeiro'); if (rota === 'comprovante') await expect(page.locator('.papel')).toContainText('Feito com amor'); else await expect(page.locator('.papel')).not.toContainText('R$'); await page.emulateMedia({ media: 'print' }); await page.screenshot({ path: `relatorios/fila/evidencias-05/${rota.startsWith('comanda') ? 'doces' : 'comprovante'}.png`, fullPage: true }); await page.emulateMedia({ media: 'screen' }); }
 });
 test('saída de impressão respeita 80mm e A4', async ({ page }) => {
   await page.goto('/entrar'); await page.getByRole('button', { name: /^Administrativo/ }).click();

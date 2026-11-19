@@ -1,2 +1,2 @@
-import { PaginaModulo } from '@/componentes/pagina-modulo';
-export default function Pagina() { return <PaginaModulo rota="/caixa" />; }
+import { TelaCaixa } from '@/componentes/tela-caixa';
+export default async function Pagina({ searchParams }: { searchParams: Promise<{ id?: string }> }) { return <TelaCaixa id={(await searchParams).id} />; }
